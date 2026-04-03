@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jake Gooch — Animator, Director, Illustrator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --black: #000;
+  --white: #fff;
+  --gray: #777;
+  --mid: #aaa;
+  --border: rgba(255,255,255,0.08);
+  --sidebar-w: 230px;
+  --pad: 60px;
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; cursor: pointer; }
+button { cursor: pointer; }
+img { display: block; }
+
+/* ── SIDEBAR ─────────────────────────── */
+#sidebar {
+  position: fixed;
+  top: 0; left: 0;
+  width: var(--sidebar-w);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 44px 36px;
+  z-index: 100;
+  border-right: 1px solid var(--border);
+  background: var(--black);
+}
+
+.sidebar-name {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-display);
+  font-size: 38px;
+  line-height: 0.92;
+  letter-spacing: 0.015em;
+  margin-bottom: 52px;
+  transition: opacity 0.2s;
+}
+.sidebar-name:hover { opacity: 0.65; }
+
+#sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+#sidebar nav a {
+  font-size: 11.5px;
+  font-weight: 400;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--gray);
+  padding: 7px 0;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s;
+}
+#sidebar nav a:hover,
+#sidebar nav a.active { color: var(--white); }
+
+.sidebar-footer {
+  font-size: 11px;
+  color: var(--gray);
+  letter-spacing: 0.04em;
+}
+.sidebar-footer a { transition: color 0.2s; }
+.sidebar-footer a:hover { color: var(--white); }
+
+/* ── MOBILE HEADER ───────────────────── */
+#mobile-header {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 58px;
+  padding: 0 22px;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--black);
+  z-index: 200;
+  border-bottom: 1px solid var(--border);
+}
+#mobile-header .m-logo {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 0.06em;
+}
+#menu-toggle {
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 22px;
+  line-height: 1;
+  padding: 4px;
+}
+#mobile-menu {
+  display: none;
+  position: fixed;
+  inset: 58px 0 0 0;
+  background: var(--black);
+  z-index: 180;
+  flex-direction: column;
+  padding: 40px 30px;
+  gap: 6px;
+  border-top: 1px solid var(--border);
+}
+#mobile-menu.open { display: flex; }
+#mobile-menu a {
+  font-family: var(--font-display);
+  font-size: 32px;
+  letter-spacing: 0.04em;
+  color: var(--gray);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.2s;
+}
+#mobile-menu a:hover { color: var(--white); }
+
+/* ── MAIN ────────────────────────────── */
+#main {
+  margin-left: var(--sidebar-w);
+  min-height: 100vh;
+}
+
+/* ── PAGES ───────────────────────────── */
+.page { display: none; }
+.page.active { display: block; }
+#page-home.active,
+#page-contact.active { display: flex; }
+
+/* ── HOME ────────────────────────────── */
+#page-home {
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.home-nameplate {
+  padding: 70px var(--pad) 0;
+}
+.home-nameplate h1 {
+  font-family: var(--font-display);
+  font-size: clamp(72px, 10vw, 148px);
+  line-height: 0.88;
+  letter-spacing: -0.01em;
+}
+.home-nameplate p {
+  margin-top: 18px;
+  font-size: 13px;
+  color: var(--gray);
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.home-panels {
+  display: flex;
+  flex: 1;
+  min-height: 65vh;
+  margin-top: 36px;
+}
+
+.home-panel {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding: 28px 30px;
+  background-size: cover;
+  background-position: center;
+  background-color: #111;
+  border-right: 1px solid rgba(0,0,0,0.6);
+  transition: flex 0.5s cubic-bezier(0.4,0,0.2,1);
+  cursor: pointer;
+}
+.home-panel:last-child { border-right: none; }
+.home-panel:hover { flex: 1.35; }
+
+.panel-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.5s ease;
+}
+.home-panel:hover .panel-bg { transform: scale(1.04); }
+
+.panel-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.25) 55%, rgba(0,0,0,0.12) 100%);
+  transition: background 0.3s;
+}
+.home-panel:hover .panel-shade {
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.15) 55%, rgba(0,0,0,0.08) 100%);
+}
+
+.panel-content {
+  position: relative;
+  z-index: 1;
+}
+.panel-num {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.38);
+  margin-bottom: 10px;
+}
+.panel-content h2 {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 2.8vw, 46px);
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+.panel-cta {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  transition: color 0.25s, transform 0.25s;
+}
+.home-panel:hover .panel-cta {
+  color: var(--white);
+  transform: translateX(5px);
+}
+
+/* ── SECTION HEADER ──────────────────── */
+.sec-head {
+  padding: 58px var(--pad) 40px;
+  border-bottom: 1px solid var(--border);
+}
+.sec-head h1 {
+  font-family: var(--font-display);
+  font-size: clamp(52px, 7vw, 96px);
+  line-height: 0.9;
+  letter-spacing: 0.01em;
+}
+.sec-head p {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--gray);
+  font-weight: 300;
+  max-width: 480px;
+}
+
+/* ── REEL ────────────────────────────── */
+.reel-wrap {
+  padding: 44px var(--pad);
+}
+.reel-inner {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+.reel-inner iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border: none;
+}
+
+/* ── PROJECT GRID ────────────────────── */
+.proj-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+}
+
+.proj-card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  aspect-ratio: 16/10;
+  background: #111;
+}
+.proj-card img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+.proj-card:hover img { transform: scale(1.04); }
+
+.proj-card-bar {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 60px 20px 18px;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.proj-card-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 0.03em;
+}
+.proj-tags {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.tag {
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 7px;
+  border: 1px solid rgba(255,255,255,0.35);
+  color: rgba(255,255,255,0.65);
+}
+
+/* ── CASE STUDY ──────────────────────── */
+.cs-hero {
+  position: relative;
+  height: 72vh;
+  overflow: hidden;
+  background: #111;
+}
+.cs-hero img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.cs-hero-veil {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.32);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#cs-title {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 8vw, 104px);
+  letter-spacing: 0.015em;
+  text-align: center;
+}
+
+.cs-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+}
+.cs-col {
+  padding: 52px var(--pad);
+}
+.cs-col:first-child {
+  border-right: 1px solid var(--border);
+}
+.cs-col-label {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 22px;
+  display: block;
+}
+.cs-deliverables {
+  list-style: none;
+}
+.cs-deliverables li {
+  font-size: 15px;
+  font-weight: 300;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.85);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cs-deliverables li::before {
+  content: '';
+  display: inline-block;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--gray);
+  flex-shrink: 0;
+}
+.cs-quote {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.8vw, 38px);
+  line-height: 1.1;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 28px;
+  font-style: normal;
+}
+.cs-meta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.cs-pill {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border: 1px solid rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.6);
+}
+.cs-watch {
+  background: var(--white);
+  color: var(--black);
+  font-weight: 500;
+  font-family: var(--font-body);
+  font-size: 10px;
+  border: none;
+  padding: 6px 16px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: opacity 0.2s;
+}
+.cs-watch:hover { opacity: 0.75; }
+
+.cs-imgs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+}
+.cs-imgs img {
+  width: 100%;
+  aspect-ratio: 16/10;
+  object-fit: cover;
+  cursor: zoom-in;
+  transition: opacity 0.2s;
+}
+.cs-imgs img:hover { opacity: 0.88; }
+.cs-imgs img:only-child,
+.cs-imgs img:first-child:nth-last-child(odd):nth-child(1) {
+  grid-column: span 2;
+  aspect-ratio: 21/9;
+}
+
+/* ── CASE STUDY NEXT PROJECT ──────────── */
+.cs-next-section {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  height: 44vh;
+  min-height: 260px;
+  display: block;
+  background: #111;
+}
+.cs-next-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.55s ease;
+}
+.cs-next-section:hover .cs-next-bg { transform: scale(1.04); }
+.cs-next-veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.28) 100%);
+  transition: background 0.3s;
+}
+.cs-next-section:hover .cs-next-veil {
+  background: linear-gradient(to right, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.15) 100%);
+}
+.cs-next-content {
+  position: absolute;
+  bottom: 34px;
+  left: var(--pad);
+  z-index: 1;
+}
+.cs-next-eyebrow {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.42);
+  margin-bottom: 10px;
+}
+.cs-next-title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(34px, 5vw, 64px);
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+.cs-next-cta {
+  display: block;
+  margin-top: 14px;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.38);
+  transition: color 0.25s;
+}
+.cs-next-section:hover .cs-next-cta { color: var(--white); }
+
+.cs-footer {
+  padding: 28px var(--pad);
+  border-top: 1px solid var(--border);
+}
+.cs-back {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gray);
+  transition: color 0.2s;
+}
+.cs-back:hover { color: var(--white); }
+
+/* ── ILLUSTRATION ────────────────────── */
+.ill-projects {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  padding: 44px var(--pad) 0;
+}
+.ill-card {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+.ill-card-img {
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  background: #111;
+}
+.ill-card-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+.ill-card:hover .ill-card-img img { transform: scale(1.04); }
+.ill-card h3 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 0.03em;
+  margin-top: 14px;
+}
+.ill-card p {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-top: 4px;
+}
+
+.sketchbook-band {
+  margin: 44px var(--pad) 0;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  height: 180px;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sketchbook-band img {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+.sketchbook-band:hover img { transform: scale(1.04); }
+.sketchbook-band::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  transition: background 0.3s;
+}
+.sketchbook-band:hover::after { background: rgba(0,0,0,0.38); }
+.sketchbook-label {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  pointer-events: none;
+}
+.sketchbook-label span {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 6px;
+}
+.sketchbook-label h2 {
+  font-family: var(--font-display);
+  font-size: 46px;
+  letter-spacing: 0.04em;
+}
+
+/* ── MASONRY GRID ────────────────────── */
+.masonry {
+  padding: 36px var(--pad) 60px;
+  columns: 3;
+  column-gap: 8px;
+}
+.masonry img {
+  width: 100%;
+  margin-bottom: 8px;
+  cursor: zoom-in;
+  transition: opacity 0.2s;
+  break-inside: avoid;
+}
+.masonry img:hover { opacity: 0.84; }
+
+/* ── GALLERY (Fine Art sub-galleries) ── */
+.gallery-head {
+  padding: 44px var(--pad) 0;
+  display: flex;
+  align-items: baseline;
+  gap: 28px;
+}
+.gallery-head h1 {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 6vw, 76px);
+  letter-spacing: 0.015em;
+  line-height: 1;
+}
+.back-link {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gray);
+  transition: color 0.2s;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.back-link:hover { color: var(--white); }
+
+/* ── FINE ART ────────────────────────── */
+.fa-entries {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  min-height: 78vh;
+  gap: 3px;
+  margin-top: 3px;
+}
+.fa-entry {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background: #111;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  padding: 28px;
+  min-height: 460px;
+}
+.fa-entry-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.5s ease;
+}
+.fa-entry:hover .fa-entry-bg { transform: scale(1.04); }
+
+.fa-entry-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.86) 0%, rgba(0,0,0,0.15) 65%);
+  transition: background 0.3s;
+}
+.fa-entry:hover .fa-entry-shade {
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.08) 65%);
+}
+.fa-entry-inner {
+  position: relative;
+  z-index: 1;
+}
+.fa-entry-num {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 10px;
+}
+.fa-entry h2 {
+  font-family: var(--font-display);
+  font-size: 34px;
+  letter-spacing: 0.02em;
+}
+.fa-entry-cta {
+  display: block;
+  margin-top: 10px;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  transition: color 0.25s;
+}
+.fa-entry:hover .fa-entry-cta { color: var(--white); }
+
+/* ── BIO ─────────────────────────────── */
+.bio-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+.bio-img-col {
+  padding: var(--pad);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  border-right: 1px solid var(--border);
+}
+.bio-img-col img {
+  width: 100%;
+  max-height: 70vh;
+  object-fit: cover;
+}
+.bio-text-col {
+  padding: var(--pad);
+}
+.bio-text-col p {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.82;
+  color: rgba(255,255,255,0.82);
+  margin-bottom: 18px;
+}
+.bio-h2 {
+  font-family: var(--font-display);
+  font-size: 36px;
+  letter-spacing: 0.02em;
+  margin: 44px 0 16px;
+}
+.skills-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+}
+.skills-chips li {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border: 1px solid rgba(255,255,255,0.18);
+  color: var(--mid);
+}
+.xp-list {
+  list-style: none;
+}
+.xp-list li {
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.xp-list li strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 2px;
+}
+.xp-list li span {
+  font-size: 12px;
+  color: var(--gray);
+  font-weight: 300;
+}
+
+/* ── CONTACT ─────────────────────────── */
+#page-contact {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--pad);
+}
+.contact-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 20px;
+}
+.contact-email {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 5vw, 62px);
+  letter-spacing: 0.015em;
+  border-bottom: 2px solid var(--white);
+  padding-bottom: 4px;
+  transition: color 0.2s, border-color 0.2s;
+  display: inline-block;
+}
+.contact-email:hover {
+  color: var(--gray);
+  border-color: var(--gray);
+}
+.contact-note {
+  margin-top: 36px;
+  font-size: 15px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--gray);
+  max-width: 440px;
+  line-height: 1.7;
+}
+
+/* ── LIGHTBOX ────────────────────────── */
+#lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.96);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+#lightbox.open { display: flex; }
+#lb-img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  user-select: none;
+}
+#lb-close {
+  position: fixed;
+  top: 22px; right: 26px;
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 30px;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+  line-height: 1;
+}
+#lb-close:hover { opacity: 1; }
+.lb-nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 52px;
+  line-height: 1;
+  opacity: 0.3;
+  transition: opacity 0.2s;
+  padding: 20px;
+}
+.lb-nav:hover { opacity: 1; }
+#lb-prev { left: 0; }
+#lb-next { right: 0; }
+
+/* ── NOTE BANNER (Instagram) ─────────── */
+.note-banner {
+  margin: 24px var(--pad) 0;
+  padding: 12px 18px;
+  border: 1px solid rgba(255,255,255,0.12);
+  font-size: 11px;
+  color: var(--gray);
+  letter-spacing: 0.04em;
+  line-height: 1.6;
+}
+
+/* ── RESPONSIVE ──────────────────────── */
+@media (max-width: 960px) {
+  #sidebar { display: none; }
+  #mobile-header { display: flex; }
+  #main { margin-left: 0; padding-top: 58px; }
+
+  :root { --pad: 22px; }
+
+  .home-panels { flex-direction: column; min-height: auto; }
+  .home-panel { min-height: 42vh; }
+  .home-panel:hover { flex: 1; }
+
+  .proj-grid,
+  .cs-body,
+  .cs-imgs,
+  .fa-entries,
+  .ill-projects,
+  .bio-grid { grid-template-columns: 1fr; }
+
+  .bio-img-col {
+    position: static;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .masonry { columns: 2; }
+
+  .cs-col:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+}
+
+@media (max-width: 560px) {
+  .masonry { columns: 1; }
+  .home-nameplate h1 { font-size: clamp(58px, 18vw, 90px); }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ SIDEBAR ═══════════════════════════════ -->
+<aside id="sidebar">
+  <a class="sidebar-name" href="#home">
+    <span>JAKE</span>
+    <span>GOOCH</span>
+  </a>
+  <nav id="sidebar-nav">
+    <a href="#animation">Animation</a>
+    <a href="#illustration">Illustration &amp; Concept</a>
+    <a href="#fineart">Fine Art</a>
+    <a href="#bio">Bio</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="sidebar-footer">
+    <a href="mailto:jgoochmedia@gmail.com">jgoochmedia@gmail.com</a>
+  </div>
+</aside>
+
+<!-- ═══ MOBILE ════════════════════════════════ -->
+<header id="mobile-header">
+  <a class="m-logo" href="#home">JAKE GOOCH</a>
+  <button id="menu-toggle" onclick="toggleMenu()">☰</button>
+</header>
+<div id="mobile-menu">
+  <a href="#animation" onclick="toggleMenu()">Animation</a>
+  <a href="#illustration" onclick="toggleMenu()">Illustration &amp; Concept</a>
+  <a href="#fineart" onclick="toggleMenu()">Fine Art</a>
+  <a href="#bio" onclick="toggleMenu()">Bio</a>
+  <a href="#contact" onclick="toggleMenu()">Contact</a>
+</div>
+
+<!-- ═══ MAIN ══════════════════════════════════ -->
+<main id="main">
+
+  <!-- HOME -->
+  <section id="page-home" class="page">
+    <div class="home-nameplate">
+      <h1>JAKE<br>GOOCH</h1>
+      <p>Animator · Director · Illustrator · Salt Lake City, UT</p>
+    </div>
+    <div class="home-panels">
+      <a class="home-panel" href="#animation">
+        <div class="panel-bg" style="background-image:url('https://framerusercontent.com/images/oBm8DmNDRVKVqevRKgpZ8UeIIH8.jpg')"></div>
+        <div class="panel-shade"></div>
+        <div class="panel-content">
+          <span class="panel-num">01</span>
+          <h2>Animation</h2>
+          <span class="panel-cta">View work →</span>
+        </div>
+      </a>
+      <a class="home-panel" href="#illustration">
+        <div class="panel-bg" style="background-image:url('https://framerusercontent.com/images/RVqxFPBDclGcPHobONHtkfjutHU.png')"></div>
+        <div class="panel-shade"></div>
+        <div class="panel-content">
+          <span class="panel-num">02</span>
+          <h2>Illustration<br>&amp; Concept</h2>
+          <span class="panel-cta">View work →</span>
+        </div>
+      </a>
+      <a class="home-panel" href="#fineart">
+        <div class="panel-bg" style="background-image:url('https://www.dropbox.com/scl/fo/zth2k78cllyv41k87zhzw/AMOFE6MeeG_bMfQeV1tipqo/2024/8.18.24_8.25x11.25_Helper%20Plein%20Air_Helper%20Statue.jpg?rlkey=w6seie2kfxcvo86scrgz8579k&raw=1')"></div>
+        <div class="panel-shade"></div>
+        <div class="panel-content">
+          <span class="panel-num">03</span>
+          <h2>Fine Art</h2>
+          <span class="panel-cta">View work →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ANIMATION -->
+  <section id="page-animation" class="page">
+    <div class="sec-head">
+      <h1>Animation</h1>
+      <p>Commercial direction, 2D animation &amp; motion design.</p>
+    </div>
+    <div class="reel-wrap">
+      <div class="reel-inner">
+        <iframe src="https://player.vimeo.com/video/1165808306?title=0&byline=0&portrait=0"
+                allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+    <div class="proj-grid" id="anim-grid"></div>
+  </section>
+
+  <!-- CASE STUDY -->
+  <section id="page-casestudy" class="page">
+    <div class="cs-hero">
+      <img id="cs-hero-img" src="" alt="">
+      <div class="cs-hero-veil">
+        <h1 id="cs-title"></h1>
+      </div>
+    </div>
+    <div class="cs-body">
+      <div class="cs-col">
+        <span class="cs-col-label">Intro</span>
+      </div>
+      <div class="cs-col">
+        <span class="cs-col-label">Deliverables</span>
+        <ul class="cs-deliverables" id="cs-deliverables"></ul>
+        <blockquote class="cs-quote" id="cs-quote" style="margin-top:32px"></blockquote>
+        <div class="cs-meta" id="cs-meta"></div>
+      </div>
+    </div>
+    <div class="cs-imgs" id="cs-imgs"></div>
+    <a class="cs-next-section" id="cs-next-section" href="#">
+      <div class="cs-next-bg" id="cs-next-bg"></div>
+      <div class="cs-next-veil"></div>
+      <div class="cs-next-content">
+        <span class="cs-next-eyebrow">Next Work</span>
+        <span class="cs-next-title" id="cs-next-title"></span>
+        <span class="cs-next-cta">View project →</span>
+      </div>
+    </a>
+    <div class="cs-footer">
+      <a class="cs-back" href="#animation">← Back to Animation</a>
+    </div>
+  </section>
+
+  <!-- ILLUSTRATION & CONCEPT -->
+  <section id="page-illustration" class="page">
+    <div class="sec-head">
+      <h1>Illustration<br>&amp; Concept</h1>
+      <p>Character design, concept art, storyboards &amp; commercial illustration.</p>
+    </div>
+    <div class="ill-projects" id="ill-projects"></div>
+    <a class="sketchbook-band" href="#sketchbook">
+      <img src="https://framerusercontent.com/images/Cb51XgLAIzGGHWDIfOaZaH5FM.png" alt="Sketchbook" loading="lazy">
+      <div class="sketchbook-label">
+        <span>Gallery</span>
+        <h2>Sketchbook</h2>
+      </div>
+    </a>
+    <div style="height:60px"></div>
+  </section>
+
+  <!-- SKETCHBOOK -->
+  <section id="page-sketchbook" class="page">
+    <div class="gallery-head">
+      <span class="back-link" onclick="goTo('illustration')">← Back</span>
+      <h1>Sketchbook</h1>
+    </div>
+    <div class="masonry" id="sketchbook-grid"></div>
+  </section>
+
+  <!-- FINE ART -->
+  <section id="page-fineart" class="page">
+    <div class="sec-head">
+      <h1>Fine Art</h1>
+      <p>Figure drawing, plein air &amp; personal studies.</p>
+    </div>
+    <div class="fa-entries">
+      <a class="fa-entry" href="#fineart/figure">
+        <div class="fa-entry-bg" style="background-image:url('https://www.dropbox.com/scl/fo/zth2k78cllyv41k87zhzw/AETUJpUAK0WME2UACjX_b9g/2024/10.7.24_11x8_SLC%20Drawing%20Club.jpg?rlkey=w6seie2kfxcvo86scrgz8579k&raw=1')"></div>
+        <div class="fa-entry-shade"></div>
+        <div class="fa-entry-inner">
+          <span class="fa-entry-num">01</span>
+          <h2>Figure Drawing</h2>
+          <span class="fa-entry-cta">View gallery →</span>
+        </div>
+      </a>
+      <a class="fa-entry" href="#fineart/pleinair">
+        <div class="fa-entry-bg" style="background-image:url('https://www.dropbox.com/scl/fo/zth2k78cllyv41k87zhzw/AMOFE6MeeG_bMfQeV1tipqo/2024/8.18.24_8.25x11.25_Helper%20Plein%20Air_Helper%20Statue.jpg?rlkey=w6seie2kfxcvo86scrgz8579k&raw=1')"></div>
+        <div class="fa-entry-shade"></div>
+        <div class="fa-entry-inner">
+          <span class="fa-entry-num">02</span>
+          <h2>Plein Air</h2>
+          <span class="fa-entry-cta">View gallery →</span>
+        </div>
+      </a>
+      <a class="fa-entry" href="#fineart/studies">
+        <div class="fa-entry-bg" style="background-image:url('https://www.dropbox.com/scl/fo/zth2k78cllyv41k87zhzw/AFKYZZ5zTG5e0rzuUy6Jssc/2025/9.15.25_7.5x6_My%20studio%20Mate_Still%20Life.jpg?rlkey=w6seie2kfxcvo86scrgz8579k&raw=1')"></div>
+        <div class="fa-entry-shade"></div>
+        <div class="fa-entry-inner">
+          <span class="fa-entry-num">03</span>
+          <h2>Studies</h2>
+          <span class="fa-entry-cta">View gallery →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- FINE ART GALLERY -->
+  <section id="page-gallery" class="page">
+    <div class="gallery-head">
+      <span class="back-link" onclick="goTo('fineart')">← Back</span>
+      <h1 id="gallery-title">Figure Drawing</h1>
+    </div>
+    <div class="masonry" id="gallery-grid"></div>
+  </section>
+
+  <!-- BIO -->
+  <section id="page-bio" class="page">
+    <div class="sec-head">
+      <h1>Bio</h1>
+    </div>
+    <div class="bio-grid">
+      <div class="bio-img-col">
+        <img src="https://framerusercontent.com/images/19wwtYmZD2qu99D90hDhIKLIjPs.png" alt="Jake Gooch">
+      </div>
+      <div class="bio-text-col">
+        <p>I'm an animator and commercial director based in SLC, UT who paints a lot.</p>
+        <p>I love it when I have the opportunity to direct a project, especially when I am also involved in the art direction. I try to have an attitude going into projects of "what can I do visually to help this?" As a trained illustrator I've found it really challenging but also rewarding to show these strengths off when I can in a project.</p>
+        <p>In the end, my art most likely won't be featured in the finished product but it's great to know that it helped. Winning bids knowing that I had a hand in making our pitch more exciting is something I am very proud of, whether it be from storyboards, animatics, or splash illustrations. Sometimes, those projects I start I actually get to direct and see to the finish line!</p>
+        <p>Getting to do both is like holding two wires close to each other and watching the electric sparks fly between them. Let's make some sparks fly!</p>
+
+        <div class="bio-h2">What I Do</div>
+        <ul class="skills-chips">
+          <li>Directing</li>
+          <li>Editing</li>
+          <li>Animation</li>
+          <li>Illustration</li>
+          <li>Storyboarding</li>
+          <li>Visual Development</li>
+          <li>3D Generalist</li>
+        </ul>
+
+        <div class="bio-h2">Experience</div>
+        <ul class="xp-list">
+          <li><strong>Animator</strong><span>Max Connect Digital · 2024 – Present</span></li>
+          <li><strong>Graphic Designer / Photographer</strong><span>Vox Marketing Group · 2021 – 2023</span></li>
+          <li><strong>Associate Curator</strong><span>Writ and Vision · 2019 – 2020</span></li>
+          <li><strong>Video Producer</strong><span>Soapbox Agency · 2017 – 2019</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="page-contact" class="page">
+    <p class="contact-eyebrow">Let's make some magic happen.</p>
+    <a class="contact-email" href="mailto:jgoochmedia@gmail.com">jgoochmedia@gmail.com</a>
+    <p class="contact-note">Getting to do both is like holding two wires close to each other and watching the electric sparks fly between them.</p>
+  </section>
+
+</main>
+
+<!-- ═══ LIGHTBOX ══════════════════════════════ -->
+<div id="lightbox">
+  <button id="lb-close" onclick="lbClose()">✕</button>
+  <button class="lb-nav" id="lb-prev" onclick="lbStep(-1)">‹</button>
+  <img id="lb-img" src="" alt="">
+  <button class="lb-nav" id="lb-next" onclick="lbStep(1)">›</button>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════
+   DROPBOX URL CONSTANTS
+══════════════════════════════════════════════ */
+// Dropbox Studio Archive (2024–2025) — permanent raw URLs via shared folder rlkey
+const DB = 'https://www.dropbox.com/scl/fo/zth2k78cllyv41k87zhzw';
+const RLK = '?rlkey=w6seie2kfxcvo86scrgz8579k&raw=1';
+// Dropbox Digital folder
+const DB2 = 'https://www.dropbox.com/scl/fo/8uk7rzqv1n5kbmafrn1n5';
+const RLK2 = '?rlkey=g60p8d3up4n1aaj4gb5a0b13b&raw=1';
+// Dropbox Website Projects folder
+const DB3 = 'https://www.dropbox.com/scl/fo/9w8jrqkxxq8k89jwwyxpq';
+const RLK3 = '?rlkey=wwnoad5w47xlcx3w0x8hvxu02&raw=1';
+
+/* ══════════════════════════════════════════════
+   DATA
+══════════════════════════════════════════════ */
+const PROJECTS = {
+  abugslife: {
+    title: "Abug's Life",
+    tags: ['Illustration/Concept', 'Film/Animation'],
+    deliverables: ['Photoshop', 'C4D', 'After Effects', 'ZBrush', 'Concept Art', 'Storyboarding'],
+    quote: 'These are concepts for a short film I am working on.',
+    year: '2026', client: 'Personal',
+    watchUrl: '#',
+    thumb: DB3+'/AHvBQbd49teOitwQ75yCcTE/Abug%27s%20Life/Background%20Test.jpg'+RLK3,
+    imgs: [
+      DB3+'/AHvBQbd49teOitwQ75yCcTE/Abug%27s%20Life/Background%20Test.jpg'+RLK3,
+      DB3+'/AF81ifJeLNimjMKNOwNASc4/Abug%27s%20Life/Fly%20on%20the%20screen%20.jpg'+RLK3,
+      DB3+'/ABhZxUwP8IRyrM7GddAwAl4/Abug%27s%20Life/Menu%20Fisheye.png'+RLK3,
+      DB3+'/AD3Ua84B_-FRMelC_8aqlA4/Abug%27s%20Life/Screenshot%202026-01-07%20at%2010.50.15%E2%80%AFAM%20copy.jpg'+RLK3,
+      DB3+'/ADWp2jGz4RyH-Y0sSy8u7u8/Abug%27s%20Life/Screenshot%202026-01-29%20at%2010.42.27%E2%80%AFAM.png'+RLK3,
+      DB3+'/APU73tBVOyVcaJxvHypNuuY/Abug%27s%20Life/Screenshot%202026-04-02%20at%2012.51.06%E2%80%AFPM.png'+RLK3,
+      DB3+'/AKyaa8Vn4uJDLiUk3BpeXeo/Abug%27s%20Life/storyboard%20workout%20frickers%20copy.jpg'+RLK3,
+    ],
+    showOnIll: true,
+    next: 'backhand',
+  },
+  backhand: {
+    title: 'Backhand',
+    tags: ['Illustration/Concept'],
+    deliverables: ['Photoshop', 'Illustration', 'Concept Art'],
+    quote: 'Cover art created for a single by the band Backhand.',
+    year: '2024', client: 'Backhand',
+    watchUrl: '#',
+    thumb: DB3+'/ANJQACIngkcpi63NJd9mV2Y/BackHand/Concept%201.jpg'+RLK3,
+    imgs: [
+      DB3+'/ANJQACIngkcpi63NJd9mV2Y/BackHand/Concept%201.jpg'+RLK3,
+      DB3+'/AIv5LL9KGpsW9hBr3Fu-1pc/BackHand/Concept%202.jpg'+RLK3,
+      DB3+'/ACosRYTkito3h99DhIBBdlU/BackHand/Concept%203.jpg'+RLK3,
+    ],
+    showOnIll: true,
+    next: 'leonsfantasycut',
+  },
+  leonsfantasycut: {
+    title: "Leon's Fantasy Cut",
+    tags: ['Illustration/Concept'],
+    deliverables: ['Photoshop', 'Illustration'],
+    quote: 'Illustrations created for the feature film "Leon\'s Fantasy Cut".',
+    year: '2024', client: "Leon's Fantasy Cut",
+    watchUrl: '#',
+    thumb: DB3+'/AByKYAbH2xF2wsmCXckcAqk/Leon%27s%20Fantasy%20Cut/LEONS%20HORIZONTAL.png'+RLK3,
+    imgs: [
+      DB3+'/AByKYAbH2xF2wsmCXckcAqk/Leon%27s%20Fantasy%20Cut/LEONS%20HORIZONTAL.png'+RLK3,
+      DB3+'/AH3zpj8MGTc2EYQO7uXAHg0/Leon%27s%20Fantasy%20Cut/LEONS%20VERTICAL.png'+RLK3,
+    ],
+    showOnIll: true,
+    next: 'nogoodideas',
+  },
+  nogoodideas: {
+    title: 'No Good Ideas',
+    tags: ['Illustration/Concept'],
+    deliverables: ['Photoshop', 'Illustration', 'Concept Art', 'Background Design'],
+    quote: 'Backgrounds and assets created for the Adult Swim Shorts program.',
+    year: '2024', client: 'Adult Swim',
+    watchUrl: '#',
+    thumb: DB3+'/AAWyfVD4j_luAt9khIJ4dw0/No%20Good%20Ideas/1.29_WtSC_Mall%20Concept_1.jpg'+RLK3,
+    imgs: [
+      DB3+'/AAWyfVD4j_luAt9khIJ4dw0/No%20Good%20Ideas/1.29_WtSC_Mall%20Concept_1.jpg'+RLK3,
+      DB3+'/AEqw-Y9nCVDY15ydGXo5RdE/No%20Good%20Ideas/2.5.24_The%20Band_Background_2.jpg'+RLK3,
+      DB3+'/AN08W3pYya9qy2tD6uiu4DE/No%20Good%20Ideas/drums%202.jpg'+RLK3,
+      DB3+'/AA7xv6irRbBmFGssv1z7qbI/No%20Good%20Ideas/Mall%20Concept%206.jpg'+RLK3,
+    ],
+    showOnIll: true,
+    next: 'niteflites',
+  },
+  niteflites: {
+    title: 'Nite Flites',
+    tags: ['Illustration/Concept', 'Film/Animation'],
+    deliverables: ['Photoshop', 'Illustration', 'Concept Art', 'Storyboarding'],
+    quote: 'A collection of illustration and animation work.',
+    year: '2024', client: 'Personal',
+    watchUrl: '#',
+    thumb: DB3+'/AEYh0V0-m-jngCjg8SGx7_A/Nite%20Flites/BFA%20PDF_Page_1.jpg'+RLK3,
+    imgs: [
+      DB3+'/AEYh0V0-m-jngCjg8SGx7_A/Nite%20Flites/BFA%20PDF_Page_1.jpg'+RLK3,
+      DB3+'/AFanXnu5zXMUT-1MljQe56w/Nite%20Flites/BFA%20PDF_Page_2.jpg'+RLK3,
+      DB3+'/AIDfKVds9-v8f0S4GgJLzv4/Nite%20Flites/BFA%20PDF_Page_3.jpg'+RLK3,
+      DB3+'/ABO49Wujxlu8EhLqaA1kpq8/Nite%20Flites/BFA%20PDF_Page_4.jpg'+RLK3,
+      DB3+'/AFZnNyqCXHYDtKNgAho1GZw/Nite%20Flites/BFA%20PDF_Page_5.jpg'+RLK3,
+      DB3+'/ANDKyxcYl3c3LAN17eh6PHY/Nite%20Flites/BFA%20PDF_Page_6.jpg'+RLK3,
+      DB3+'/AFJstp6Inpxy1j7wjbdaIqw/Nite%20Flites/BFA%20PDF_Page_7.jpg'+RLK3,
+      DB3+'/AP8oFEHIWQ0hq5nIWRrjJIQ/Nite%20Flites/BFA%20PDF_Page_8.jpg'+RLK3,
+    ],
+    showOnIll: true,
+    next: 'truckseason',
+  },
+  truckseason: {
+    title: 'Truck Season',
+    tags: ['Illustration/Concept', 'Film/Animation'],
+    deliverables: ['Directing', 'Art Direction', 'Illustration', '2D Animation', 'After Effects'],
+    quote: 'A commercial I directed and animated for Riverton Chevy.',
+    year: '2024', client: 'Riverton Chevy',
+    watchUrl: '#',
+    thumb: 'https://framerusercontent.com/images/G8Mu7C1Ts5Kkc6eBpenQauBeEsw.jpg',
+    imgs: [],
+    showOnIll: true,
+    next: 'axioauto',
+  },
+  axioauto: {
+    title: 'Axio Auto',
+    tags: ['Film/Animation'],
+    deliverables: ['Directing', '2D Animation', 'After Effects', 'Motion Graphics'],
+    quote: 'A commercial I directed and animated for Axio Auto.',
+    year: '2024', client: 'Axio Auto',
+    watchUrl: '#',
+    thumb: DB3+'/ABX3sSqgbmSCZSLzjBVP6-0/Axio%20Auto/Screenshot%202025-08-21%20164244.jpg'+RLK3,
+    imgs: [
+      DB3+'/ABX3sSqgbmSCZSLzjBVP6-0/Axio%20Auto/Screenshot%202025-08-21%20164244.jpg'+RLK3,
+    ],
+    showOnIll: false,
+    next: 'saunaboss',
+  },
+  saunaboss: {
+    title: 'Sauna Boss',
+    tags: ['Film/Animation', 'Illustration/Concept'],
+    deliverables: ['Directing', 'Illustration', '2D Animation', 'Art Direction', 'Storyboarding', 'Motion Graphics', 'Concept Art'],
+    quote: 'A commercial I directed and animated for Sauna Public.',
+    year: '2025', client: 'Sauna Public',
+    watchUrl: '#',
+    thumb: 'https://framerusercontent.com/images/oBm8DmNDRVKVqevRKgpZ8UeIIH8.jpg',
+    imgs: [
+      'https://framerusercontent.com/images/tpxOLJ6CxFzw7SN0aCSrIUexs.png',
+      'https://framerusercontent.com/images/4zg2Dku5bzMFvfYkflt2zGsoIuY.png',
+      'https://framerusercontent.com/images/BWiGrUjrFMHlwE919dga8H1TBI0.png',
+      'https://framerusercontent.com/images/f2fFbPa2DOk5l3CIwvnlIpOPgVc.png',
+    ],
+    showOnIll: true,
+    next: 'forceusa',
+  },
+  forceusa: {
+    title: 'Force USA',
+    tags: ['Film/Animation'],
+    deliverables: ['Directing', 'Motion Design'],
+    quote: "Directed for Force USA's 2026 kickoff sale — lived on their website.",
+    year: '2025', client: 'Force USA',
+    watchUrl: '#',
+    thumb: 'https://framerusercontent.com/images/mf5CBh4sHWKHOiKAFtQKto1dvv8.png',
+    imgs: [],
+    showOnIll: false,
+    next: 'abugslife',
+  },
+};
+
+const SKETCH_IMGS = [
+  'https://framerusercontent.com/images/qYUNaVpZtg8pio8b7pnkHp3kNA.jpg',
+  'https://framerusercontent.com/images/k6teRoMt9FPaW3NwuYrqaPg4.png',
+  'https://framerusercontent.com/images/f2fFbPa2DOk5l3CIwvnlIpOPgVc.png',
+  'https://framerusercontent.com/images/h0YzswkxSOIskRcDoVOFRRaMS8.png',
+  'https://framerusercontent.com/images/Cb51XgLAIzGGHWDIfOaZaH5FM.png',
+  'https://framerusercontent.com/images/RVqxFPBDclGcPHobONHtkfjutHU.png',
+];
+
+const GALLERIES = {
+  figure: {
+    title: 'Figure Drawing',
+    imgs: [
+      DB+'/AETUJpUAK0WME2UACjX_b9g/2024/10.7.24_11x8_SLC%20Drawing%20Club.jpg'+RLK,
+      DB+'/AHfTvBhjVcHYFEkeoooDe3E/2024/3.15.24_6x4.25_J%20Kirk%20Richards%20Studio_.jpg'+RLK,
+      DB+'/AHasY2oCyifUIq8cQMdRUkk/2025/3.10.25_8x7.5_SLC%20Drawing%20Club.jpg'+RLK,
+      DB+'/AAeHHwRvrWN8jWuwdoE9zXo/2025/6.6.25_5.5x4.5_SLC%20Drawing%20Club.jpg'+RLK,
+
+      DB+'/AEdWUHOzUevLTahHZlfh4tg/2025/8.18.25_4.9x5.9_20%20mins_SLC%20Drawing%20Club.jpg'+RLK,
+      DB+'/AH4xD1HM0yEcasWFlWl0laM/2025/8.18.25_8x10_SLC%20Drawing%20Club_20%20mins_2.jpg'+RLK,
+      DB+'/AGaui_I1nQvn1WTxvh7EB64/2025/8.18.25_8x10_SLC%20Drawing%20Club_20%20mins.jpg'+RLK,
+      DB+'/AAN1padcDfUNhSPg9tn7Jgs/2025/11.3.25_5.5x3.5_SLC%20Drawing%20CLub%2020%20mins.jpg'+RLK,
+      DB+'/AC2eR8kw8qf6WDhgi60qEM8/2025/11.3.25_7.25x9.5_SLC%20Drawing%20CLub%2020%20mins.jpg'+RLK,
+      DB2+'/ADmWntcr6ifGykB-a5LWb0U/Digital%20Figures/Heck%20Application%20_Page_01.jpg'+RLK2,
+      DB2+'/AL0nbjRZy09x0LNSYuyeP-A/Digital%20Figures/Heck%20Application%20_Page_02.jpg'+RLK2,
+      DB2+'/ALslF_ygf7a6dgKVcHeyyTE/Digital%20Figures/Heck%20Application%20_Page_04.jpg'+RLK2,
+      DB2+'/AOSTwHYI7smpd-GLVP0oFkc/Digital%20Figures/Heck%20Application%20_Page_05.jpg'+RLK2,
+      DB2+'/ADMJgwRe9mWDt6UVuNd27Zc/Digital%20Figures/Heck%20Application%20_Page_06.jpg'+RLK2,
+      DB2+'/ABM7ZWrLW9A0qrJC96IJwn4/Digital%20Figures/Heck%20Application%20_Page_07.jpg'+RLK2,
+      DB2+'/AOli_94CmxlATaiEOz1eATw/Digital%20Figures/Heck%20Application%20_Page_09.jpg'+RLK2,
+    ],
+  },
+  pleinair: {
+    title: 'Plein Air',
+    imgs: [
+      DB+'/AMOFE6MeeG_bMfQeV1tipqo/2024/8.18.24_8.25x11.25_Helper%20Plein%20Air_Helper%20Statue.jpg'+RLK,
+      DB+'/AI1gv8f0G4DUvOd0VfVJlZw/2024/8.23.24_11x8.25_Jordan%20River%20Trail.jpg'+RLK,
+      DB+'/AE-HC_emc00O27nv--7apf0/2024/8.29.24_5.5x6_Jordan%20River%20Trail%20Scene.jpg'+RLK,
+      DB+'/ABrv1tSxmGlcRUnfO6eSInY/2024/11.26.24_7x7_Downtown%20Purcellvile%20Junkers.jpg'+RLK,
+      DB+'/AA7_3PiyLJEkb6xFcLAXSTg/2024/12.23.25_10.25x7.25_Arcosanti%2C%20AZ.jpg'+RLK,
+      DB+'/AGxDpoD7uLga_Kzy6S7DjXg/2024/12.26.24_9x9.75_Search%20for%20a%20Cactus%20in%20Queen%20Creek%20AZ.jpg'+RLK,
+      DB+'/AC-p27xy92zDgdHbzgfvRqM/2025/6.8.25_8.25x5.25_Memorial%20Grove%20Park%2C%20UT.jpg'+RLK,
+      DB+'/AGXGw9ocp-xVgBu0aIDoKlQ/2025/6.13.25_7.25x4.5_Ghost%20Falls%20Trails%2C%20Draper%20UT.jpg'+RLK,
+      DB+'/AIx2iYBmr22MzNKlLENREF8/2025/6.20.25_7.4x5.75_Up%20Millcreek%2C%20SLC%20UT.jpg'+RLK,
+      DB+'/AC0JYF363CSAD4IRHDRpFxM/2025/6.21.25_7x4.5_Midway%20PA_Wasatch%20State%20Park.jpg'+RLK,
+      DB+'/AOAIub-8xQwtLxu5wPMf3QI/2025/6.21.25_7x4.75_Plein%20Air%20Midway%202025_Wasatch%20State%20Park.jpg'+RLK,
+      DB+'/AJHxYKhgnXIKGRUPq8aDDIc/2025/6.22.25_9x7.5_Plein%20Air%20Midway_Cables%20and%20Bushes_.jpg'+RLK,
+      DB+'/AOdka0k3wtidZY0rHHYRVDE/2025/6.28.25_9.5x5_Patterson%20Backyard_Purcellville%20VA.jpg'+RLK,
+      DB+'/AL_xbzVWaTYq2lXC-Ac2ZB0/2025/6.28.25_9x7_Downtown%20Purcellville%2C%20VA.jpg'+RLK,
+      DB+'/AEUi9m18kYxbz32KcLjnV_0/2025/6.30.25_6.25x5.25_Downtown%20Purcellville%20Junkyard.jpg'+RLK,
+      DB+'/APbtPhIGa0bvRua-cp0ZVgA/2025/7.4.25_8.5x6_4th%20of%20July%20in%20Murray%20UT.jpg'+RLK,
+      DB+'/AHSJx5jkRWigMnjA5Apflgo/2025/7.11.25_10.25x7.25_American%20Fork%2C%207%3A11%20Day.jpg'+RLK,
+      DB+'/AJCIdWGekGWEfa_VoeV459M/2025/7.17.25_11.5x8.5_Murray%20UT%20Post%20Office.jpg'+RLK,
+      DB+'/AAiySaQ9KXyIoHlT99-juN4/2025/7.23.25_11.5x8.5_off%20the%20215%2C%20Murray%20UT.jpg'+RLK,
+      DB+'/ADL05HiLV0uvKTelAdLaXRI/2025/8.5.25_Study%20of%20a%20location%20from%20Idaho%20Asphalt%20Supply%20%28work%20location%29.jpg'+RLK,
+      DB+'/AKH6_pqZRMGQOMzDDO827Gw/2025/8.14.25_8x10.5_Helper%20PA_View%20From%20Resevoir%20Street.jpg'+RLK,
+      DB+'/ANOg4HkcLHeI_1dwnYycod8/2025/8.14.25_10x8_Helper%20PA_View%20from%20Mt.%20View%20Cemetary.jpg'+RLK,
+      DB+'/AFo6UlXtPhLBJtWAk1L1IEo/2025/8.24.25_9.5x8_Boise%20River%20Work%20Trip.jpg'+RLK,
+      DB+'/ABnMePAiePUhLfj8rVBBMVE/2025/10.8.25_10x8.25_Tuscon%20AZ%20Nocturne.jpg'+RLK,
+      DB+'/ALHML7mnA2QHwPIryCcBwSQ/2025/10.22.25_9x6.5%20Eastside%20Hawaii%20coming%20out%20the%20H-3.jpg'+RLK,
+      DB+'/AAja6ESq4OoY9bocDP302ik/2025/10.25.25_9.25x7_Melilani%2C%20Oahu%2C%20HI.jpg'+RLK,
+      DB+'/AKfyjX3InIns_7qXzeT9PiA/2024/img20241230_21181241.jpg'+RLK,
+      DB+'/ACQY5gngykp-JNXfLRuh7wY/2025/img20241230_21101223.jpg'+RLK,
+      DB2+'/AB-c1Evb4PUDChVVW2dvAUE/Digital%20Plein%20Air/Heck%20Application%20_Page_03.jpg'+RLK2,
+      DB2+'/AAU6MWmFK9RMg_2Y9oidZAw/Digital%20Plein%20Air/Heck%20Application%20_Page_08.jpg'+RLK2,
+    ],
+  },
+  studies: {
+    title: 'Studies',
+    imgs: [
+      DB+'/AFKYZZ5zTG5e0rzuUy6Jssc/2025/9.15.25_7.5x6_My%20studio%20Mate_Still%20Life.jpg'+RLK,
+      DB+'/AOhaLvoO8FF2N_raG_kQFBo/2025/3.13.25_7.5x5_%22Skin%20Contact%22%20gift%20for%20aldo%2C%20this%20is%20the%20bar%20he%20worked%20at_.jpg'+RLK,
+      DB+'/AHvDNvAgYZ2E6-aIaye1xfY/2025/2025%20Studio_10x8.5_Loudon%20County.jpg'+RLK,
+      DB+'/AM8F7Z8xqyeZOBk5aaRz6JY/2025/Cali.jpg'+RLK,
+    ],
+  },
+};
+
+/* ══════════════════════════════════════════════
+   ROUTING
+══════════════════════════════════════════════ */
+let activePage = '';
+let currentCS = null;
+let currentGallery = null;
+
+const PAGE_IDS = {
+  home: 'page-home', animation: 'page-animation', casestudy: 'page-casestudy',
+  illustration: 'page-illustration', sketchbook: 'page-sketchbook',
+  fineart: 'page-fineart', gallery: 'page-gallery',
+  bio: 'page-bio', contact: 'page-contact',
+};
+
+const NAV_MAP = {
+  animation: 0, casestudy: 0,
+  illustration: 1, sketchbook: 1,
+  fineart: 2, gallery: 2,
+  bio: 3, contact: 4,
+};
+
+function showPage(key) {
+  Object.values(PAGE_IDS).forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('active');
+  });
+  const target = document.getElementById(PAGE_IDS[key]);
+  if (target) { target.classList.add('active'); window.scrollTo(0, 0); }
+
+  const navLinks = document.querySelectorAll('#sidebar-nav a');
+  navLinks.forEach(l => l.classList.remove('active'));
+  if (NAV_MAP[key] !== undefined) navLinks[NAV_MAP[key]].classList.add('active');
+
+  activePage = key;
+}
+
+function goTo(key) {
+  location.hash = key;
+}
+
+function handleHash() {
+  const raw = location.hash.replace('#', '') || 'home';
+
+  if (raw.startsWith('fineart/')) {
+    const type = raw.replace('fineart/', '');
+    loadGallery(type);
+  } else if (PROJECTS[raw]) {
+    loadCS(raw);
+  } else {
+    showPage(raw);
+  }
+}
+
+/* ══════════════════════════════════════════════
+   BUILD PAGES
+══════════════════════════════════════════════ */
+function buildAnimGrid() {
+  const order = Object.keys(PROJECTS).filter(s => PROJECTS[s].tags.includes('Film/Animation'));
+  document.getElementById('anim-grid').innerHTML = order.map(slug => {
+    const p = PROJECTS[slug];
+    return `<div class="proj-card" onclick="location.hash='${slug}'">
+      <img src="${p.thumb}" alt="${p.title}" loading="lazy">
+      <div class="proj-card-bar">
+        <span class="proj-card-title">${p.title}</span>
+        <div class="proj-tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function buildIllProjects() {
+  const slugs = Object.entries(PROJECTS).filter(([,p]) => p.showOnIll).map(([s]) => s);
+  document.getElementById('ill-projects').innerHTML = slugs.map(slug => {
+    const p = PROJECTS[slug];
+    const illDeliverables = p.deliverables.filter(d =>
+      ['Illustration','Concept Art','Art Direction','Storyboarding','Character Design'].includes(d)
+    ).join(' · ');
+    return `<div class="ill-card" onclick="location.hash='${slug}'">
+      <div class="ill-card-img"><img src="${p.thumb}" alt="${p.title}" loading="lazy"></div>
+      <h3>${p.title}</h3>
+      <p>${illDeliverables || p.tags.join(' · ')}</p>
+    </div>`;
+  }).join('');
+}
+
+function buildSketchbook() {
+  document.getElementById('sketchbook-grid').innerHTML =
+    SKETCH_IMGS.map(src =>
+      `<img src="${src}" alt="" loading="lazy" onclick="lbOpen('sketch','${src}')">`
+    ).join('');
+}
+
+function loadCS(slug) {
+  const p = PROJECTS[slug];
+  if (!p) return;
+  currentCS = slug;
+
+  document.getElementById('cs-hero-img').src = p.thumb;
+  document.getElementById('cs-title').textContent = p.title;
+  document.getElementById('cs-quote').textContent = p.quote;
+
+  document.getElementById('cs-deliverables').innerHTML =
+    p.deliverables.map(d => `<li>${d}</li>`).join('');
+
+  document.getElementById('cs-meta').innerHTML = `
+    <span class="cs-pill">Year / ${p.year}</span>
+    <span class="cs-pill">Client / ${p.client}</span>
+    <a class="cs-watch" href="${p.watchUrl}" target="_blank" rel="noopener">Watch Now</a>
+  `;
+
+  document.getElementById('cs-imgs').innerHTML =
+    p.imgs.length
+      ? p.imgs.map(src =>
+          `<img src="${src}" alt="${p.title}" loading="lazy" onclick="lbOpen('cs','${src}')">`
+        ).join('')
+      : ''; // leave grid empty if no extra images — just hero + info is fine
+
+  // Next Work band
+  const nextBand = document.getElementById('cs-next-section');
+  const nextBg   = document.getElementById('cs-next-bg');
+  const nextTitle = document.getElementById('cs-next-title');
+  if (p.next && PROJECTS[p.next]) {
+    const nxt = PROJECTS[p.next];
+    nextBg.style.backgroundImage = `url('${nxt.thumb}')`;
+    nextTitle.textContent = nxt.title;
+    nextBand.href = `#${p.next}`;
+    nextBand.style.display = 'block';
+  } else {
+    nextBand.style.display = 'none';
+  }
+
+  showPage('casestudy');
+}
+
+function loadGallery(type) {
+  const g = GALLERIES[type];
+  if (!g) return;
+  currentGallery = type;
+
+  document.getElementById('gallery-title').textContent = g.title;
+  document.getElementById('gallery-grid').innerHTML =
+    g.imgs.map(src =>
+      `<img src="${src}" alt="" loading="lazy" onclick="lbOpen('gallery','${src}')">`
+    ).join('');
+
+  showPage('gallery');
+}
+
+/* ══════════════════════════════════════════════
+   LIGHTBOX
+══════════════════════════════════════════════ */
+let lbArr = [], lbIdx = 0;
+
+function lbOpen(context, src) {
+  if (context === 'gallery') lbArr = GALLERIES[currentGallery]?.imgs || [];
+  else if (context === 'sketch') lbArr = SKETCH_IMGS;
+  else if (context === 'cs') lbArr = PROJECTS[currentCS]?.imgs || [];
+
+  lbIdx = lbArr.indexOf(src);
+  if (lbIdx < 0) lbIdx = 0;
+  document.getElementById('lb-img').src = lbArr[lbIdx];
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function lbClose() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function lbStep(dir) {
+  lbIdx = (lbIdx + dir + lbArr.length) % lbArr.length;
+  document.getElementById('lb-img').src = lbArr[lbIdx];
+}
+
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'Escape') lbClose();
+  if (e.key === 'ArrowLeft') lbStep(-1);
+  if (e.key === 'ArrowRight') lbStep(1);
+});
+
+/* ══════════════════════════════════════════════
+   MOBILE MENU
+══════════════════════════════════════════════ */
+function toggleMenu() {
+  document.getElementById('mobile-menu').classList.toggle('open');
+}
+
+/* ══════════════════════════════════════════════
+   INIT
+══════════════════════════════════════════════ */
+buildAnimGrid();
+buildIllProjects();
+buildSketchbook();
+handleHash();
+window.addEventListener('hashchange', handleHash);
+</script>
+</body>
+</html>
