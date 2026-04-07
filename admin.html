@@ -1,388 +1,385 @@
 <!DOCTYPE html>
-  <html lang="en">
-  <head>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jake's Site Admin Dashboard</title>
+  <title>Site Admin – Jake Gooch Art</title>
   <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-    background: #f5f5f5;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  color: #333;
-}
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0d0d0d; color: #fff; min-height: 100vh; }
 
-.login-screen {
-    display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
+    /* LOGIN */
+    #login-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+    .login-card { background: #1a1a1a; border-radius: 16px; padding: 40px; width: 100%; max-width: 440px; border: 1px solid #2a2a2a; }
+    .login-logo { font-size: 2rem; margin-bottom: 12px; }
+    .login-card h1 { font-size: 1.4rem; font-weight: 700; margin-bottom: 4px; }
+    .login-card .subtitle { color: #666; font-size: 0.9rem; margin-bottom: 28px; }
+    .field-label { font-size: 0.8rem; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; display: block; }
+    .field-group { margin-bottom: 18px; }
+    input[type="password"], input[type="text"] {
+      width: 100%; padding: 11px 14px; background: #111; border: 1px solid #2a2a2a;
+      border-radius: 8px; color: #fff; font-size: 0.95rem; transition: border 0.15s;
+    }
+    input:focus { outline: none; border-color: #444; }
+    .token-help {
+      margin-top: 8px; background: #111; border-radius: 8px; padding: 12px 14px;
+      font-size: 0.8rem; color: #666; line-height: 1.6;
+    }
+    .token-help a { color: #888; text-decoration: underline; }
+    .btn-login {
+      width: 100%; padding: 13px; background: #fff; color: #000; border: none;
+      border-radius: 8px; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: background 0.15s; margin-top: 4px;
+    }
+    .btn-login:hover { background: #ddd; }
+    .login-error { color: #f87171; font-size: 0.85rem; margin-top: 12px; min-height: 20px; }
 
-.login-box {
-    background: white;
-  padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-  width: 100%;
-  max-width: 400px;
-}
+    /* DASHBOARD */
+    #dashboard { display: none; }
+    .dash-topbar {
+      background: #111; border-bottom: 1px solid #1f1f1f; padding: 14px 28px;
+      display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10;
+    }
+    .dash-topbar h1 { font-size: 1rem; font-weight: 600; }
+    .dash-topbar-right { display: flex; align-items: center; gap: 14px; }
+    .conn-badge {
+      font-size: 0.75rem; padding: 4px 11px; border-radius: 20px; font-weight: 600;
+      background: #1f2d1f; color: #4ade80; border: 1px solid #2d4a2d;
+    }
+    .conn-badge.loading { background: #2d2d1f; color: #fbbf24; border-color: #4a4a2d; }
+    .conn-badge.error   { background: #2d1f1f; color: #f87171; border-color: #4a2d2d; }
 
-.login-box h1 {
-    margin-bottom: 30px;
-  color: #333;
-  text-align: center;
-}
+    .dash-body { padding: 32px 28px; max-width: 980px; margin: 0 auto; }
+    .section-header h2 { font-size: 1.15rem; font-weight: 600; margin-bottom: 4px; }
+    .section-header p { color: #555; font-size: 0.85rem; }
 
-.login-box input {
-    width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 16px;
-}
+    /* GALLERY CARDS */
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; margin-top: 20px; }
+    .gallery-card { background: #161616; border-radius: 12px; overflow: hidden; border: 1px solid #222; }
+    .card-preview {
+      width: 100%; height: 170px; background-size: cover; background-position: center;
+      background-color: #1f1f1f; position: relative;
+    }
+    .card-preview-badge {
+      position: absolute; bottom: 8px; left: 8px;
+      background: rgba(0,0,0,0.75); backdrop-filter: blur(4px);
+      padding: 3px 9px; border-radius: 20px; font-size: 0.7rem; color: #aaa;
+    }
+    .card-preview-num {
+      position: absolute; top: 10px; right: 10px;
+      background: rgba(0,0,0,0.6); padding: 3px 8px; border-radius: 20px; font-size: 0.7rem; color: #666;
+    }
+    .card-body { padding: 14px 16px 16px; }
+    .card-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 10px; }
+    .card-url-row { display: flex; gap: 8px; align-items: center; }
+    .card-url-row input {
+      flex: 1; padding: 8px 11px; background: #111; border: 1px solid #222;
+      border-radius: 7px; color: #fff; font-size: 0.8rem;
+    }
+    .card-url-row input::placeholder { color: #3a3a3a; }
+    .card-url-row input:focus { outline: none; border-color: #333; }
+    .btn-sm {
+      padding: 8px 11px; background: #1f1f1f; color: #888; border: 1px solid #2a2a2a;
+      border-radius: 7px; font-size: 0.75rem; cursor: pointer; white-space: nowrap; transition: all 0.15s;
+    }
+    .btn-sm:hover { background: #2a2a2a; color: #ccc; }
+    .card-hint { font-size: 0.72rem; color: #333; margin-top: 7px; }
 
-.login-box button {
-    width: 100%;
-  padding: 12px;
-  background: #667eea;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  font-weight: 600;
-}
+    /* SAVE BAR */
+    .divider { border: none; border-top: 1px solid #1f1f1f; margin: 28px 0; }
+    .save-bar {
+      background: #111; border: 1px solid #1f1f1f; border-radius: 12px;
+      padding: 16px 20px; display: flex; align-items: center; gap: 14px;
+    }
+    .status-dot { width: 9px; height: 9px; border-radius: 50%; background: #2a2a2a; flex-shrink: 0; }
+    .status-dot.ready  { background: #4ade80; }
+    .status-dot.saving { background: #fbbf24; animation: pulse 0.8s infinite; }
+    .status-dot.error  { background: #f87171; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+    .status-msg { flex: 1; font-size: 0.85rem; color: #555; }
+    .btn-save {
+      padding: 11px 24px; background: #22c55e; color: #fff; border: none;
+      border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.15s;
+    }
+    .btn-save:hover:not(:disabled) { background: #16a34a; }
+    .btn-save:disabled { background: #1f1f1f; color: #444; cursor: not-allowed; }
 
-.login-box button:hover {
-    background: #5568d3;
-}
+    /* DEPLOY BANNER */
+    .deploy-banner {
+      display: none; background: #0f1f0f; border: 1px solid #1a3a1a; border-radius: 12px;
+      padding: 14px 20px; margin-top: 14px; font-size: 0.85rem; color: #4ade80;
+    }
+    .deploy-banner a { color: #86efac; }
+  </style>
+</head>
+<body>
 
-.dashboard {
-    display: none;
-  padding: 20px;
-  max-width: 1400px;
-  margin: 0 auto;
-}
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">🎨</div>
+    <h1>Portfolio Admin</h1>
+    <div class="subtitle">Jake Gooch Art &mdash; Site Manager</div>
 
-.dashboard.active {
-  display: block;
-}
+    <div class="field-group">
+      <label class="field-label">Admin Password</label>
+      <input type="password" id="pw-input" placeholder="Password" autocomplete="current-password">
+    </div>
 
-.header {
-    background: white;
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+    <div class="field-group">
+      <label class="field-label">GitHub Token</label>
+      <input type="text" id="token-input" placeholder="ghp_xxxxxxxxxxxx" autocomplete="off" spellcheck="false">
+      <div class="token-help">
+        Your token lets this page save changes directly to your live site &mdash; no copy/paste needed.<br><br>
+        <strong style="color:#888;">One-time setup:</strong>
+        <a href="https://github.com/settings/tokens/new?scopes=repo&description=Portfolio+Admin" target="_blank">Click here</a>
+        &rarr; pick <strong>Classic token</strong> &rarr; check <strong>repo</strong> &rarr; Generate &rarr; copy &amp; paste above.<br>
+        It&rsquo;s remembered for your session.
+      </div>
+    </div>
 
-.header h1 {
-    font-size: 28px;
-}
+    <button class="btn-login" onclick="login()">Sign In &rarr;</button>
+    <div class="login-error" id="login-error"></div>
+  </div>
+</div>
 
-.logout-btn {
-    background: #ff6b6b;
-    color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.section {
-    background: white;
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-}
-
-.section h2 {
-    margin-bottom: 20px;
-  color: #333;
-  border-bottom: 2px solid #667eea;
-  padding-bottom: 10px;
-}
-
-.tabs {
-    display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  border-bottom: 2px solid #eee;
-}
-
-.tab-btn {
-    padding: 10px 20px;
-  background: none;
-  border: none;
-  border-bottom: 3px solid transparent;
-  cursor: pointer;
-  font-weight: 600;
-  color: #666;
-}
-
-.tab-btn.active {
-  color: #667eea;
-  border-bottom-color: #667eea;
-}
-
-.tab-content {
-    display: none;
-}
-
-  .tab-content.active {
-  display: block;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    display: block;
-  margin-bottom: 5px;
-  font-weight: 600;
-  color: #333;
-}
-
-.form-group input {
-    width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-family: monospace;
-  font-size: 13px;
-}
-
-.button-group {
-    display: flex;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.button-group button {
-    flex: 1;
-  padding: 12px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.save-btn {
-    background: #51cf66;
-  color: white;
-}
-
-.save-btn:hover {
-    background: #40c057;
-}
-
-.copy-btn {
-    background: #4dabf7;
-  color: white;
-}
-
-.copy-btn:hover {
-    background: #339af0;
-}
-
-.image-preview {
-    width: 100%;
-  max-height: 300px;
-  object-fit: cover;
-  border-radius: 5px;
-  margin: 10px 0;
-  background: #f0f0f0;
-  }
-
-.code-output {
-    background: #f8f9fa;
-    padding: 15px;
-  border-radius: 5px;
-  overflow-x: auto;
-  font-family: monospace;
-  font-size: 12px;
-  max-height: 400px;
-  overflow-y: auto;
-  border: 1px solid #ddd;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  margin-top: 10px;
-}
-
-.info-box {
-    background: #e7f5ff;
-    border-left: 4px solid #667eea;
-  padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 5px;
-}
-
-.info-box strong {
-    display: block;
-  margin-bottom: 5px;
-}
-</style>
-  </head>
-  <body>
-
-  <div id="loginScreen" class="login-screen">
-    <div class="login-box">
-      <h1>Admin Dashboard</h1>
-      <p style="text-align: center; margin-bottom: 20px; color: #666;">Manage your portfolio visually</p>
-      <input type="password" id="passwordInput" placeholder="Enter admin password" />
-      <button onclick="login()">Login</button>
+<!-- DASHBOARD -->
+<div id="dashboard">
+  <div class="dash-topbar">
+    <h1>🎨 Jake Gooch Art &mdash; Admin</h1>
+    <div class="dash-topbar-right">
+      <span class="conn-badge loading" id="conn-badge">Connecting&hellip;</span>
+      <a href="https://jakegoochart.netlify.app" target="_blank" style="color:#444; font-size:0.8rem; text-decoration:none;">View Live Site &nearr;</a>
     </div>
   </div>
 
-  <div id="dashboard" class="dashboard">
-    <div class="header">
-      <h1>Portfolio Admin</h1>
-      <button class="logout-btn" onclick="logout()">Logout</button>
+  <div class="dash-body">
+    <div class="section-header">
+      <h2>Fine Art Gallery Covers</h2>
+      <p>Paste a Dropbox link below any gallery to change its cover photo, then hit Save &amp; Publish. Your site updates automatically.</p>
     </div>
 
-    <div class="section">
-      <h2>Fine Art Galleries</h2>
-    <div class="info-box">
-      <strong>How to use:</strong> Click on any gallery tab below to update its hero image. Paste the full Dropbox image URL.
+    <div class="gallery-grid" id="gallery-grid"></div>
+
+    <hr class="divider">
+
+    <div class="save-bar">
+      <div class="status-dot" id="status-dot"></div>
+      <div class="status-msg" id="status-msg">Loading&hellip;</div>
+      <button class="btn-save" id="save-btn" onclick="saveChanges()" disabled>Save &amp; Publish</button>
     </div>
-    <div class="tabs">
-      <button class="tab-btn active" onclick="switchTab(event, 'figure-tab')">Figure</button>
-      <button class="tab-btn" onclick="switchTab(event, 'pleinair-tab')">Plein Air</button>
-        <button class="tab-btn" onclick="switchTab(event, 'studies-tab')">Studies</button>
-        <button class="tab-btn" onclick="switchTab(event, 'figurative-tab')">Figurative</button>
-      </div>
 
-      <div id="figure-tab" class="tab-content active">
-        <div class="form-group">
-          <label>Figure Drawing Hero Image URL</label>
-          <input type="text" id="figure-hero" placeholder="Paste full Dropbox URL here" />
-          <img id="figure-preview" class="image-preview" style="display:none;" />
-          <button onclick="previewImage('figure')">Preview</button>
-        </div>
-      </div>
-
-      <div id="pleinair-tab" class="tab-content">
-        <div class="form-group">
-          <label>Plein Air Hero Image URL</label>
-          <input type="text" id="pleinair-hero" placeholder="Paste full Dropbox URL here" />
-          <img id="pleinair-preview" class="image-preview" style="display:none;" />
-          <button onclick="previewImage('pleinair')">Preview</button>
-        </div>
-      </div>
-
-      <div id="studies-tab" class="tab-content">
-        <div class="form-group">
-          <label>Studies Hero Image URL</label>
-        <input type="text" id="studies-hero" placeholder="Paste URL here" />
-          <img id="studies-preview" class="image-preview" style="display:none;" />
-          <button onclick="previewImage('studies')">Preview</button>
-        </div>
-      </div>
-
-      <div id="figurative-tab" class="tab-content">
-        <div class="form-group">
-          <label>Figurative Work Hero Image URL</label>
-          <input type="text" id="figurative-hero" placeholder="Paste URL here" />
-          <img id="figurative-preview" class="image-preview" style="display:none;" />
-          <button onclick="previewImage('figurative')">Preview</button>
-        </div>
-      </div>
-
-      <div class="button-group" style="margin-top: 30px;">
-        <button class="save-btn" onclick="generateCode()">Generate Updated Code</button>
+    <div class="deploy-banner" id="deploy-banner">
+      &#10003; Changes saved to GitHub! Netlify is rebuilding your site &mdash; it goes live in about 60 seconds.
+      &nbsp;<a href="https://jakegoochart.netlify.app" target="_blank">Visit your site &rarr;</a>
     </div>
   </div>
+</div>
 
-  <div class="section" id="codeSection" style="display: none;">
-      <h2>Updated Code</h2>
-      <button class="copy-btn" onclick="copyToClipboard()">Copy Code</button>
-      <div id="codeOutput" class="code-output"></div>
-    </div>
+<script>
+const REPO      = 'JakeGooch/jake-gooch-portfolio';
+const FILE_PATH = 'index.html';
+const PASSWORD  = 'jake2024';
 
-  </div>
-
-  <script>
-  const ADMIN_PASSWORD = 'jake2024';
+let githubToken    = '';
+let currentSha     = '';
+let currentHtmlStr = '';
+let galleries      = [];
 
 function login() {
-    const password = document.getElementById('passwordInput').value;
-  if (password === ADMIN_PASSWORD) {
-    document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('dashboard').classList.add('active');
-    loadCurrentData();
-  } else {
-    alert('Incorrect password');
-  }
+  const pw    = document.getElementById('pw-input').value;
+  const token = document.getElementById('token-input').value.trim();
+  const err   = document.getElementById('login-error');
+  if (pw !== PASSWORD) { err.textContent = 'Incorrect password.'; return; }
+  if (!token)          { err.textContent = 'Please enter your GitHub token.'; return; }
+  githubToken = token;
+  sessionStorage.setItem('admin_token', token);
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('dashboard').style.display    = 'block';
+  loadFromGitHub();
 }
 
-function logout() {
-    document.getElementById('dashboard').classList.remove('active');
-  document.getElementById('loginScreen').style.display = 'flex';
-  document.getElementById('passwordInput').value = '';
-}
-
-function switchTab(event, tabId) {
-    document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-  document.getElementById(tabId).classList.add('active');
-  event.target.classList.add('active');
-}
-
-function previewImage(gallery) {
-    const input = document.getElementById(gallery + '-hero');
-  const preview = document.getElementById(gallery + '-preview');
-  if (input.value) {
-    preview.src = input.value;
-    preview.style.display = 'block';
-  }
-}
-
-function loadCurrentData() {
-    document.getElementById('figure-hero').value = 'https://www.dropbox.com/scl/fo/zth2k78cllyv41k87zhzw/AETUJpUAK0WME2UACjX_b9g/2024/10.7.24_11x8_SLC%20Drawing%20Club.jpg?rlkey=w6seie2kfxcvo86scrgz8579k&raw=1';
-  document.getElementById('pleinair-hero').value = 'https://www.dropbox.com/scl/fo/zth2k78cllyv41k87zhzw/AMOFE6MeeG_bMfQeV1tipqo/2024/8.18.24_8.25x11.25_Helper%20Plein%20Air_Helper%20Statue.jpg?rlkey=w6seie2kfxcvo86scrgz8579k&raw=1';
-  document.getElementById('studies-hero').value = 'https://www.dropbox.com/scl/fo/zth2k78cllyv41k87zhzw/AFKYZZ5zTG5e0rzuUy6Jssc/2025/9.15.25_7.5x6_My%20studio%20Mate_Still%20Life.jpg?rlkey=w6seie2kfxcvo86scrgz8579k&raw=1';
-}
-
-function generateCode() {
-    const figureUrl = document.getElementById('figure-hero').value;
-  const pleinairUrl = document.getElementById('pleinair-hero').value;
-  const studiesUrl = document.getElementById('studies-hero').value;
-  const figurativeUrl = document.getElementById('figurative-hero').value;
-
-  if (!figureUrl || !pleinairUrl || !studiesUrl) {
-    alert('Please fill in Figure, Plein Air, and Studies URLs');
-    return;
-  }
-
-  let htmlCode = `<a class="fa-entry" href="#fineart/figure"><div class="fa-entry-bg" style="background-image:url('${figureUrl}')"></div><h2>Figure Drawing</h2></a>
-    <a class="fa-entry" href="#fineart/pleinair"><div class="fa-entry-bg" style="background-image:url('${pleinairUrl}')"></div><h2>Plein Air</h2></a>
-    <a class="fa-entry" href="#fineart/studies"><div class="fa-entry-bg" style="background-image:url('${studiesUrl}')"></div><h2>Studies</h2></a>`;
-
-  if (figurativeUrl) {
-    htmlCode += `\n<a class="fa-entry" href="#fineart/figurative"><div class="fa-entry-bg" style="background-image:url('${figurativeUrl}')"></div><h2>Figurative Work</h2></a>`;
-      }
-
-        document.getElementById('codeOutput').textContent = htmlCode;
-        document.getElementById('codeSection').style.display = 'block';
-  }
-
-function copyToClipboard() {
-    navigator.clipboard.writeText(document.getElementById('codeOutput').textContent);
-  alert('Code copied!');
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('passwordInput').addEventListener('keypress', function(e) {
-          if (e.key === 'Enter') login();
-    });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.getElementById('login-screen').style.display !== 'none') login();
 });
-</script>
 
-  </body>
-  </html>
+window.addEventListener('load', () => {
+  const t = sessionStorage.getItem('admin_token');
+  if (t) document.getElementById('token-input').value = t;
+});
+
+async function loadFromGitHub() {
+  setBadge('loading', 'Connecting…');
+  setStatus('saving', 'Loading your site from GitHub…');
+  try {
+    const res  = await ghFetch('GET', `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`);
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || 'GitHub error');
+    currentSha     = data.sha;
+    currentHtmlStr = b64Decode(data.content);
+    parseGalleries();
+    renderCards();
+    setBadge('ready', 'Connected');
+    setStatus('ready', 'Ready — paste a Dropbox URL under any gallery and click Save & Publish.');
+    document.getElementById('save-btn').disabled = false;
+  } catch (e) {
+    setBadge('error', 'Error');
+    setStatus('error', 'Could not load site: ' + e.message + '. Make sure your token has repo access.');
+  }
+}
+
+function parseGalleries() {
+  galleries = [];
+  const rx = /<a class="fa-entry" href="#fineart\/([^"]+)">([\s\S]*?)<\/a>/g;
+  let m;
+  while ((m = rx.exec(currentHtmlStr)) !== null) {
+    const galleryId = m[1];
+    const inner     = m[2];
+    const bgRx      = /fa-entry-bg[^>]+background-image:url\(['"]?([^'")\s]+)['"]?\)/;
+    const bgM       = bgRx.exec(inner);
+    const imageUrl  = bgM ? bgM[1] : '';
+    const titleM    = /<h2>([^<]+)<\/h2>/.exec(inner);
+    const title     = titleM ? titleM[1] : galleryId;
+    galleries.push({ galleryId, title, imageUrl });
+  }
+}
+
+function renderCards() {
+  const grid = document.getElementById('gallery-grid');
+  grid.innerHTML = '';
+  galleries.forEach((g, i) => {
+    const displayUrl = toRawUrl(g.imageUrl);
+    const card = document.createElement('div');
+    card.className = 'gallery-card';
+    card.innerHTML = `
+      <div class="card-preview" id="preview-${i}" style="${displayUrl ? 'background-image:url(\'' + displayUrl + '\')' : ''}">
+        <span class="card-preview-num">${String(i+1).padStart(2,'0')}</span>
+        <span class="card-preview-badge">Cover photo</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">${g.title}</div>
+        <div class="card-url-row">
+          <input type="text" id="url-${i}" value="${g.imageUrl}" placeholder="Paste Dropbox link here…">
+          <button class="btn-sm" onclick="applyPreview(${i})">Preview</button>
+        </div>
+        <div class="card-hint">Paste any Dropbox link and click Preview to see it before saving.</div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function applyPreview(i) {
+  const url = document.getElementById(`url-${i}`).value.trim();
+  galleries[i].imageUrl = url;
+  const rawUrl = toRawUrl(url);
+  const preview = document.getElementById(`preview-${i}`);
+  if (rawUrl) preview.style.backgroundImage = `url('${rawUrl}')`;
+}
+
+async function saveChanges() {
+  galleries.forEach((_, i) => {
+    const el = document.getElementById(`url-${i}`);
+    if (el) galleries[i].imageUrl = el.value.trim();
+  });
+  const btn = document.getElementById('save-btn');
+  btn.disabled = true;
+  document.getElementById('deploy-banner').style.display = 'none';
+  setStatus('saving', 'Saving to GitHub…');
+  const updatedHtml = buildUpdatedHtml();
+  try {
+    const res  = await ghFetch('PUT', `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`, {
+      message : 'Update gallery hero images via admin panel',
+      content : b64Encode(updatedHtml),
+      sha     : currentSha,
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || 'Save failed');
+    currentSha     = data.content.sha;
+    currentHtmlStr = updatedHtml;
+    document.getElementById('deploy-banner').style.display = 'block';
+    countdown(btn);
+  } catch (e) {
+    setStatus('error', 'Save failed: ' + e.message);
+    btn.disabled = false;
+  }
+}
+
+function countdown(btn) {
+  let s = 65;
+  const tick = () => {
+    s--;
+    if (s > 0) {
+      setStatus('saving', `✓ Saved! Netlify is deploying your site… (~${s}s remaining)`);
+      setTimeout(tick, 1000);
+    } else {
+      setStatus('ready', '🎉 Deployment complete! Your live site has been updated.');
+      btn.disabled = false;
+    }
+  };
+  tick();
+}
+
+function buildUpdatedHtml() {
+  let html = currentHtmlStr;
+  galleries.forEach(g => {
+    const rawUrl = toRawUrl(g.imageUrl);
+    if (!rawUrl) return;
+    const rx = new RegExp(
+      `(<a class="fa-entry" href="#fineart/${escRx(g.galleryId)}">[\\s\\S]{0,400}?fa-entry-bg[^>]+background-image:url\\(')([^'"]+)(')`,
+      'g'
+    );
+    html = html.replace(rx, `$1${rawUrl}$3`);
+  });
+  return html;
+}
+
+function toRawUrl(url) {
+  if (!url) return '';
+  url = url.replace(/[?&]dl=\d/g, '').replace(/[?&]st=[^&]*/g, '').replace(/[?&]+$/g, '');
+  if (url.includes('dropbox.com') && !url.includes('raw=1')) {
+    url += (url.includes('?') ? '&' : '?') + 'raw=1';
+  }
+  return url;
+}
+
+function escRx(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+async function ghFetch(method, url, body) {
+  const opts = {
+    method,
+    headers: {
+      Authorization : `token ${githubToken}`,
+      Accept        : 'application/vnd.github.v3+json',
+      'Content-Type': 'application/json',
+    },
+  };
+  if (body) opts.body = JSON.stringify(body);
+  return fetch(url, opts);
+}
+
+function b64Encode(str) {
+  const bytes = new TextEncoder().encode(str);
+  let binary = '';
+  bytes.forEach(b => binary += String.fromCharCode(b));
+  return btoa(binary);
+}
+
+function b64Decode(b64) {
+  const binary = atob(b64.replace(/\n/g, ''));
+  const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+
+function setBadge(state, text) {
+  const el = document.getElementById('conn-badge');
+  el.textContent = text;
+  el.className = 'conn-badge ' + state;
+}
+
+function setStatus(state, text) {
+  document.getElementById('status-dot').className = 'status-dot ' + state;
+  document.getElementById('status-msg').textContent = text;
+}
+</script>
+</body>
+</html>
