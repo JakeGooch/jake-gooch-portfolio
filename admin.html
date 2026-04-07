@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jake's Site Admin Dashboard</title>
+  <style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    background: #f5f5f5;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #333;
+}
+
+.login-screen {
+    display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.login-box {
+    background: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-box h1 {
+    margin-bottom: 30px;
+  color: #333;
+  text-align: center;
+}
+
+.login-box input {
+    width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.login-box button {
+    width: 100%;
+  padding: 12px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.login-box button:hover {
+    background: #5568d3;
+}
+
+.dashboard {
+    display: none;
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.dashboard.active {
+  display: block;
+}
+
+.header {
+    background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+    font-size: 28px;
+}
+
+.logout-btn {
+    background: #ff6b6b;
+    color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.section {
+    background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.section h2 {
+    margin-bottom: 20px;
+  color: #333;
+  border-bottom: 2px solid #667eea;
+  padding-bottom: 10px;
+}
+
+.tabs {
+    display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #eee;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  font-weight: 600;
+  color: #666;
+}
+
+.tab-btn.active {
+  color: #667eea;
+  border-bottom-color: #667eea;
+}
+
+.tab-content {
+    display: none;
+}
+
+  .tab-content.active {
+  display: block;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #333;
+}
+
+.form-group input {
+    width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-family: monospace;
+  font-size: 13px;
+}
+
+.button-group {
+    display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.button-group button {
+    flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.save-btn {
+    background: #51cf66;
+  color: white;
+}
+
+.save-btn:hover {
+    background: #40c057;
+}
+
+.copy-btn {
+    background: #4dabf7;
+  color: white;
+}
+
+.copy-btn:hover {
+    background: #339af0;
+}
+
+.image-preview {
+    width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin: 10px 0;
+  background: #f0f0f0;
+  }
+
+.code-output {
+    background: #f8f9fa;
+    padding: 15px;
+  border-radius: 5px;
+  overflow-x: auto;
+  font-family: monospace;
+  font-size: 12px;
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  margin-top: 10px;
+}
+
+.info-box {
+    background: #e7f5ff;
+    border-left: 4px solid #667eea;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+.info-box strong {
+    display: block;
+  margin-bottom: 5px;
+}
+</style>
+  </head>
+  <body>
+
+  <div id="loginScreen" class="login-screen">
+    <div class="login-box">
+      <h1>Admin Dashboard</h1>
+      <p style="text-align: center; margin-bottom: 20px; color: #666;">Manage your portfolio visually</p>
+      <input type="password" id="passwordInput" placeholder="Enter admin password" />
+      <button onclick="login()">Login</button>
+    </div>
+  </div>
+
+  <div id="dashboard" class="dashboard">
+    <div class="header">
+      <h1>Portfolio Admin</h1>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <div class="section">
+      <h2>Fine Art Galleries</h2>
+    <div class="info-box">
+      <strong>How to use:</strong> Click on any gallery tab below to update its hero image. Paste the full Dropbox image URL.
+    </div>
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab(event, 'figure-tab')">Figure</button>
+      <button class="tab-btn" onclick="switchTab(event, 'pleinair-tab')">Plein Air</button>
+        <button class="tab-btn" onclick="switchTab(event, 'studies-tab')">Studies</button>
+        <button class="tab-btn" onclick="switchTab(event, 'figurative-tab')">Figurative</button>
+      </div>
+
+      <div id="figure-tab" class="tab-content active">
+        <div class="form-group">
+          <label>Figure Drawing Hero Image URL</label>
+          <input type="text" id="figure-hero" placeholder="Paste full Dropbox URL here" />
+          <img id="figure-preview" class="image-preview" style="display:none;" />
+          <button onclick="previewImage('figure')">Preview</button>
+        </div>
+      </div>
+
+      <div id="pleinair-tab" class="tab-content">
+        <div class="form-group">
+          <label>Plein Air Hero Image URL</label>
+          <input type="text" id="pleinair-hero" placeholder="Paste full Dropbox URL here" />
+          <img id="pleinair-preview" class="image-preview" style="display:none;" />
+          <button onclick="previewImage('pleinair')">Preview</button>
+        </div>
+      </div>
+
+      <div id="studies-tab" class="tab-content">
+        <div class="form-group">
+          <label>Studies Hero Image URL</label>
+        <input type="text" id="studies-hero" placeholder="Paste URL here" />
+          <img id="studies-preview" class="image-preview" style="display:none;" />
+          <button onclick="previewImage('studies')">Preview</button>
+        </div>
+      </div>
+
+      <div id="figurative-tab" class="tab-content">
+        <div class="form-group">
+          <label>Figurative Work Hero Image URL</label>
+          <input type="text" id="figurative-hero" placeholder="Paste URL here" />
+          <img id="figurative-preview" class="image-preview" style="display:none;" />
+          <button onclick="previewImage('figurative')">Preview</button>
+        </div>
+      </div>
+
+      <div class="button-group" style="margin-top: 30px;">
+        <button class="save-btn" onclick="generateCode()">Generate Updated Code</button>
+    </div>
+  </div>
+
+  <div class="section" id="codeSection" style="display: none;">
+      <h2>Updated Code</h2>
+      <button class="copy-btn" onclick="copyToClipboard()">Copy Code</button>
+      <div id="codeOutput" class="code-output"></div>
+    </div>
+
+  </div>
+
+  <script>
+  const ADMIN_PASSWORD = 'jake2024';
+
+function login() {
+    const password = document.getElementById('passwordInput').value;
+  if (password === ADMIN_PASSWORD) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('dashboard').classList.add('active');
+    loadCurrentData();
+  } else {
+    alert('Incorrect password');
+  }
+}
+
+function logout() {
+    document.getElementById('dashboard').classList.remove('active');
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('passwordInput').value = '';
+}
+
+function switchTab(event, tabId) {
+    document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function previewImage(gallery) {
+    const input = document.getElementById(gallery + '-hero');
+  const preview = document.getElementById(gallery + '-preview');
+  if (input.value) {
+    preview.src = input.value;
+    preview.style.display = 'block';
+  }
+}
+
+function loadCurrentData() {
+    document.getElementById('figure-hero').value = 'https://www.dropbox.com/scl/fo/zth2k78cllyv41k87zhzw/AETUJpUAK0WME2UACjX_b9g/2024/10.7.24_11x8_SLC%20Drawing%20Club.jpg?rlkey=w6seie2kfxcvo86scrgz8579k&raw=1';
+  document.getElementById('pleinair-hero').value = 'https://www.dropbox.com/scl/fo/zth2k78cllyv41k87zhzw/AMOFE6MeeG_bMfQeV1tipqo/2024/8.18.24_8.25x11.25_Helper%20Plein%20Air_Helper%20Statue.jpg?rlkey=w6seie2kfxcvo86scrgz8579k&raw=1';
+  document.getElementById('studies-hero').value = 'https://www.dropbox.com/scl/fo/zth2k78cllyv41k87zhzw/AFKYZZ5zTG5e0rzuUy6Jssc/2025/9.15.25_7.5x6_My%20studio%20Mate_Still%20Life.jpg?rlkey=w6seie2kfxcvo86scrgz8579k&raw=1';
+}
+
+function generateCode() {
+    const figureUrl = document.getElementById('figure-hero').value;
+  const pleinairUrl = document.getElementById('pleinair-hero').value;
+  const studiesUrl = document.getElementById('studies-hero').value;
+  const figurativeUrl = document.getElementById('figurative-hero').value;
+
+  if (!figureUrl || !pleinairUrl || !studiesUrl) {
+    alert('Please fill in Figure, Plein Air, and Studies URLs');
+    return;
+  }
+
+  let htmlCode = `<a class="fa-entry" href="#fineart/figure"><div class="fa-entry-bg" style="background-image:url('${figureUrl}')"></div><h2>Figure Drawing</h2></a>
+    <a class="fa-entry" href="#fineart/pleinair"><div class="fa-entry-bg" style="background-image:url('${pleinairUrl}')"></div><h2>Plein Air</h2></a>
+    <a class="fa-entry" href="#fineart/studies"><div class="fa-entry-bg" style="background-image:url('${studiesUrl}')"></div><h2>Studies</h2></a>`;
+
+  if (figurativeUrl) {
+    htmlCode += `\n<a class="fa-entry" href="#fineart/figurative"><div class="fa-entry-bg" style="background-image:url('${figurativeUrl}')"></div><h2>Figurative Work</h2></a>`;
+      }
+
+        document.getElementById('codeOutput').textContent = htmlCode;
+        document.getElementById('codeSection').style.display = 'block';
+  }
+
+function copyToClipboard() {
+    navigator.clipboard.writeText(document.getElementById('codeOutput').textContent);
+  alert('Code copied!');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') login();
+    });
+});
+</script>
+
+  </body>
+  </html>
