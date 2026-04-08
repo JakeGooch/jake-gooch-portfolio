@@ -1,115 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Site Admin – Jake Gooch Art</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0d0d0d; color: #fff; min-height: 100vh; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin – Jake Gooch Art</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0d0d0d;color:#fff;min-height:100vh;overflow:hidden}
 
-    /* LOGIN */
-    #login-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
-    .login-card { background: #1a1a1a; border-radius: 16px; padding: 40px; width: 100%; max-width: 440px; border: 1px solid #2a2a2a; }
-    .login-logo { font-size: 2rem; margin-bottom: 12px; }
-    .login-card h1 { font-size: 1.4rem; font-weight: 700; margin-bottom: 4px; }
-    .login-card .subtitle { color: #666; font-size: 0.9rem; margin-bottom: 28px; }
-    .field-label { font-size: 0.8rem; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; display: block; }
-    .field-group { margin-bottom: 18px; }
-    input[type="password"], input[type="text"] {
-      width: 100%; padding: 11px 14px; background: #111; border: 1px solid #2a2a2a;
-      border-radius: 8px; color: #fff; font-size: 0.95rem; transition: border 0.15s;
-    }
-    input:focus { outline: none; border-color: #444; }
-    .token-help {
-      margin-top: 8px; background: #111; border-radius: 8px; padding: 12px 14px;
-      font-size: 0.8rem; color: #666; line-height: 1.6;
-    }
-    .token-help a { color: #888; text-decoration: underline; }
-    .btn-login {
-      width: 100%; padding: 13px; background: #fff; color: #000; border: none;
-      border-radius: 8px; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: background 0.15s; margin-top: 4px;
-    }
-    .btn-login:hover { background: #ddd; }
-    .login-error { color: #f87171; font-size: 0.85rem; margin-top: 12px; min-height: 20px; }
+/* LOGIN */
+#login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+.login-card{background:#1a1a1a;border-radius:16px;padding:40px;width:100%;max-width:440px;border:1px solid #2a2a2a}
+.login-logo{font-size:2rem;margin-bottom:12px}
+.login-card h1{font-size:1.4rem;font-weight:700;margin-bottom:4px}
+.login-subtitle{color:#666;font-size:.9rem;margin-bottom:28px}
+.field-group{margin-bottom:16px}
+.field-label{font-size:.75rem;font-weight:600;color:#666;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;display:block}
+input[type="password"],input[type="text"]{width:100%;padding:10px 13px;background:#111;border:1px solid #222;border-radius:8px;color:#fff;font-size:.9rem}
+input:focus{outline:none;border-color:#444}
+.token-help{margin-top:8px;background:#111;border-radius:8px;padding:10px 13px;font-size:.76rem;color:#555;line-height:1.6}
+.token-help a{color:#777;text-decoration:underline}
+.btn-login{width:100%;padding:12px;background:#fff;color:#000;border:none;border-radius:8px;font-size:.9rem;font-weight:700;cursor:pointer;margin-top:8px}
+.btn-login:hover{background:#ddd}
+.login-error{color:#f87171;font-size:.82rem;margin-top:10px;min-height:18px}
 
-    /* DASHBOARD */
-    #dashboard { display: none; }
-    .dash-topbar {
-      background: #111; border-bottom: 1px solid #1f1f1f; padding: 14px 28px;
-      display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10;
-    }
-    .dash-topbar h1 { font-size: 1rem; font-weight: 600; }
-    .dash-topbar-right { display: flex; align-items: center; gap: 14px; }
-    .conn-badge {
-      font-size: 0.75rem; padding: 4px 11px; border-radius: 20px; font-weight: 600;
-      background: #1f2d1f; color: #4ade80; border: 1px solid #2d4a2d;
-    }
-    .conn-badge.loading { background: #2d2d1f; color: #fbbf24; border-color: #4a4a2d; }
-    .conn-badge.error   { background: #2d1f1f; color: #f87171; border-color: #4a2d2d; }
+/* DASHBOARD */
+#dashboard{display:none;height:100vh;flex-direction:column}
+.topbar{background:#111;border-bottom:1px solid #1f1f1f;padding:0 20px;height:48px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.topbar h1{font-size:.9rem;font-weight:600}
+.topbar-right{display:flex;align-items:center;gap:14px}
+.conn-badge{font-size:.72rem;padding:3px 10px;border-radius:20px;font-weight:600;background:#1f2d1f;color:#4ade80;border:1px solid #2d4a2d}
+.conn-badge.loading{background:#2d2d1f;color:#fbbf24;border-color:#4a4a2d}
+.conn-badge.error{background:#2d1f1f;color:#f87171;border-color:#4a2d2d}
+.topbar a{color:#444;font-size:.78rem;text-decoration:none}
 
-    .dash-body { padding: 32px 28px; max-width: 980px; margin: 0 auto; }
-    .section-header h2 { font-size: 1.15rem; font-weight: 600; margin-bottom: 4px; }
-    .section-header p { color: #555; font-size: 0.85rem; }
+/* MAIN TABS */
+.main-tabs{display:flex;border-bottom:1px solid #1f1f1f;background:#111;flex-shrink:0}
+.main-tab{padding:10px 20px;font-size:.82rem;font-weight:500;color:#555;cursor:pointer;border-bottom:2px solid transparent;background:none;border-top:none;border-left:none;border-right:none;transition:color .15s}
+.main-tab.active{color:#fff;border-bottom-color:#fff}
 
-    /* GALLERY CARDS */
-    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; margin-top: 20px; }
-    .gallery-card { background: #161616; border-radius: 12px; overflow: hidden; border: 1px solid #222; }
-    .card-preview {
-      width: 100%; height: 170px; background-size: cover; background-position: center;
-      background-color: #1f1f1f; position: relative;
-    }
-    .card-preview-badge {
-      position: absolute; bottom: 8px; left: 8px;
-      background: rgba(0,0,0,0.75); backdrop-filter: blur(4px);
-      padding: 3px 9px; border-radius: 20px; font-size: 0.7rem; color: #aaa;
-    }
-    .card-preview-num {
-      position: absolute; top: 10px; right: 10px;
-      background: rgba(0,0,0,0.6); padding: 3px 8px; border-radius: 20px; font-size: 0.7rem; color: #666;
-    }
-    .card-body { padding: 14px 16px 16px; }
-    .card-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 10px; }
-    .card-url-row { display: flex; gap: 8px; align-items: center; }
-    .card-url-row input {
-      flex: 1; padding: 8px 11px; background: #111; border: 1px solid #222;
-      border-radius: 7px; color: #fff; font-size: 0.8rem;
-    }
-    .card-url-row input::placeholder { color: #3a3a3a; }
-    .card-url-row input:focus { outline: none; border-color: #333; }
-    .btn-sm {
-      padding: 8px 11px; background: #1f1f1f; color: #888; border: 1px solid #2a2a2a;
-      border-radius: 7px; font-size: 0.75rem; cursor: pointer; white-space: nowrap; transition: all 0.15s;
-    }
-    .btn-sm:hover { background: #2a2a2a; color: #ccc; }
-    .card-hint { font-size: 0.72rem; color: #333; margin-top: 7px; }
+/* LAYOUT */
+.dash-layout{display:flex;flex:1;overflow:hidden;height:calc(100vh - 96px)}
 
-    /* SAVE BAR */
-    .divider { border: none; border-top: 1px solid #1f1f1f; margin: 28px 0; }
-    .save-bar {
-      background: #111; border: 1px solid #1f1f1f; border-radius: 12px;
-      padding: 16px 20px; display: flex; align-items: center; gap: 14px;
-    }
-    .status-dot { width: 9px; height: 9px; border-radius: 50%; background: #2a2a2a; flex-shrink: 0; }
-    .status-dot.ready  { background: #4ade80; }
-    .status-dot.saving { background: #fbbf24; animation: pulse 0.8s infinite; }
-    .status-dot.error  { background: #f87171; }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
-    .status-msg { flex: 1; font-size: 0.85rem; color: #555; }
-    .btn-save {
-      padding: 11px 24px; background: #22c55e; color: #fff; border: none;
-      border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.15s;
-    }
-    .btn-save:hover:not(:disabled) { background: #16a34a; }
-    .btn-save:disabled { background: #1f1f1f; color: #444; cursor: not-allowed; }
+/* LEFT PANEL: PROJECT LIST */
+.left-panel{width:300px;border-right:1px solid #1f1f1f;display:flex;flex-direction:column;flex-shrink:0}
+.filter-bar{padding:10px 12px;border-bottom:1px solid #1f1f1f;display:flex;gap:6px}
+.filter-btn{padding:4px 11px;font-size:.72rem;font-weight:600;border-radius:20px;border:1px solid #222;background:none;color:#555;cursor:pointer;transition:all .15s}
+.filter-btn.active{background:#fff;color:#000;border-color:#fff}
+.proj-list{flex:1;overflow-y:auto;padding:6px}
+.proj-item{display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:8px;cursor:pointer;border:1px solid transparent;margin-bottom:3px;transition:background .1s}
+.proj-item:hover{background:#1a1a1a}
+.proj-item.selected{background:#1a1a1a;border-color:#2a2a2a}
+.proj-item.drag-over{border-color:#555;background:#1f1f1f}
+.drag-handle{color:#2a2a2a;cursor:grab;font-size:1rem;flex-shrink:0;user-select:none;line-height:1}
+.drag-handle:hover{color:#555}
+.proj-thumb{width:46px;height:34px;border-radius:4px;object-fit:cover;background:#1f1f1f;flex-shrink:0}
+.proj-info{flex:1;min-width:0}
+.proj-name{font-size:.8rem;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.proj-badges{display:flex;gap:3px;margin-top:3px;flex-wrap:wrap}
+.badge{font-size:.6rem;padding:1px 6px;border-radius:10px;font-weight:600}
+.badge-film{background:#1a2535;color:#60a5fa}
+.badge-ill{background:#2a1f12;color:#fb923c}
 
-    /* DEPLOY BANNER */
-    .deploy-banner {
-      display: none; background: #0f1f0f; border: 1px solid #1a3a1a; border-radius: 12px;
-      padding: 14px 20px; margin-top: 14px; font-size: 0.85rem; color: #4ade80;
-    }
-    .deploy-banner a { color: #86efac; }
-  </style>
+/* RIGHT PANEL: EDITOR */
+.right-panel{flex:1;overflow-y:auto;padding:24px}
+.editor-empty{display:flex;align-items:center;justify-content:center;height:100%;color:#2a2a2a;font-size:.9rem}
+.editor-title{font-size:1rem;font-weight:700;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid #1f1f1f;display:flex;align-items:center;gap:10px}
+.field-block{margin-bottom:18px}
+.field-lbl{font-size:.72rem;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;display:block}
+textarea,input.url-input{width:100%;padding:9px 12px;background:#111;border:1px solid #1f1f1f;border-radius:8px;color:#fff;font-size:.85rem;font-family:inherit}
+textarea{min-height:80px;resize:vertical;line-height:1.5}
+textarea:focus,input.url-input:focus{outline:none;border-color:#333}
+.url-row{display:flex;gap:8px}
+.url-row input{flex:1}
+.thumb-preview{width:100%;height:120px;border-radius:8px;object-fit:cover;background:#111;border:1px solid #1f1f1f;margin-top:8px;display:none}
+
+/* TOGGLE */
+.toggle-row{display:flex;align-items:center;gap:10px}
+.toggle{position:relative;width:42px;height:23px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0;position:absolute}
+.toggle-slider{position:absolute;inset:0;background:#222;border-radius:12px;cursor:pointer;transition:.2s}
+.toggle-slider:before{content:'';position:absolute;width:17px;height:17px;left:3px;bottom:3px;background:#444;border-radius:50%;transition:.2s}
+input:checked+.toggle-slider{background:#22c55e}
+input:checked+.toggle-slider:before{transform:translateX(19px);background:#fff}
+.toggle-lbl{font-size:.82rem;color:#888}
+
+/* IMAGES LIST */
+.imgs-list{display:flex;flex-direction:column;gap:5px;margin-bottom:8px}
+.img-item{display:flex;align-items:center;gap:8px;background:#111;border:1px solid #1f1f1f;border-radius:8px;padding:6px 8px}
+.img-item.drag-over{border-color:#555}
+.img-drag{color:#2a2a2a;cursor:grab;font-size:.9rem;flex-shrink:0;user-select:none}
+.img-drag:hover{color:#555}
+.img-thumb{width:54px;height:38px;border-radius:4px;object-fit:cover;background:#1a1a1a;flex-shrink:0}
+.img-name{flex:1;font-size:.7rem;color:#444;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.img-del{width:22px;height:22px;border-radius:5px;background:#1a1a1a;color:#555;border:none;font-size:.85rem;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.img-del:hover{background:#2d1a1a;color:#f87171}
+.add-img-area{background:#111;border:1px dashed #1f1f1f;border-radius:8px;padding:10px 12px}
+.add-img-area input{margin-bottom:7px}
+.btn-add{padding:7px 14px;background:#1a1a1a;color:#aaa;border:1px solid #222;border-radius:7px;font-size:.78rem;cursor:pointer}
+.btn-add:hover{background:#222;color:#fff}
+
+/* FINE ART TAB */
+.fineart-panel{padding:24px}
+.fa-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;margin-top:20px}
+.fa-card{background:#161616;border-radius:12px;overflow:hidden;border:1px solid #1f1f1f}
+.fa-preview{width:100%;height:160px;background-size:cover;background-position:center;background-color:#1a1a1a;position:relative}
+.fa-preview-lbl{position:absolute;bottom:8px;left:8px;background:rgba(0,0,0,.75);padding:2px 8px;border-radius:20px;font-size:.68rem;color:#aaa}
+.fa-body{padding:13px 15px 15px}
+.fa-title{font-size:.9rem;font-weight:600;margin-bottom:9px}
+
+/* SAVE BAR */
+.save-bar{height:52px;background:#111;border-top:1px solid #1f1f1f;display:flex;align-items:center;padding:0 20px;gap:14px;flex-shrink:0}
+.s-dot{width:8px;height:8px;border-radius:50%;background:#2a2a2a;flex-shrink:0}
+.s-dot.ready{background:#4ade80}
+.s-dot.saving{background:#fbbf24;animation:pulse .8s infinite}
+.s-dot.error{background:#f87171}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.2}}
+.s-msg{flex:1;font-size:.82rem;color:#555}
+.btn-pub{padding:9px 22px;background:#22c55e;color:#fff;border:none;border-radius:8px;font-size:.85rem;font-weight:600;cursor:pointer;white-space:nowrap}
+.btn-pub:hover:not(:disabled){background:#16a34a}
+.btn-pub:disabled{background:#1a1a1a;color:#333;cursor:not-allowed}
+.deploy-note{display:none;font-size:.78rem;color:#4ade80;background:#0f1f0f;border:1px solid #1a3a1a;border-radius:8px;padding:8px 14px;margin:0 20px}
+.deploy-note a{color:#86efac}
+</style>
 </head>
 <body>
 
@@ -118,267 +131,545 @@
   <div class="login-card">
     <div class="login-logo">🎨</div>
     <h1>Portfolio Admin</h1>
-    <div class="subtitle">Jake Gooch Art &mdash; Site Manager</div>
-
+    <div class="login-subtitle">Jake Gooch Art — Full Site Manager</div>
     <div class="field-group">
-      <label class="field-label">Admin Password</label>
-      <input type="password" id="pw-input" placeholder="Password" autocomplete="current-password">
+      <label class="field-label">Password</label>
+      <input type="password" id="pw" placeholder="Admin password" autocomplete="current-password">
     </div>
-
     <div class="field-group">
       <label class="field-label">GitHub Token</label>
-      <input type="text" id="token-input" placeholder="ghp_xxxxxxxxxxxx" autocomplete="off" spellcheck="false">
+      <input type="text" id="token" placeholder="ghp_xxxxxxxxxxxx" autocomplete="off" spellcheck="false">
       <div class="token-help">
-        Your token lets this page save changes directly to your live site &mdash; no copy/paste needed.<br><br>
-        <strong style="color:#888;">One-time setup:</strong>
-        <a href="https://github.com/settings/tokens/new?scopes=repo&description=Portfolio+Admin" target="_blank">Click here</a>
-        &rarr; pick <strong>Classic token</strong> &rarr; check <strong>repo</strong> &rarr; Generate &rarr; copy &amp; paste above.<br>
-        It&rsquo;s remembered for your session.
+        Lets changes save directly to your live site — no copy/paste.<br>
+        <a href="https://github.com/settings/tokens/new?scopes=repo&description=Portfolio+Admin" target="_blank">Get a token here</a> → Classic token → check <strong>repo</strong> → Generate → paste above. Saved for your session.
       </div>
     </div>
-
-    <button class="btn-login" onclick="login()">Sign In &rarr;</button>
-    <div class="login-error" id="login-error"></div>
+    <button class="btn-login" onclick="login()">Sign In →</button>
+    <div class="login-error" id="login-err"></div>
   </div>
 </div>
 
 <!-- DASHBOARD -->
-<div id="dashboard">
-  <div class="dash-topbar">
-    <h1>🎨 Jake Gooch Art &mdash; Admin</h1>
-    <div class="dash-topbar-right">
-      <span class="conn-badge loading" id="conn-badge">Connecting&hellip;</span>
-      <a href="https://jakegoochart.netlify.app" target="_blank" style="color:#444; font-size:0.8rem; text-decoration:none;">View Live Site &nearr;</a>
+<div id="dashboard" style="display:none;flex-direction:column;height:100vh">
+  <div class="topbar">
+    <h1>🎨 Jake Gooch Art — Admin</h1>
+    <div class="topbar-right">
+      <span class="conn-badge loading" id="conn-badge">Connecting…</span>
+      <a href="https://jakegoochart.netlify.app" target="_blank">View Site ↗</a>
     </div>
   </div>
 
-  <div class="dash-body">
-    <div class="section-header">
-      <h2>Fine Art Gallery Covers</h2>
-      <p>Paste a Dropbox link below any gallery to change its cover photo, then hit Save &amp; Publish. Your site updates automatically.</p>
+  <div class="main-tabs">
+    <button class="main-tab active" onclick="switchMainTab('projects',this)">Projects</button>
+    <button class="main-tab" onclick="switchMainTab('fineart',this)">Fine Art Covers</button>
+  div>
+
+  <!-- PROJECTS TAB -->
+  <div id="tab-projects" class="dash-layout">
+    <div class="left-panel">
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
+        <button class="filter-btn" onclick="setFilter('film',this)">Film</button>
+        <button class="filter-btn" onclick="setFilter('ill',this)">Illustration</button>
+      </div>
+      <div class="proj-list" id="proj-list"></div>
     </div>
+    <div class="right-panel" id="right-panel">
+      <div class="editor-empty" id="editor-empty">← Select a project to edit</div>
+      <div id="editor-content" style="display:none">
+        <div class="editor-title" id="editor-heading">Project Name</div>
 
-    <div class="gallery-grid" id="gallery-grid"></div>
+        <div class="field-block">
+          <label class="field-lbl">Bio / Description</label>
+          <textarea id="ed-quote" rows="4" oninput="markDirty()"></textarea>
+        </div>
 
-    <hr class="divider">
+        <div class="field-block">
+          <label class="field-lbl">Thumbnail (Cover Image URL)</label>
+          <div class="url-row">
+            <input class="url-input" id="ed-thumb" type="text" placeholder="Paste Dropbox URL…" oninput="markDirty()">
+            <button class="btn-add" onclick="previewThumb()">Preview</button>
+          </div>
+          <img id="thumb-preview" class="thumb-preview" alt="">
+        </div>
 
-    <div class="save-bar">
-      <div class="status-dot" id="status-dot"></div>
-      <div class="status-msg" id="status-msg">Loading&hellip;</div>
-      <button class="btn-save" id="save-btn" onclick="saveChanges()" disabled>Save &amp; Publish</button>
+        <div class="field-block">
+          <label class="field-lbl">Watch Video URL</label>
+          <input class="url-input" id="ed-watch-url" type="text" placeholder="https://vimeo.com/… (leave blank to hide button)" oninput="markDirty()">
+          <div class="toggle-row" style="margin-top:10px">
+            <label class="toggle">
+              <input type="checkbox" id="ed-watch-toggle" onchange="syncWatchToggle()">
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-lbl" id="watch-toggle-lbl">Watch button hidden</span>
+          </div>
+        </div>
+
+        <div class="field-block">
+          <label class="field-lbl">Gallery Images <span style="color:#333;font-weight:400;text-transform:none">(drag to reorder)</span></label>
+          <div class="imgs-list" id="imgs-list"></div>
+          <div class="add-img-area">
+            <input class="url-input" id="new-img-url" type="text" placeholder="Paste new image URL…">
+            <button class="btn-add" onclick="addImage()">+ Add Image</button>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <div class="deploy-banner" id="deploy-banner">
-      &#10003; Changes saved to GitHub! Netlify is rebuilding your site &mdash; it goes live in about 60 seconds.
-      &nbsp;<a href="https://jakegoochart.netlify.app" target="_blank">Visit your site &rarr;</a>
+  <!-- FINE ART TAB -->
+  <div id="tab-fineart" style="display:none;flex:1;overflow:hidden">
+    <div class="fineart-panel" style="overflow-y:auto;height:100%">
+      <div style="margin-bottom:6px">
+        <div style="font-size:1.05rem;font-weight:600">Fine Art Gallery Covers</div>
+        <div style="color:#444;font-size:.82rem;margin-top:4px">Paste a Dropbox link and click Preview to update a gallery's cover photo.</div>
+      </div>
+      <div class="fa-grid" id="fa-grid"></div>
     </div>
+  </div>
+
+  <!-- SAVE BAR -->
+  <div class="save-bar">
+    <div class="s-dot" id="s-dot"></div>
+    <div class="s-msg" id="s-msg">Loading…</div>
+    <div class="deploy-note" id="deploy-note">✓ Saved to GitHub! Netlify is deploying — <a href="https://jakegoochart.netlify.app" target="_blank">check your site</a> in ~60s.</div>
+    <button class="btn-pub" id="pub-btn" onclick="saveChanges()" disabled>Save &amp; Publish</button>
   </div>
 </div>
 
 <script>
-const REPO      = 'JakeGooch/jake-gooch-portfolio';
-const FILE_PATH = 'index.html';
-const PASSWORD  = 'jake2024';
+/* ═══ CONFIG ═══ */
+const REPO = 'JakeGooch/jake-gooch-portfolio';
+const FILE = 'index.html';
+const PW   = 'jake2024';
 
-let githubToken    = '';
-let currentSha     = '';
-let currentHtmlStr = '';
-let galleries      = [];
+/* ═══ STATE ═══ */
+let ghToken = '', curSha = '', curHtml = '';
+let db = {};
+let projects = {}, projectOrder = [];
+let galleries = [];
+let editingSlug = null;
+let editImgs    = [];
+let curFilter   = 'all';
+let dirty       = false;
+let imgDragFrom = null, listDragFrom = null;
 
+/* ═══ LOGIN ═══ */
 function login() {
-  const pw    = document.getElementById('pw-input').value;
-  const token = document.getElementById('token-input').value.trim();
-  const err   = document.getElementById('login-error');
-  if (pw !== PASSWORD) { err.textContent = 'Incorrect password.'; return; }
-  if (!token)          { err.textContent = 'Please enter your GitHub token.'; return; }
-  githubToken = token;
-  sessionStorage.setItem('admin_token', token);
+  const pw  = document.getElementById('pw').value;
+  const tok = document.getElementById('token').value.trim();
+  const err = document.getElementById('login-err');
+  if (pw !== PW)  { err.textContent = 'Incorrect password.'; return; }
+  if (!tok)       { err.textContent = 'Please enter your GitHub token.'; return; }
+  ghToken = tok;
+  sessionStorage.setItem('gh_tok', tok);
   document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('dashboard').style.display    = 'block';
-  loadFromGitHub();
+  const dash = document.getElementById('dashboard');
+  dash.style.display = 'flex';
+  loadSite();
 }
-
 document.addEventListener('keydown', e => {
   if (e.key === 'Enter' && document.getElementById('login-screen').style.display !== 'none') login();
 });
-
 window.addEventListener('load', () => {
-  const t = sessionStorage.getItem('admin_token');
-  if (t) document.getElementById('token-input').value = t;
+  const t = sessionStorage.getItem('gh_tok');
+  if (t) document.getElementById('token').value = t;
 });
 
-async function loadFromGitHub() {
-  setBadge('loading', 'Connecting…');
-  setStatus('saving', 'Loading your site from GitHub…');
+/* ═══ LOAD ═══ */
+async function loadSite() {
+  badge('loading','Connecting…'); setStatus('saving','Loading site from GitHub…');
   try {
-    const res  = await ghFetch('GET', `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`);
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.message || 'GitHub error');
-    currentSha     = data.sha;
-    currentHtmlStr = b64Decode(data.content);
-    parseGalleries();
-    renderCards();
-    setBadge('ready', 'Connected');
-    setStatus('ready', 'Ready — paste a Dropbox URL under any gallery and click Save & Publish.');
-    document.getElementById('save-btn').disabled = false;
-  } catch (e) {
-    setBadge('error', 'Error');
-    setStatus('error', 'Could not load site: ' + e.message + '. Make sure your token has repo access.');
+    const res = await ghFetch('GET', `https://api.github.com/repos/${REPO}/contents/${FILE}`);
+    const d = await res.json();
+    if (!res.ok) throw new Error(d.message || 'GitHub error');
+    curSha  = d.sha;
+    curHtml = b64dec(d.content);
+    parseAll();
+    renderProjList();
+    renderFaGrid();
+    badge('ready','Connected');
+    setStatus('ready','Ready — select a project to edit, then Save & Publish.');
+    document.getElementById('pub-btn').disabled = false;
+  } catch(e) {
+    badge('error','Error'); setStatus('error','Load failed: '+e.message);
   }
 }
 
-function parseGalleries() {
+/* ═══ PARSE ═══ */
+function parseAll() {
+  // Extract Dropbox constants
+  ['DB','RLK','DB2','RLK2','DB3','RLK3'].forEach(n => {
+    const m = curHtml.match(new RegExp(`const ${n} = '([^']+)'`));
+    db[n] = m ? m[1] : '';
+  });
+
+  // Extract & eval PROJECTS
+  const ps = curHtml.indexOf('const PROJECTS = {');
+  const pe = curHtml.indexOf('const SKETCH_IMGS', ps);
+  const projStr = curHtml.slice(ps + 'const PROJECTS = '.length, pe).trim().replace(/;\s*$/, '');
+  const fn = new Function('DB','RLK','DB2','RLK2','DB3','RLK3','return '+projStr+';');
+  projects = fn(db.DB, db.RLK, db.DB2, db.RLK2, db.DB3, db.RLK3);
+  projectOrder = Object.keys(projects);
+
+  // Extract gallery hero URLs (fa-entries)
   galleries = [];
   const rx = /<a class="fa-entry" href="#fineart\/([^"]+)">([\s\S]*?)<\/a>/g;
   let m;
-  while ((m = rx.exec(currentHtmlStr)) !== null) {
-    const galleryId = m[1];
-    const inner     = m[2];
-    const bgRx      = /fa-entry-bg[^>]+background-image:url\(['"]?([^'")\s]+)['"]?\)/;
-    const bgM       = bgRx.exec(inner);
-    const imageUrl  = bgM ? bgM[1] : '';
-    const titleM    = /<h2>([^<]+)<\/h2>/.exec(inner);
-    const title     = titleM ? titleM[1] : galleryId;
-    galleries.push({ galleryId, title, imageUrl });
+  while ((m = rx.exec(curHtml)) !== null) {
+    const id = m[1];
+    const bgM = /fa-entry-bg[^>]+background-image:url\(['"]?([^'")\s]+)['"]?\)/.exec(m[2]);
+    const titleM = /<h2>([^<]+)<\/h2>/.exec(m[2]);
+    galleries.push({ id, title: titleM ? titleM[1] : id, heroUrl: bgM ? bgM[1] : '' });
   }
 }
 
-function renderCards() {
-  const grid = document.getElementById('gallery-grid');
+/* ═══ PROJECT LIST ═══ */
+function getFiltered() {
+  return projectOrder.filter(s => {
+    const p = projects[s];
+    if (curFilter === 'film') return p.tags.includes('Film/Animation');
+    if (curFilter === 'ill')  return p.showOnIll;
+    return true;
+  });
+}
+
+function setFilter(f, btn) {
+  curFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  if (editingSlug) { saveEditorState(); }
+  renderProjList();
+}
+
+function renderProjList() {
+  const list = document.getElementById('proj-list');
+  const slugs = getFiltered();
+  list.innerHTML = '';
+  slugs.forEach((slug, i) => {
+    const p = projects[slug];
+    const div = document.createElement('div');
+    div.className = 'proj-item' + (slug === editingSlug ? ' selected' : '');
+    div.draggable = true;
+    div.dataset.slug = slug;
+    div.dataset.idx  = i;
+
+    const isFilm = p.tags.includes('Film/Animation');
+    const isIll  = p.showOnIll;
+    div.innerHTML = `
+      <span class="drag-handle" title="Drag to reorder">⠿</span>
+      <img class="proj-thumb" src="${toRaw(p.thumb)}" onerror="this.style.background='#2a2a2a'">
+      <div class="proj-info">
+        <div class="proj-name">${p.title}</div>
+        <div class="proj-badges">
+          ${isFilm ? '<span class="badge badge-film">Film</span>' : ''}
+          ${isIll  ? '<span class="badge badge-ill">Illus</span>' : ''}
+        </div>
+      </div>`;
+    div.onclick = (e) => { if (!e.target.classList.contains('drag-handle')) openEditor(slug); };
+
+    // List drag-and-drop
+    div.addEventListener('dragstart', e => { listDragFrom = i; e.dataTransfer.effectAllowed = 'move'; });
+    div.addEventListener('dragover',  e => { e.preventDefault(); div.classList.add('drag-over'); });
+    div.addEventListener('dragleave', () => div.classList.remove('drag-over'));
+    div.addEventListener('drop', e => {
+      e.preventDefault(); div.classList.remove('drag-over');
+      if (listDragFrom === null || listDragFrom === i) return;
+      // Reorder within filtered view
+      const filtered = getFiltered();
+      const [moved] = filtered.splice(listDragFrom, 1);
+      filtered.splice(i, 0, moved);
+      // Rebuild projectOrder: replace filtered slugs in their slots
+      const remaining = projectOrder.filter(s => !filtered.includes(s));
+      let fi = 0, ri = 0;
+      const newOrder = [];
+      projectOrder.forEach(s => {
+        if (filtered.includes(s)) newOrder.push(filtered[fi++]);
+        else newOrder.push(remaining[ri++]);
+      });
+      projectOrder = newOrder;
+      listDragFrom = null;
+      markDirty();
+      renderProjList();
+    });
+    list.appendChild(div);
+  });
+}
+
+/* ═══ EDITOR ═══ */
+function openEditor(slug) {
+  if (editingSlug && editingSlug !== slug) saveEditorState();
+  editingSlug = slug;
+  const p = projects[slug];
+  editImgs = [...p.imgs];
+
+  document.getElementById('editor-empty').style.display   = 'none';
+  document.getElementById('editor-content').style.display = 'block';
+  document.getElementById('editor-heading').textContent   = p.title;
+
+  document.getElementById('ed-quote').value     = p.quote || '';
+  document.getElementById('ed-thumb').value     = p.thumb || '';
+  document.getElementById('ed-watch-url').value = (p.watchUrl && p.watchUrl !== '#') ? p.watchUrl : '';
+
+  const hasWatch = p.watchUrl && p.watchUrl !== '#';
+  document.getElementById('ed-watch-toggle').checked = !!hasWatch;
+  document.getElementById('watch-toggle-lbl').textContent = hasWatch ? 'Watch button visible' : 'Watch button hidden';
+
+  // Show thumb preview
+  const prev = document.getElementById('thumb-preview');
+  const rawThumb = toRaw(p.thumb);
+  if (rawThumb) { prev.src = rawThumb; prev.style.display = 'block'; }
+  else prev.style.display = 'none';
+
+  renderImgsList();
+
+  // Highlight selected in list
+  document.querySelectorAll('.proj-item').forEach(el => {
+    el.classList.toggle('selected', el.dataset.slug === slug);
+  });
+}
+
+function saveEditorState() {
+  if (!editingSlug) return;
+  const p = projects[editingSlug];
+  p.quote = document.getElementById('ed-quote').value.trim();
+  const thumbVal = document.getElementById('ed-thumb').value.trim();
+  if (thumbVal) p.thumb = toRaw(thumbVal);
+  const watchOn  = document.getElementById('ed-watch-toggle').checked;
+  const watchUrl = document.getElementById('ed-watch-url').value.trim();
+  p.watchUrl = (watchOn && watchUrl) ? toRaw(watchUrl) : '#';
+  p.imgs = editImgs.map(u => toRaw(u)).filter(Boolean);
+}
+
+function syncWatchToggle() {
+  const on = document.getElementById('ed-watch-toggle').checked;
+  document.getElementById('watch-toggle-lbl').textContent = on ? 'Watch button visible' : 'Watch button hidden';
+  markDirty();
+}
+
+function previewThumb() {
+  const url = toRaw(document.getElementById('ed-thumb').value.trim());
+  const prev = document.getElementById('thumb-preview');
+  if (url) { prev.src = url; prev.style.display = 'block'; }
+}
+
+/* ═══ IMAGES LIST ═══ */
+function renderImgsList() {
+  const list = document.getElementById('imgs-list');
+  list.innerHTML = '';
+  editImgs.forEach((url, i) => {
+    const div = document.createElement('div');
+    div.className = 'img-item';
+    div.draggable = true;
+    const raw = toRaw(url);
+    const name = url.split('/').pop().split('?')[0].replace(/%20/g,' ').slice(0,40);
+    div.innerHTML = `
+      <span class="img-drag" title="Drag to reorder">⠿</span>
+      <img class="img-thumb" src="${raw}" onerror="this.style.background='#2a2a2a'">
+      <span class="img-name" title="${name}">${name}</span>
+      <button class="img-del" onclick="removeImage(${i})" title="Remove">✕</button>`;
+    div.addEventListener('dragstart', e => { imgDragFrom = i; e.dataTransfer.effectAllowed = 'move'; });
+    div.addEventListener('dragover',  e => { e.preventDefault(); div.classList.add('drag-over'); });
+    div.addEventListener('dragleave', () => div.classList.remove('drag-over'));
+    div.addEventListener('drop', e => {
+      e.preventDefault(); div.classList.remove('drag-over');
+      if (imgDragFrom === null || imgDragFrom === i) return;
+      const [moved] = editImgs.splice(imgDragFrom, 1);
+      editImgs.splice(i, 0, moved);
+      imgDragFrom = null;
+      markDirty(); renderImgsList();
+    });
+    list.appendChild(div);
+  });
+}
+
+function addImage() {
+  const inp = document.getElementById('new-img-url');
+  const url = inp.value.trim();
+  if (!url) return;
+  editImgs.push(url);
+  inp.value = '';
+  markDirty(); renderImgsList();
+}
+
+function removeImage(i) {
+  editImgs.splice(i, 1);
+  markDirty(); renderImgsList();
+}
+
+/* ═══ FINE ART TAB ═══ */
+function renderFaGrid() {
+  const grid = document.getElementById('fa-grid');
   grid.innerHTML = '';
   galleries.forEach((g, i) => {
-    const displayUrl = toRawUrl(g.imageUrl);
+    const raw = toRaw(g.heroUrl);
     const card = document.createElement('div');
-    card.className = 'gallery-card';
+    card.className = 'fa-card';
     card.innerHTML = `
-      <div class="card-preview" id="preview-${i}" style="${displayUrl ? 'background-image:url(\'' + displayUrl + '\')' : ''}">
-        <span class="card-preview-num">${String(i+1).padStart(2,'0')}</span>
-        <span class="card-preview-badge">Cover photo</span>
+      <div class="fa-preview" id="fa-prev-${i}" style="${raw ? 'background-image:url(\''+raw+'\')' : ''}">
+        <span class="fa-preview-lbl">Cover photo</span>
       </div>
-      <div class="card-body">
-        <div class="card-title">${g.title}</div>
-        <div class="card-url-row">
-          <input type="text" id="url-${i}" value="${g.imageUrl}" placeholder="Paste Dropbox link here…">
-          <button class="btn-sm" onclick="applyPreview(${i})">Preview</button>
+      <div class="fa-body">
+        <div class="fa-title">${g.title}</div>
+        <div style="display:flex;gap:8px">
+          <input class="url-input" id="fa-url-${i}" style="flex:1;font-size:.78rem" value="${g.heroUrl}" placeholder="Paste Dropbox URL…" oninput="markDirty()">
+          <button class="btn-add" onclick="previewFa(${i})">Preview</button>
         </div>
-        <div class="card-hint">Paste any Dropbox link and click Preview to see it before saving.</div>
-      </div>
-    `;
+      </div>`;
     grid.appendChild(card);
   });
 }
 
-function applyPreview(i) {
-  const url = document.getElementById(`url-${i}`).value.trim();
-  galleries[i].imageUrl = url;
-  const rawUrl = toRawUrl(url);
-  const preview = document.getElementById(`preview-${i}`);
-  if (rawUrl) preview.style.backgroundImage = `url('${rawUrl}')`;
+function previewFa(i) {
+  const url = toRaw(document.getElementById(`fa-url-${i}`).value.trim());
+  if (url) document.getElementById(`fa-prev-${i}`).style.backgroundImage = `url('${url}')`;
 }
 
+/* ═══ TAB SWITCHING ═══ */
+function switchMainTab(tab, btn) {
+  document.querySelectorAll('.main-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-projects').style.display = tab === 'projects' ? 'flex' : 'none';
+  document.getElementById('tab-fineart').style.display  = tab === 'fineart'  ? 'block' : 'none';
+}
+
+/* ═══ SAVE ═══ */
+function markDirty() { dirty = true; }
+
 async function saveChanges() {
-  galleries.forEach((_, i) => {
-    const el = document.getElementById(`url-${i}`);
-    if (el) galleries[i].imageUrl = el.value.trim();
+  if (editingSlug) saveEditorState();
+  galleries.forEach((g, i) => {
+    const v = document.getElementById(`fa-url-${i}`);
+    if (v) g.heroUrl = v.value.trim();
   });
-  const btn = document.getElementById('save-btn');
+
+  const btn = document.getElementById('pub-btn');
   btn.disabled = true;
-  document.getElementById('deploy-banner').style.display = 'none';
-  setStatus('saving', 'Saving to GitHub…');
-  const updatedHtml = buildUpdatedHtml();
+  document.getElementById('deploy-note').style.display = 'none';
+  setStatus('saving','Saving to GitHub…');
+
+  const updated = buildUpdatedHtml();
+
   try {
-    const res  = await ghFetch('PUT', `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`, {
-      message : 'Update gallery hero images via admin panel',
-      content : b64Encode(updatedHtml),
-      sha     : currentSha,
+    const res = await ghFetch('PUT', `https://api.github.com/repos/${REPO}/contents/${FILE}`, {
+      message: 'Update site content via admin panel',
+      content: b64enc(updated),
+      sha: curSha,
     });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.message || 'Save failed');
-    currentSha     = data.content.sha;
-    currentHtmlStr = updatedHtml;
-    document.getElementById('deploy-banner').style.display = 'block';
-    countdown(btn);
-  } catch (e) {
-    setStatus('error', 'Save failed: ' + e.message);
+    const d = await res.json();
+    if (!res.ok) throw new Error(d.message || 'Save failed');
+    curSha  = d.content.sha;
+    curHtml = updated;
+    dirty = false;
+    document.getElementById('deploy-note').style.display = 'block';
+    deployCountdown(btn);
+  } catch(e) {
+    setStatus('error','Save failed: '+e.message);
     btn.disabled = false;
   }
 }
 
-function countdown(btn) {
+function deployCountdown(btn) {
   let s = 65;
   const tick = () => {
     s--;
-    if (s > 0) {
-      setStatus('saving', `✓ Saved! Netlify is deploying your site… (~${s}s remaining)`);
-      setTimeout(tick, 1000);
-    } else {
-      setStatus('ready', '🎉 Deployment complete! Your live site has been updated.');
-      btn.disabled = false;
-    }
+    if (s > 0) { setStatus('saving', `✓ Saved! Deploying… (~${s}s)`); setTimeout(tick, 1000); }
+    else { setStatus('ready','🎉 Live! Your site has been updated.'); btn.disabled = false; }
   };
   tick();
 }
 
+/* ═══ BUILD UPDATED HTML ═══ */
 function buildUpdatedHtml() {
-  let html = currentHtmlStr;
+  let html = curHtml;
+  const watchOld = '    <a class="cs-watch" href="${p.watchUrl}" target="_blank" rel="noopener">Watch Now</a>';
+  const watchNew = "    ${p.watchUrl && p.watchUrl !== '#' ? `<a class=\"cs-watch\" href=\"${p.watchUrl}\" target=\"_blank\" rel=\"noopener\">Watch Now</a>` : ''}";
+  if (html.includes(watchOld)) html = html.replace(watchOld, watchNew);
+  const ps = html.indexOf('const PROJECTS = {');
+  const pe = html.indexOf('const SKETCH_IMGS', ps);
+  if (ps !== -1 && pe !== -1) { rebuildNext(); html = html.slice(0, ps) + serializeProjects() + ';\n\n' + html.slice(pe); }
   galleries.forEach(g => {
-    const rawUrl = toRawUrl(g.imageUrl);
+    const rawUrl = toRaw(g.heroUrl);
     if (!rawUrl) return;
-    const rx = new RegExp(
-      `(<a class="fa-entry" href="#fineart/${escRx(g.galleryId)}">[\\s\\S]{0,400}?fa-entry-bg[^>]+background-image:url\\(')([^'"]+)(')`,
-      'g'
-    );
+    const rx = new RegExp(`(<a class="fa-entry" href="#fineart/${escRx(g.id)}">[\\s\\S]{0,300}?fa-entry-bg[^>]+background-image:url\\(')([^'"]+)(')`, 'g');
     html = html.replace(rx, `$1${rawUrl}$3`);
   });
   return html;
 }
 
-function toRawUrl(url) {
+function rebuildNext() {
+  projectOrder.forEach((s, i) => { projects[s].next = projectOrder[i+1] || ''; });
+}
+
+function serializeProjects() {
+  const entries = projectOrder.map(slug => {
+    const p = projects[slug];
+    const tagsCode  = p.tags.map(t => `'${esc(t)}'`).join(', ');
+    const delivCode = p.deliverables.map(d => `'${esc(d)}'`).join(', ');
+    const thumbCode = urlToCode(p.thumb);
+    const imgsLines = p.imgs.length ? p.imgs.map(u => '      '+urlToCode(u)).join(',\n') : '';
+    return `  ${slug}: {
+    title: ${JSON.stringify(p.title)},
+    tags: [${tagsCode}],
+    deliverables: [${delivCode}],
+    quote: ${JSON.stringify(p.quote || '')},
+    year: ${JSON.stringify(p.year || '')}, client: ${JSON.stringify(p.client || '')},
+    watchUrl: ${JSON.stringify(p.watchUrl || '#')},
+    thumb: ${thumbCode},
+    imgs: [
+${imgsLines}${p.imgs.length ? ',' : ''}
+    ],
+    showOnIll: ${!!p.showOnIll},
+    next: '${esc(p.next || '')}',
+  }`;
+  }).join(',\n');
+  return `const PROJECTS = {\n${entries}\n}`;
+}
+
+function toRaw(url) {
   if (!url) return '';
-  url = url.replace(/[?&]dl=\d/g, '').replace(/[?&]st=[^&]*/g, '').replace(/[?&]+$/g, '');
-  if (url.includes('dropbox.com') && !url.includes('raw=1')) {
-    url += (url.includes('?') ? '&' : '?') + 'raw=1';
-  }
+  url = url.replace(/[?&]dl=\d/g,'').replace(/[?&]st=[^&]*/g,'').replace(/[?&]+$/g,'');
+  if (url.includes('dropbox.com') && !url.includes('raw=1')) url += (url.includes('?') ? '&' : '?') + 'raw=1';
   return url;
 }
 
-function escRx(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+function urlToCode(url) {
+  if (!url) return "''";
+  for (const [base, rlk, bn, rn] of [[db.DB3,db.RLK3,'DB3','RLK3'],[db.DB2,db.RLK2,'DB2','RLK2'],[db.DB,db.RLK,'DB','RLK']]) {
+    if (base && rlk && url.startsWith(base) && url.endsWith(rlk)) {
+      const path = url.slice(base.length, url.length - rlk.length);
+      return `${bn}+'${esc(path)}'+${rn}`;
+    }
+  }
+  return `'${url.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}'`;
+}
+
+function esc(s)   { return (s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
+function escRx(s) { return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); }
+
+function setStatus(state, msg) {
+  document.getElementById('s-dot').className = 's-dot '+state;
+  document.getElementById('s-msg').textContent = msg;
+}
+function badge(state, text) {
+  const el = document.getElementById('conn-badge');
+  el.textContent = text; el.className = 'conn-badge '+state;
+}
 
 async function ghFetch(method, url, body) {
-  const opts = {
-    method,
-    headers: {
-      Authorization : `token ${githubToken}`,
-      Accept        : 'application/vnd.github.v3+json',
-      'Content-Type': 'application/json',
-    },
-  };
+  const opts = { method, headers: { Authorization:`token ${ghToken}`, Accept:'application/vnd.github.v3+json', 'Content-Type':'application/json' } };
   if (body) opts.body = JSON.stringify(body);
   return fetch(url, opts);
 }
 
-function b64Encode(str) {
+function b64enc(str) {
   const bytes = new TextEncoder().encode(str);
-  let binary = '';
-  bytes.forEach(b => binary += String.fromCharCode(b));
-  return btoa(binary);
+  let b = ''; bytes.forEach(x => b += String.fromCharCode(x));
+  return btoa(b);
 }
-
-function b64Decode(b64) {
-  const binary = atob(b64.replace(/\n/g, ''));
-  const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
-  return new TextDecoder().decode(bytes);
-}
-
-function setBadge(state, text) {
-  const el = document.getElementById('conn-badge');
-  el.textContent = text;
-  el.className = 'conn-badge ' + state;
-}
-
-function setStatus(state, text) {
-  document.getElementById('status-dot').className = 'status-dot ' + state;
-  document.getElementById('status-msg').textContent = text;
+function b64dec(b64) {
+  const b = atob(b64.replace(/\n/g,''));
+  return new TextDecoder().decode(Uint8Array.from(b, c => c.charCodeAt(0)));
 }
 </script>
 </body>
