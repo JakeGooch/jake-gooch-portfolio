@@ -1516,7 +1516,7 @@ function loadCS(slug) {
   document.getElementById('cs-meta').innerHTML = `
     <span class="cs-pill">Year / ${p.year}</span>
     <span class="cs-pill">Client / ${p.client}</span>
-    <a class="cs-watch" href="${p.watchUrl}" target="_blank" rel="noopener">Watch Now</a>
+    ${p.watchUrl && p.watchUrl !== '#' ? `<a class="cs-watch" href="${p.watchUrl}" target="_blank" rel="noopener">Watch Now</a>` : ''}
   `;
 
   document.getElementById('cs-imgs').innerHTML =
