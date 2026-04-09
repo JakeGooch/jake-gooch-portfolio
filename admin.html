@@ -70,7 +70,7 @@ body{font-family:system-ui,sans-serif;background:#111;color:#eee;height:100vh;ov
 .proj-name{font-size:.8rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .proj-badges{display:flex;gap:4px;margin-top:3px}
 .badge{padding:1px 6px;border-radius:3px;font-size:.63rem;font-weight:700;text-transform:uppercase}
-.badge-film{background:#1a2a3a;color:#7af}
+.badge-fill{background:#1a2a3a;color:#7af}
 .badge-ill{background:#2a1a2a;color:#c7a}
 
 /* ── EDITOR PANEL ── */
@@ -107,7 +107,7 @@ body{font-family:system-ui,sans-serif;background:#111;color:#eee;height:100vh;ov
 .img-item.drag-over{border-top:2px solid #e8d5a3}
 .img-drag{color:#444;cursor:grab;font-size:1rem}
 .img-thumb{width:44px;height:33px;object-fit:cover;border-radius:3px;background:#222;flex-shrink:0}
-.img-name{flex:1;font-size:.72rem;color:#888;white-space:nowraw;overflow:hidden;text-overflow:ellipsis}
+.img-name{flex:1;font-size:.72rem;color:#888;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .img-del{background:none;border:none;color:#555;cursor:pointer;font-size:.85rem;padding:2px 5px;border-radius:3px}
 .img-del:hover{color:#f87;background:#2a1a1a}
 .url-input{padding:7px 10px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:6px;color:#eee;font-size:.82rem;width:100%}
@@ -247,7 +247,7 @@ body{font-family:system-ui,sans-serif;background:#111;color:#eee;height:100vh;ov
       <!-- Right: gallery editor -->
       <div class="fa-editor-panel">
         <div class="fa-editor-empty" id="fa-editor-empty">← Select a gallery to edit its cover &amp; images</div>
-        <div id="fa-editor-content" style="display:none">
+      2 <div id="fa-editor-content" style="display:none">
           <div class="editor-heading" id="fa-editor-heading"></div>
 
           <!-- Cover photo -->
@@ -366,7 +366,7 @@ function parseAll() {
   const skEnd   = curHtml.indexOf('];', skStart) + 2;
   const skChunk = curHtml.slice(skStart, skEnd);
   sketchImgs = [];
-  const skRx = /'([^']+)'/g;
+   const skRx = /'([^']+)'/g;
   let sm;
   while ((sm = skRx.exec(skChunk)) !== null) sketchImgs.push(sm[1]);
 
@@ -374,7 +374,7 @@ function parseAll() {
   const galStart = curHtml.indexOf('const GALLERIES = {');
   const galEnd   = curHtml.indexOf('const SKETCH_IMGS', galStart);
   if (galStart !== -1 && galEnd !== -1) {
-    const galStr = curHtml.slice(galStart + 'const GALLERIES = '.length, galEnd).trim().replace(/;\s*$/, '');
+   const galStr = curHtml.slice(galStart + 'const GALLERIES = '.length, galEnd).trim().replace(/;\s*$/, '');
     try {
       const gfn = new Function('DB','RLK','DB2','RLK2','DB3','RLK3','return '+galStr+';');
       faGalleries = gfn(db.DB, db.RLK, db.DB2, db.RLK2, db.DB3, db.RLK3);
@@ -419,14 +419,14 @@ function renderProjList() {
   list.innerHTML = '';
   slugs.forEach((slug, i) => {
     const p   = projects[slug];
-    const div = document.createElement('div');
+  2  const div = document.createElement('div');
     div.className = 'proj-item' + (slug === editingSlug ? ' selected' : '');
     div.draggable = true;
-    div.dataset.slug = slug;
+ 2   div.dataset.slug = slug;
     div.dataset.idx  = i;
     const isFilm = p.tags.includes('Film/Animation');
     const isIll  = p.showOnIll;
-    div.innerHTML = `
+    div.inrHTML = `
       <span class="drag-handle" title="Drag to reorder">⠿</span>
       <img class="proj-thumb" src="${toRaw(p.thumb)}" onerror="this.style.background='#2a2a2a'">
       <div class="proj-info">
@@ -435,7 +435,7 @@ function renderProjList() {
           ${isFilm ? '<span class="badge badge-film">Film</span>' : ''}
           ${isIll  ? '<span class="badge badge-ill">Illus</span>' : ''}
         </div>
-      </div>`;
+    2 </div>`;
     div.onclick = e => { if (!e.target.classList.contains('drag-handle')) openEditor(slug); };
     div.addEventListener('dragstart', e => { listDragFrom = i; e.dataTransfer.effectAllowed = 'move'; });
     div.addEventListener('dragover',  e => { e.preventDefault(); div.classList.add('drag-over'); });
@@ -444,7 +444,7 @@ function renderProjList() {
       e.preventDefault(); div.classList.remove('drag-over');
       if (listDragFrom === null || listDragFrom === i) return;
       const filtered = getFiltered();
-      const [moved]  = filtered.splice(listDragFrom, 1);
+     2const [moved]  = filtered.splice(listDragFrom, 1);
       filtered.splice(i, 0, moved);
       const remaining = projectOrder.filter(s => !filtered.includes(s));
       let fi = 0, ri = 0;
@@ -455,7 +455,7 @@ function renderProjList() {
       });
       projectOrder = newOrder;
       listDragFrom = null;
-      markDirty(); renderProjList();
+   2  markDirty(); renderProjList();
     });
     list.appendChild(div);
   });
@@ -493,7 +493,7 @@ function saveEditorState() {
   const thumbVal = document.getElementById('ed-thumb').value.trim();
   if (thumbVal) p.thumb = toRaw(thumbVal);
   const watchOn  = document.getElementById('ed-watch-toggle').checked;
-  const watchUrl = document.getElementById('ed-watch-url').value.trim();
+ 2const watchUrl = document.getElementById('ed-watch-url').value.trim();
   p.watchUrl = (watchOn && watchUrl) ? toRaw(watchUrl) : '#';
   p.imgs = editImgs.map(u => toRaw(u)).filter(Boolean);
 }
@@ -515,7 +515,7 @@ function renderImgsList() {
   editImgs.forEach((url, i) => {
     const div  = document.createElement('div');
     div.className = 'img-item';
-    div.draggable = true;
+   2div.draggable = true;
     const raw  = toRaw(url);
     const name = url.split('/').pop().split('?')[0].replace(/%20/g,' ').slice(0,40);
     div.innerHTML = `
@@ -555,7 +555,7 @@ function renderFaGrid() {
     const fg   = faGalleries[id];
     const gMeta = galleries.find(x => x.id === id) || { heroUrl: '' };
     const raw  = toRaw(gMeta.heroUrl);
-    const card = document.createElement('div');
+ 2  const card = document.createElement('div');
     card.className = 'fa-card' + (faEditId === id ? ' selected' : '');
     card.innerHTML = `
       <div class="fa-preview" style="${raw ? "background-image:url('"+raw+"')" : ''}">
