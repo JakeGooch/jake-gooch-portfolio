@@ -8,8 +8,8 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:system-ui,sans-serif;background:#111;color:#eee;height:100vh;overflow:hidden}
 
-/* ── LOGIN ── */
-#login-screen{display:flex;align-items:center;justify-content:center;height:100vh;flex-direction:column;gap:16px}
+/* LOGIN */
+#login-screen{display:flex;align-items:center;justify-content:center;height:100vh;flex-direction:column}
 .login-box{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:36px 40px;width:360px;display:flex;flex-direction:column;gap:14px}
 .login-box h1{font-size:1.1rem;text-align:center;margin-bottom:6px;color:#fff}
 .login-box label{font-size:.78rem;color:#888;margin-bottom:2px;display:block}
@@ -21,7 +21,7 @@ body{font-family:system-ui,sans-serif;background:#111;color:#eee;height:100vh;ov
 .token-hint{font-size:.72rem;color:#666;line-height:1.5}
 .token-hint a{color:#aaa}
 
-/* ── DASHBOARD SHELL ── */
+/* DASHBOARD SHELL */
 #dashboard{display:none;height:100vh;flex-direction:column}
 .topbar{display:flex;align-items:center;gap:12px;padding:10px 18px;background:#1a1a1a;border-bottom:1px solid #2a2a2a;flex-shrink:0}
 .topbar-logo{font-size:.85rem;font-weight:700;color:#e8d5a3;white-space:nowrap}
@@ -42,51 +42,71 @@ body{font-family:system-ui,sans-serif;background:#111;color:#eee;height:100vh;ov
 .view-link{font-size:.75rem;color:#666;text-decoration:none}
 .view-link:hover{color:#aaa}
 
-/* ── MAIN TABS ── */
-.main-tabs{display:flex;gap:0;border-bottom:1px solid #2a2a2a;background:#181818;flex-shrink:0}
+/* MAIN TABS */
+.main-tabs{display:flex;border-bottom:1px solid #2a2a2a;background:#181818;flex-shrink:0}
 .main-tab{padding:9px 22px;font-size:.8rem;font-weight:600;color:#666;background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;transition:color .15s}
 .main-tab.active{color:#e8d5a3;border-bottom-color:#e8d5a3}
 .main-tab:hover:not(.active){color:#aaa}
 
-/* ── PROJECTS TAB ── */
-#tab-projects{display:flex;flex:1;overflow:hidden}
-#tab-fineart{display:none;flex:1;overflow:hidden}
+/* TAB CONTAINERS */
+.tab-pane{display:none;flex:1;overflow:hidden}
+.tab-pane.active{display:flex}
 
-/* ── PROJECT LIST PANEL ── */
-.proj-list-panel{width:270px;flex-shrink:0;border-right:1px solid #222;display:flex;flex-direction:column;overflow:hidden}
+/* SPLIT PANEL */
+.split{display:flex;flex:1;overflow:hidden}
+.list-panel{width:270px;flex-shrink:0;border-right:1px solid #222;display:flex;flex-direction:column;overflow:hidden}
 .panel-head{padding:10px 14px;border-bottom:1px solid #222;background:#181818;flex-shrink:0}
+.panel-head-lbl{font-size:.7rem;color:#666;font-weight:600;letter-spacing:.07em;text-transform:uppercase}
+.panel-head-row{display:flex;align-items:center;justify-content:space-between}
+.btn-new{background:#2a2a1a;border:1px solid #e8d5a330;color:#e8d5a3;border-radius:5px;padding:4px 10px;font-size:.7rem;font-weight:700;cursor:pointer}
+.btn-new:hover{background:#3a3a2a}
 .filter-row{display:flex;gap:5px;margin-top:8px}
 .filter-btn{padding:4px 10px;font-size:.72rem;border-radius:5px;border:1px solid #333;background:#111;color:#888;cursor:pointer}
 .filter-btn.active{background:#e8d5a3;color:#111;border-color:#e8d5a3;font-weight:700}
-.panel-head-lbl{font-size:.7rem;color:#666;font-weight:600;letter-spacing:.07em;text-transform:uppercase}
-#proj-list{flex:1;overflow-y:auto}
-.proj-item{display:flex;align-items:center;gap:9px;padding:9px 12px;cursor:pointer;border-bottom:1px solid #1d1d1d;transition:background .1s;user-select:none}
-.proj-item:hover{background:#1d1d1d}
-.proj-item.selected{background:#212110}
-.proj-item.drag-over{border-top:2px solid #e8d5a3}
-.drag-handle{color:#444;cursor:grab;font-size:1.1rem;flex-shrink:0}
-.proj-thumb{width:38px;height:38px;object-fit:cover;border-radius:4px;flex-shrink:0;background:#222}
-.proj-info{flex:1;min-width:0}
-.proj-name{font-size:.8rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.proj-badges{display:flex;gap:4px;margin-top:3px}
-.badge{padding:1px 6px;border-radius:3px;font-size:.63rem;font-weight:700;text-transform:uppercase}
-.badge-fill{background:#1a2a3a;color:#7af}
-.badge-ill{background:#2a1a2a;color:#c7a}
-
-/* ── EDITOR PANEL ── */
+.scroll-list{flex:1;overflow-y:auto}
 .editor-panel{flex:1;overflow-y:auto;padding:20px 24px;min-width:0}
 .editor-empty{color:#555;font-size:.88rem;padding:40px 0;text-align:center}
 .editor-heading{font-size:1rem;font-weight:700;margin-bottom:18px;color:#e8d5a3}
+
+/* LIST ITEMS */
+.list-item{display:flex;align-items:center;gap:9px;padding:9px 12px;cursor:pointer;border-bottom:1px solid #1d1d1d;transition:background .1s;user-select:none}
+.list-item:hover{background:#1d1d1d}
+.list-item.selected{background:#212110}
+.list-item.drag-over{border-top:2px solid #e8d5a3}
+.drag-handle{color:#444;cursor:grab;font-size:1.1rem;flex-shrink:0}
+.item-thumb{width:38px;height:38px;object-fit:cover;border-radius:4px;flex-shrink:0;background:#222}
+.item-info{flex:1;min-width:0}
+.item-name{font-size:.8rem;font-weight:600;white-space:nowraw;overflow:hidden;text-overflow:ellipsis}
+.item-sub{display:flex;gap:4px;margin-top:3px;flex-wrap:wrap}
+.badge{padding:1px 6px;border-radius:3px;font-size:.63rem;font-weight:700;text-transform:uppercase}
+.badge-film{background:#1a2a3a;color:#7af}
+.badge-ill{background:#2a1a2a;color:#c7a}
+
+/* SECTION DIVIDER IN LIST */
+.list-section-head{padding:6px 14px;font-size:.65rem;color:#555;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:#151515;border-bottom:1px solid #1d1d1d;border-top:1px solid #1d1d1d;display:flex;align-items:center;justify-content:space-between}
+.btn-add-sm{background:none;border:1px solid #333;color:#666;border-radius:4px;padding:2px 8px;font-size:.65rem;cursor:pointer}
+.btn-add-sm:hover{border-color:#e8d5a3;color:#e8d5a3}
+
+/* FA LIST ITEMS */
+.fa-preview{width:44px;height:33px;background:#222;border-radius:4px;overflow:hidden;flex-shrink:0;background-size:cover;background-position:center;position:relative}
+.fa-preview-lbl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:.5rem;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.1em}
+
+/* EDITOR FIELDS */
 .field-row{margin-bottom:14px}
 .field-row label{display:block;font-size:.73rem;color:#888;margin-bottom:4px}
 .field-row input,.field-row textarea{width:100%;padding:8px 10px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:6px;color:#eee;font-size:.83rem}
-.field-row textarea{resize:vertical;min-height:68px}
+.field-row textarea{resize:vertical;min-height:80px;font-family:inherit}
 .field-row input:focus,.field-row textarea:focus{outline:none;border-color:#444}
 .thumb-row{display:flex;gap:10px;align-items:flex-start}
 .thumb-row input{flex:1}
-.btn-add{background:#2a2a2a;border:none;border-radius:6px;padding:7px 13px;color:#ccc;cursor:pointer;font-size:.78rem;white-space:nowrap}
-.btn-add:hover{background:#333;color:#fff}
+.btn-secondary{background:#2a2a2a;border:none;border-radius:6px;padding:7px 13px;color:#ccc;cursor:pointer;font-size:.78rem;white-space:nowrap}
+.btn-secondary:hover{background:#333;color:#fff}
+.btn-danger{background:#2a1a1a;border:1px solid #3a2a2a;border-radius:6px;padding:7px 13px;color:#f87;cursor:pointer;font-size:.78rem}
+.btn-danger:hover{background:#3a2020;color:#faa}
 .thumb-preview{width:80px;height:60px;object-fit:cover;border-radius:5px;display:none;flex-shrink:0}
+.divider{border:none;border-top:1px solid #222;margin:18px 0}
+
+/* WATCH/TOGGLE */
 .watch-row{display:flex;align-items:center;gap:10px}
 .watch-row input[type=text]{flex:1}
 .toggle{position:relative;display:inline-block;width:34px;height:20px}
@@ -97,43 +117,50 @@ body{font-family:system-ui,sans-serif;background:#111;color:#eee;height:100vh;ov
 .toggle input:checked+.slider:before{transform:translateX(14px);background:#8d8}
 .toggle-lbl{font-size:.75rem;color:#888}
 
-/* ── IMAGE LIST ── */
-.imgs-section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+/* TAG TOGGLES */
+.tag-toggles{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.tag-toggle{padding:5px 12px;border-radius:5px;border:1px solid #333;background:#1a1a1a;color:#666;cursor:pointer;font-size:.75rem;font-weight:600;transition:.15s}
+.tag-toggle.on{border-color:#e8d5a3;color:#e8d5a3;background:#2a2a1a}
+
+/* IMAGE LIST */
+.imgs-section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
 .imgs-section-head span{font-size:.73rem;color:#888}
 .add-img-row{display:flex;gap:8px;margin-bottom:10px}
 .add-img-row input{flex:1;padding:7px 10px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:6px;color:#eee;font-size:.8rem}
-#imgs-list,#fa-imgs-list,#sb-imgs-list{display:flex;flex-direction:column;gap:4px;margin-bottom:4px}
+.img-list{display:flex;flex-direction:column;gap:4px;margin-bottom:4px}
 .img-item{display:flex;align-items:center;gap:8px;padding:6px 8px;background:#1a1a1a;border-radius:6px;border:1px solid #222}
 .img-item.drag-over{border-top:2px solid #e8d5a3}
 .img-drag{color:#444;cursor:grab;font-size:1rem}
 .img-thumb{width:44px;height:33px;object-fit:cover;border-radius:3px;background:#222;flex-shrink:0}
-.img-name{flex:1;font-size:.72rem;color:#888;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.img-name{flex:1;font-size:.72rem;color:#888;white-space:nowraw;overflow:hidden;text-overflow:ellipsis}
 .img-del{background:none;border:none;color:#555;cursor:pointer;font-size:.85rem;padding:2px 5px;border-radius:3px}
 .img-del:hover{color:#f87;background:#2a1a1a}
-.url-input{padding:7px 10px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:6px;color:#eee;font-size:.82rem;width:100%}
 
-/* ── FINE ART TAB ── */
-.fa-split{display:flex;flex:1;overflow:hidden;height:100%}
-.fa-list-panel{width:270px;flex-shrink:0;border-right:1px solid #222;display:flex;flex-direction:column;overflow:hidden}
-.fa-list-head{padding:10px 14px;border-bottom:1px solid #222;background:#181818;flex-shrink:0}
-.fa-list-head-lbl{font-size:.7rem;color:#666;font-weight:600;letter-spacing:.07em;text-transform:uppercase}
-#fa-grid{flex:1;overflow-y:auto}
-.fa-card{display:flex;align-items:center;gap:10px;padding:9px 12px;cursor:pointer;border-bottom:1px solid #1d1d1d;transition:background .1s}
-.fa-card:hover{background:#1d1d1d}
-.fa-card.selected{background:#212110}
-.fa-preview{width:48px;height:36px;background:#222;border-radius:4px;overflow:hidden;flex-shrink:0;background-size:cover;background-position:center;position:relative}
-.fa-preview-lbl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:.55rem;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.1em}
-.fa-body{flex:1;min-width:0}
-.fa-title{font-size:.82rem;font-weight:600}
-.fa-img-count{font-size:.7rem;color:#666;margin-top:2px}
-.fa-editor-panel{flex:1;overflow-y:auto;padding:20px 24px;min-width:0}
-.fa-editor-empty{color:#555;font-size:.88rem;padding:40px 0;text-align:center}
-.fa-section-divider{border:none;border-top:1px solid #222;margin:18px 0}
+/* FRONT PAGE TAB */
+.fp-body{flex:1;overflow-y:auto;padding:24px}
+.fp-section-title{font-size:.7rem;color:#666;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}
+.fp-hero-grid{display:flex;gap:16px;margin-bottom:32px;flex-wrap:wrap}
+.fp-hero-card{flex:1;min-width:220px;max-width:340px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:10px;overflow:hidden}
+.fp-hero-img{width:100%;height:140px;object-fit:cover;display:block;background:#222}
+.fp-hero-form{padding:14px}
+.fp-hero-label{font-size:.75rem;font-weight:700;color:#e8d5a3;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.fp-cat-name-row{display:flex;gap:6px;margin-bottom:10px}
+.fp-cat-name-row input{flex:1;padding:6px 9px;background:#111;border:1px solid #2a2a2a;border-radius:5px;color:#eee;font-size:.8rem}
+.fp-url-row{display:flex;gap:6px}
+.fp-url-row input{flex:1;padding:6px 9px;background:#111;border:1px solid #2a2a2a;border-radius:5px;color:#eee;font-size:.8rem}
+.fp-url-row input:focus,.fp-cat-name-row input:focus{outline:none;border-color:#444}
+
+/* CV editor */
+.cv-editor textarea{min-height:280px;font-family:inherit;line-height:1.6}
+
+/* Studio del button */
+.studio-del-btn{background:none;border:none;color:#444;cursor:pointer;padding:2px 6px;border-radius:3px;font-size:.85rem}
+.studio-del-btn:hover{color:#f87;background:#2a1a1a}
 </style>
 </head>
 <body>
 
-<!-- ══════════════ LOGIN ══════════════ -->
+<!-- LOGIN -->
 <div id="login-screen">
   <div class="login-box">
     <h1>🎨 Portfolio Admin<br><small style="font-weight:400;color:#888">Jake Gooch Art — Full Site Manager</small></h1>
@@ -144,8 +171,8 @@ body{font-family:system-ui,sans-serif;background:#111;color:#eee;height:100vh;ov
     <div>
       <label>GitHub Token</label>
       <input type="text" id="token" placeholder="ghp_…" autocomplete="off">
-      <div class="token-hint" style="margin-top:5px">Lets changes save directly to your live site — no copy/paste.<br>
-        <a href="https://github.com/settings/tokens/new" target="_blank">Get a token here → Classic token → check <code>repo</code> → Generate → paste above.</a> Saved for your session.
+      <div class="token-hint" style="margin-top:5px">Saves changes directly to your live site.<br>
+        <a href="https://github.com/settings/tokens/new" target="_blank">Get a token → Classic → check repo → Generate → paste above.</a> Saved for session.
       </div>
     </div>
     <button class="btn-login" onclick="login()">Sign In →</button>
@@ -153,10 +180,9 @@ body{font-family:system-ui,sans-serif;background:#111;color:#eee;height:100vh;ov
   </div>
 </div>
 
-<!-- ══════════════ DASHBOARD ══════════════ -->
+<!-- DASHBOARD -->
 <div id="dashboard">
 
-  <!-- Top bar -->
   <div class="topbar">
     <span class="topbar-logo">🎨 Jake Gooch Art — Admin</span>
     <span class="conn-badge loading" id="conn-badge">Connecting…</span>
@@ -164,114 +190,116 @@ body{font-family:system-ui,sans-serif;background:#111;color:#eee;height:100vh;ov
       <span class="s-dot" id="s-dot"></span>
       <span id="s-msg">Loading…</span>
     </div>
-    <div class="topbar-actions">
-      <a class="view-link" href="https://jakegoochart.netlify.app" target="_blank">View Site ↗</a>
-      <span class="deploy-note" id="deploy-note">✓ Saved to GitHub! Netlify is deploying — check your site in ~60s.</span>
+    <div clas="topbar-actions">
+      <a class="view-link" href="httpps://jakegoochart.netlify.app" target="_blank">View Site ↗</a>
+      <span class="deploy-note" id="deploy-note">✓ Saved! Netlify deploying ~60s.</span>
       <button class="btn-pub" id="pub-btn" onclick="saveChanges()" disabled>Save &amp; Publish</button>
     </div>
   </div>
 
-  <!-- Main tabs -->
   <div class="main-tabs">
-    <button class="main-tab active" onclick="switchMainTab('projects',this)">Projects</button>
-    <button class="main-tab" onclick="switchMainTab('fineart',this)">Fine Art</button>
+    <button class="main-tab active" onclick="switchTab('frontpage',this)">Front Page</button>
+    <button class="main-tab" onclick="switchTab('projects',this)">Projects</button>
+    <button class="main-tab" onclick="switchTab('fineart',this)">Fine Art</button>
   </div>
 
-  <!-- ── PROJECTS TAB ── -->
-  <div id="tab-projects" style="display:flex;flex:1;overflow:hidden">
-    <div class="proj-list-panel">
-      <div class="panel-head">
-        <div class="panel-head-lbl">Projects</div>
-        <div class="filter-row">
-          <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
-          <button class="filter-btn" onclick="setFilter('film',this)">Film</button>
-          <button class="filter-btn" onclick="setFilter('ill',this)">Illustration</button>
-        </div>
-      </div>
-      <div id="proj-list"></div>
-    </div>
-    <div class="editor-panel">
-      <div class="editor-empty" id="editor-empty">← Select a project to edit</div>
-      <div id="editor-content" style="display:none">
-        <div class="editor-heading" id="editor-heading"></div>
-        <div class="field-row">
-          <label>Project Name</label>
-          <input type="text" id="ed-title" oninput="markDirty()">
-        </div>
-        <div class="field-row">
-          <label>Bio / Description</label>
-          <textarea id="ed-quote" oninput="markDirty()"></textarea>
-        </div>
-        <div class="field-row">
-          <label>Thumbnail (Cover Image URL)</label>
-          <div class="thumb-row">
-            <input type="text" id="ed-thumb" placeholder="Paste Dropbox or image URL…" oninput="markDirty()">
-            <button class="btn-add" onclick="previewThumb()">Preview</button>
-            <img class="thumb-preview" id="thumb-preview">
-          </div>
-        </div>
-        <div class="field-row">
-          <label>Watch Video URL</label>
-          <div class="watch-row">
-            <label class="toggle">
-              <input type="checkbox" id="ed-watch-toggle" onchange="syncWatchToggle()">
-              <span class="slider"></span>
-            </label>
-            <span class="toggle-lbl" id="watch-toggle-lbl">Watch button hidden</span>
-            <input type="text" id="ed-watch-url" placeholder="https://vimeo.com/…" oninput="markDirty()">
-          </div>
-        </div>
-        <hr class="fa-section-divider">
-        <div class="imgs-section-head">
-          <span>Gallery Images (drag to reorder)</span>
-        </div>
-        <div class="add-img-row">
-          <input type="text" id="new-img-url" placeholder="Paste image URL…">
-          <button class="btn-add" onclick="addImage()">+ Add Image</button>
-        </div>
-        <div id="imgs-list"></div>
-      </div>
+  <!-- ══ FRONT PAGE TAB ══ -->
+  <div id="tab-frontpage" class="tab-pane active">
+    <div class="fp-body">
+      <div class="fp-section-title">Category Hero Photos &amp; Names</div>
+      <div class="fp-hero-grid" id="fp-hero-grid"></div>
     </div>
   </div>
 
-  <!-- ── FINE ART TAB ── -->
-  <div id="tab-fineart" style="display:none;flex:1;overflow:hidden">
-    <div class="fa-split" style="display:flex;flex:1;overflow:hidden;height:100%">
-      <!-- Left: gallery list -->
-      <div class="fa-list-panel">
-        <div class="fa-list-head">
-          <div class="fa-list-head-lbl">Fine Art &amp; Sketchbook</div>
+  <!-- ══ PROJECTS TAB ══ -->
+  <div id="tab-projects" class="tab-pane">
+    <div class="split">
+      <div class="list-panel">
+        <div class="panel-head">
+          <div class="panel-head-row">
+            <div class="panel-head-lbl">Projects</div>
+            <button class="btn-new" onclick="addNewProject()">+ New</button>
+          </div>
+          <div class="filter-row">
+            <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
+            <button class="filter-btn" onclick="setFilter('film',this)">Film</button>
+            <button class="filter-btn" onclick="setFilter('ill',this)">Illustration</button>
+          </div>
         </div>
-        <div id="fa-grid"></div>
+        <div class="scroll-list" id="proj-list"></div>
       </div>
-      <!-- Right: gallery editor -->
-      <div class="fa-editor-panel">
-        <div class="fa-editor-empty" id="fa-editor-empty">← Select a gallery to edit its cover &amp; images</div>
-      2 <div id="fa-editor-content" style="display:none">
-          <div class="editor-heading" id="fa-editor-heading"></div>
-
-          <!-- Cover photo -->
+      <div class="editor-panel">
+        <div class="editor-empty" id="proj-empty">← Select a project to edit</div>
+        <div id="proj-editor" style="display:none">
+          <div class="editor-heading" id="proj-heading"></div>
           <div class="field-row">
-            <label>Category Cover Photo (shown on the Fine Art landing page)</label>
-            <div class="thumb-row">
-              <input type="text" id="fa-cover-url" placeholder="Paste Dropbox or image URL…" oninput="markDirty()">
-              <button class="btn-add" onclick="previewFaCover()">Preview</button>
-              <img class="thumb-preview" id="fa-cover-preview">
+            <label>Project Name</label>
+            <input type="text" id="ed-title" oninput="markDirty()">
+          </div>
+          <div class="field-row">
+            <label>Shows In</label>
+            <div class="tag-toggles">
+              <div class="tag-toggle" id="tag-film" onclick="toggleTag('film')">Animation / Film</div>
+              <div class="tag-toggle" id="tag-ill" onclick="toggleTag('ill')">Illustration</div>
             </div>
           </div>
-
-          <hr class="fa-section-divider">
-
-          <!-- Image list -->
-          <div class="imgs-section-head">
-            <span>Gallery Images (drag to reorder)</span>
+          <div class="field-row">
+            <label>Bio / Description</label>
+            <textarea id="ed-quote" oninput="markDirty()"></textarea>
           </div>
+          <div class="field-row">
+            <label>Year</label>
+            <input type="text" id="ed-year" placeholder="2024" oninput="markDirty()" style="width:120px">
+          </div>
+          <div class="field-row">
+            <label>Client</label>
+            <input type="text" id="ed-client" oninput="markDirty()">
+          </div>
+          <div class="field-row">
+            <label>Watch Video</label>
+            <div class="watch-row">
+              <label class="toggle">
+                <input type="checkbox" id="ed-watch-on" onchange="syncWatchToggle()">
+                <span class="slider"></span>
+              </label>
+              <span class="toggle-lbl" id="watch-lbl">Hidden</span>
+              <input type="text" id="ed-watch-url" placeholder="https://vimeo.com/…" oninput="markDirty()">
+            </div>
+          </div>
+          <div class="field-row">
+            <label>Thumbnail (Cover Image URL)</label>
+            <div class="thumb-row">
+              <input type="text" id="ed-thumb" placeholder="Paste Dropbox URL…" oninput="markDirty()">
+              <button class="btn-secondary" onclick="previewThumb()">Preview</button>
+              <img class="thumb-preview" id="thumb-prev">
+            </div>
+          </div>
+          <hr class="divider">
+          <div class="imgs-section-head"><span>Gallery Images (drag to reorder)</span></div>
           <div class="add-img-row">
-            <input type="text" id="fa-new-img-url" placeholder="Paste image URL…">
-            <button class="btn-add" onclick="addFaImage()">+ Add Image</button>
+            <input type="text" id="proj-new-img" placeholder="Paste image URL…">
+            <button class="btn-secondary" onclick="addProjImg()">+ Add</button>
           </div>
-          <div id="fa-imgs-list"></div>
+          <div class="img-list" id="proj-imgs-list"></div>
+          <hr class="divider" style="margin-top:24px">
+          <button class="btn-danger" onclick="deleteProject()">Delete This Project</button>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ FINE ART TAB ══ -->
+  <div id="tab-fineart" class="tab-pane">
+    <div class="split">
+      <div class="list-panel">
+        <div class="fa-list-head panel-head">
+          <div class="panel-head-lbl">Fine Art &amp; Sketchbook</div>
+        </div>
+        <div class="scroll-list" id="fa-list"></div>
+      </div>
+      <div class="editor-panel" id="fa-editor-panel">
+        <div class="editor-empty" id="fa-empty">← Select a section to edit</div>
+        <div id="fa-editor" style="display:none"></div>
       </div>
     </div>
   </div>
@@ -279,28 +307,33 @@ body{font-family:system-ui,sans-serif;background:#111;color:#eee;height:100vh;ov
 </div><!-- /dashboard -->
 
 <script>
-/* ═══ CONFIG ═══ */
+/* ══ CONFIG ══ */
 const REPO = 'JakeGooch/jake-gooch-portfolio';
 const FILE = 'index.html';
 const PW   = 'jake2024';
 
-/* ═══ STATE ═══ */
+/* ══ STATE ══ */
 let ghToken = '', curSha = '', curHtml = '';
 let db = {};
 let projects = {}, projectOrder = [];
-let galleries = [];         // [{id, title, heroUrl}] for fa-entry covers
-let faGalleries = {};       // {figure:{title,imgs}, pleinair:…, studies:…}
-let sketchImgs  = [];       // SKETCH_IMGS array
-let sketchCover = '';       // sketchbook band <img src>
+let faGalleries = {};       // {figure:{title,bio,imgs}, pleinair:…, studies:…}
+let studioWorks = {};       // {slug:{title,bio,imgs}}
+let studioOrder = [];
+let sketchImgs  = [];
+let sketchCover = '';
+let cvText = '';
+let heroImgs = {};          // {animation:'url…', illustration:'url…', fineart:'url…'}
+let catNames = {};          // {animation:'Animation/Film', illustration:'Illustration', fineart:'Fine Art'}
+
 let editingSlug = null;
-let editImgs = [];
-let faEditId   = null;      // which fine art gallery is open
-let faEditImgs = [];        // working copy of imgs for the open FA gallery
-let curFilter  = 'all';
-let dirty = false;
+let editImgs    = [];
+let faMode      = null;     // 'cover'|'gallery:id'|'studio:slug'|'cv'|'sketchbook'
+let faEditImgs  = [];
+let curFilter   = 'all';
+let dirty       = false;
 let imgDragFrom = null, listDragFrom = null, faImgDragFrom = null;
 
-/* ═══ LOGIN ═══ */
+/* ══ LOGIN ══ */
 function login() {
   const pw  = document.getElementById('pw').value;
   const tok = document.getElementById('token').value.trim();
@@ -311,8 +344,7 @@ function login() {
   sessionStorage.setItem('gh_tok', tok);
   document.getElementById('login-screen').style.display = 'none';
   const dash = document.getElementById('dashboard');
-  dash.style.display = 'flex';
-  dash.style.flexDirection = 'column';
+  dash.style.display = 'flex'; dash.style.flexDirection = 'column';
   loadSite();
 }
 document.addEventListener('keydown', e => {
@@ -323,7 +355,7 @@ window.addEventListener('load', () => {
   if (t) document.getElementById('token').value = t;
 });
 
-/* ═══ LOAD ═══ */
+/* ══ LOAD ══ */
 async function loadSite() {
   badge('loading','Connecting…');
   setStatus('saving','Loading site from GitHub…');
@@ -334,10 +366,11 @@ async function loadSite() {
     curSha  = d.sha;
     curHtml = b64dec(d.content);
     parseAll();
+    renderFpHeroGrid();
     renderProjList();
-    renderFaGrid();
+    renderFaList();
     badge('ready','Connected');
-    setStatus('ready','Ready — select a project or gallery to edit, then Save & Publish.');
+    setStatus('ready','Ready — select a section to edit, then Save & Publish.');
     document.getElementById('pub-btn').disabled = false;
   } catch(e) {
     badge('error','Error');
@@ -345,67 +378,154 @@ async function loadSite() {
   }
 }
 
-/* ═══ PARSE ═══ */
+/* ══ PARSE ══ */
 function parseAll() {
-  // Extract Dropbox constants
+  // Dropbox constants
   ['DB','RLK','DB2','RLK2','DB3','RLK3'].forEach(n => {
     const m = curHtml.match(new RegExp(`const ${n} = '([^']+)'`));
     db[n] = m ? m[1] : '';
   });
 
-  // Extract & eval PROJECTS
+  // PROJECTS
   const ps = curHtml.indexOf('const PROJECTS = {');
   const pe = curHtml.indexOf('const SKETCH_IMGS', ps);
-  const projStr = curHtml.slice(ps + 'const PROJECTS = '.length, pe).trim().replace(/;\s*$/, '');
-  const fn = new Function('DB','RLK','DB2','RLK2','DB3','RLK3','return '+projStr+';');
-  projects = fn(db.DB, db.RLK, db.DB2, db.RLK2, db.DB3, db.RLK3);
-  projectOrder = Object.keys(projects);
+  if (ps !== -1 && pe !== -1) {
+    const projStr = curHtml.slice(ps + 'const PROJECTS = '.length, pe).trim().replace(/;\s*$/, '');
+    const fn = new Function('DB','RLK','DB2','RLK2','DB3','RLK3','return '+projStr+';');
+    projects = fn(db.DB, db.RLK, db.DB2, db.RLK2, db.DB3, db.RLK3);
+    projectOrder = Object.keys(projects);
+  }
 
-  // Extract SKETCH_IMGS
+  // SKETCH_IMGS
   const skStart = curHtml.indexOf('const SKETCH_IMGS = [');
   const skEnd   = curHtml.indexOf('];', skStart) + 2;
-  const skChunk = curHtml.slice(skStart, skEnd);
   sketchImgs = [];
-   const skRx = /'([^']+)'/g;
-  let sm;
-  while ((sm = skRx.exec(skChunk)) !== null) sketchImgs.push(sm[1]);
+  if (skStart !== -1) {
+    const skChunk = curHtml.slice(skStart, skEnd);
+    const skRx = /'([^']+)'/g; let sm;
+    while ((sm = skRx.exec(skChunk)) !== null) sketchImgs.push(sm[1]);
+  }
 
-  // Extract GALLERIES
+  // GALLERIES (fix: use \n}; as end boundary)
+  faGalleries = {};
   const galStart = curHtml.indexOf('const GALLERIES = {');
-  const galEnd   = curHtml.indexOf('const SKETCH_IMGS', galStart);
-  if (galStart !== -1 && galEnd !== -1) {
-   const galStr = curHtml.slice(galStart + 'const GALLERIES = '.length, galEnd).trim().replace(/;\s*$/, '');
+  if (galStart !== -1) {
+    const galEnd = curHtml.indexOf('\n};', galStart) + 3;
+    const galStr = curHtml.slice(galStart + 'const GALLERIES = '.length, galEnd).trim().replace(/;\s*$/, '');
     try {
       const gfn = new Function('DB','RLK','DB2','RLK2','DB3','RLK3','return '+galStr+';');
       faGalleries = gfn(db.DB, db.RLK, db.DB2, db.RLK2, db.DB3, db.RLK3);
+      // Ensure bio field exists
+      Object.keys(faGalleries).forEach(k => { if (!faGalleries[k].bio) faGalleries[k].bio = ''; });
     } catch(e) { faGalleries = {}; }
   }
 
-  // Extract sketchbook band cover image
+  // STUDIO_WORKS
+  studioWorks = {}; studioOrder = [];
+  const swStart = curHtml.indexOf('const STUDIO_WORKS = {');
+  if (swStart !== -1) {
+    const swEnd = curHtml.indexOf('\n};', swStart) + 3;
+    const swStr = curHtml.slice(swStart + 'const STUDIO_WORKS = '.length, swEnd).trim().replace(/;\s*$/, '');
+    try {
+      const sfn = new Function('DB','RLK','DB2','RLK2','DB3','RLK3','return '+swStr+';');
+      studioWorks = sfn(db.DB, db.RLK, db.DB2, db.RLK2, db.DB3, db.RLK3);
+      studioOrder = Object.keys(studioWorks);
+    } catch(e) { studioWorks = {}; }
+  }
+
+  // CV_TEXT
+  cvText = '';
+  const cvM = curHtml.match(/const CV_TEXT = `([\s\S]*?)`;/);
+  if (cvM) cvText = cvM[1];
+
+  // Sketchbook cover
   const sbM = curHtml.match(/class="sketchbook-band"[^>]*>\s*<img src="([^"]+)"/);
   sketchCover = sbM ? sbM[1] : '';
 
-  // Extract gallery hero URLs (fa-entries covers)
-  galleries = [];
-  const rx = /<a class="fa-entry" href="#fineart\/([^"]+)">([\s\S]*?)<\/a>/g;
-  let m;
-  while ((m = rx.exec(curHtml)) !== null) {
-    const id    = m[1];
-    const bgM   = /fa-entry-bg[^>]+background-image:url\(['"]?([^'")\s]+)['"]?\)/.exec(m[2]);
-    const titleM = /<h2>([^<]+)<\/h2>/.exec(m[2]);
-    galleries.push({ id, title: titleM ? titleM[1] : id, heroUrl: bgM ? bgM[1] : '' });
-  }
+  // Front page hero images from home-panel panel-bg
+  heroImgs = {};
+  ['animation','illustration','fineart'].forEach(cat => {
+    const marker = `class="home-panel" href="#${cat}"`;
+    const pos = curHtml.indexOf(marker);
+    if (pos === -1) return;
+    const chunk = curHtml.slice(pos, pos + 400);
+    const bgM = chunk.match(/panel-bg[^>]*background-image:url\(['"]?([^'")\s]+)['"]?\)/);
+    if (bgM) heroImgs[cat] = bgM[1];
+  });
+
+  // Category display names from nav
+  catNames = { animation: 'Animation', illustration: 'Illustration', fineart: 'Fine Art' };
+  const navM = curHtml.match(/<a href="#animation">([^<]+)<\/a>/);
+  if (navM) catNames.animation = navM[1];
+  const illM = curHtml.match(/<a href="#illustration">([^<]+)<\/a>/);
+  if (illM) catNames.illustration = illM[1];
+  const faM = curHtml.match(/<a href="#fineart">([^<]+)<\/a>/);
+  if (faM) catNames.fineart = faM[1];
 }
 
-/* ═══ PROJECT LIST ═══ */
+/* ══ TAB SWITCHING ══ */
+function switchTab(tab, btn) {
+  document.querySelectorAll('.main-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+}
+
+/* ══ FRONT PAGE ══ */
+const CAT_LABELS = { animation: 'Animation', illustration: 'Illustration', fineart: 'Fine Art' };
+
+function renderFpHeroGrid() {
+  const grid = document.getElementById('fp-hero-grid');
+  grid.innerHTML = '';
+  ['animation','illustration','fineart'].forEach(cat => {
+    const url = heroImgs[cat] || '';
+    const name = catNames[cat] || CAT_LABELS[cat];
+    const card = document.createElement('div');
+    card.className = 'fp-hero-card';
+    card.innerHTML = `
+      <img class="fp-hero-img" id="fp-img-${cat}" src="${url ? url.replace(/raw=1/,'')+'&raw=1' : ''}" onerror="this.style.background='#2a2a2a'" ${url?'':'style="background:#1d1d1d"'}>
+      <div class="fp-hero-form">
+        <div class="fp-hero-label">
+          <span>${CAT_LABELS[cat]}</span>
+        </div>
+        <div class="fp-cat-name-row">
+          <input type="text" id="fp-name-${cat}" value="${esc(name)}" placeholder="Display name…" oninput="fpNameChange('${cat}')">
+        </div>
+        <div class="fp-url-row">
+          <input type="text" id="fp-url-${cat}" value="${esc(url)}" placeholder="Paste image URL…" oninput="fpUrlChange('${cat}')">
+          <button class="btn-secondary" onclick="fpPreview('${cat}')">Preview</button>
+        </div>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+function fpNameChange(cat) {
+  catNames[cat] = document.getElementById('fp-name-'+cat).value;
+  markDirty();
+}
+
+function fpUrlChange(cat) {
+  heroImgs[cat] = document.getElementById('fp-url-'+cat).value.trim();
+  markDirty();
+}
+
+function fpPreview(cat) {
+  const url = toRaw(document.getElementById('fp-url-'+cat).value.trim());
+  const img = document.getElementById('fp-img-'+cat);
+  if (url) { img.src = url; img.style.background = ''; }
+}
+
+/* ══ PROJECTS ══ */
 function getFiltered() {
   return projectOrder.filter(s => {
     const p = projects[s];
-    if (curFilter === 'film') return p.tags.includes('Film/Animation');
+    if (curFilter === 'film') return p.tags && p.tags.includes('Film/Animation');
     if (curFilter === 'ill')  return p.showOnIll;
     return true;
   });
 }
+
 function setFilter(f, btn) {
   curFilter = f;
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -413,29 +533,29 @@ function setFilter(f, btn) {
   if (editingSlug) saveEditorState();
   renderProjList();
 }
+
 function renderProjList() {
   const list  = document.getElementById('proj-list');
   const slugs = getFiltered();
   list.innerHTML = '';
   slugs.forEach((slug, i) => {
     const p   = projects[slug];
-  2  const div = document.createElement('div');
-    div.className = 'proj-item' + (slug === editingSlug ? ' selected' : '');
+    const div = document.createElement('div');
+    div.className = 'list-item' + (slug === editingSlug ? ' selected' : '');
     div.draggable = true;
- 2   div.dataset.slug = slug;
-    div.dataset.idx  = i;
-    const isFilm = p.tags.includes('Film/Animation');
+    div.dataset.slug = slug;
+    const isFilm = p.tags && p.tags.includes('Film/Animation');
     const isIll  = p.showOnIll;
-    div.inrHTML = `
+    div.innerHTML = `
       <span class="drag-handle" title="Drag to reorder">⠿</span>
-      <img class="proj-thumb" src="${toRaw(p.thumb)}" onerror="this.style.background='#2a2a2a'">
-      <div class="proj-info">
-        <div class="proj-name">${p.title}</div>
-        <div class="proj-badges">
+      <img class="item-thumb" src="${toRaw(p.thumb)}" onerror="this.style.background='#2a2a2a'">
+      <div class="item-info">
+        <div class="item-name">${p.title}</div>
+        <div class="item-sub">
           ${isFilm ? '<span class="badge badge-film">Film</span>' : ''}
           ${isIll  ? '<span class="badge badge-ill">Illus</span>' : ''}
         </div>
-    2 </div>`;
+      </div>`;
     div.onclick = e => { if (!e.target.classList.contains('drag-handle')) openEditor(slug); };
     div.addEventListener('dragstart', e => { listDragFrom = i; e.dataTransfer.effectAllowed = 'move'; });
     div.addEventListener('dragover',  e => { e.preventDefault(); div.classList.add('drag-over'); });
@@ -444,196 +564,424 @@ function renderProjList() {
       e.preventDefault(); div.classList.remove('drag-over');
       if (listDragFrom === null || listDragFrom === i) return;
       const filtered = getFiltered();
-     2const [moved]  = filtered.splice(listDragFrom, 1);
+      const [moved] = filtered.splice(listDragFrom, 1);
       filtered.splice(i, 0, moved);
       const remaining = projectOrder.filter(s => !filtered.includes(s));
       let fi = 0, ri = 0;
       const newOrder = [];
       projectOrder.forEach(s => {
         if (filtered.includes(s)) newOrder.push(filtered[fi++]);
-        else                      newOrder.push(remaining[ri++]);
+        else newOrder.push(remaining[ri++]);
       });
       projectOrder = newOrder;
-      listDragFrom = null;
-   2  markDirty(); renderProjList();
+      listDragFrom = null; markDirty(); renderProjList();
     });
     list.appendChild(div);
   });
 }
 
-/* ═══ PROJECT EDITOR ═══ */
 function openEditor(slug) {
   if (editingSlug && editingSlug !== slug) saveEditorState();
   editingSlug = slug;
-  const p     = projects[slug];
-  editImgs    = [...p.imgs];
-  document.getElementById('editor-empty').style.display   = 'none';
-  document.getElementById('editor-content').style.display = 'block';
-  document.getElementById('editor-heading').textContent   = p.title;
-  document.getElementById('ed-title').value      = p.title || '';
-  document.getElementById('ed-quote').value      = p.quote || '';
-  document.getElementById('ed-thumb').value      = p.thumb || '';
-  document.getElementById('ed-watch-url').value  = (p.watchUrl && p.watchUrl !== '#') ? p.watchUrl : '';
+  const p = projects[slug];
+  editImgs = [...(p.imgs || [])];
+  document.getElementById('proj-empty').style.display   = 'none';
+  document.getElementById('proj-editor').style.display  = 'block';
+  document.getElementById('proj-heading').textContent   = p.title;
+  document.getElementById('ed-title').value    = p.title || '';
+  document.getElementById('ed-quote').value    = p.quote || '';
+  document.getElementById('ed-year').value     = p.year  || '';
+  document.getElementById('ed-client').value   = p.client || '';
+  document.getElementById('ed-thumb').value    = p.thumb || '';
   const hasWatch = p.watchUrl && p.watchUrl !== '#';
-  document.getElementById('ed-watch-toggle').checked = !!hasWatch;
-  document.getElementById('watch-toggle-lbl').textContent = hasWatch ? 'Watch button visible' : 'Watch button hidden';
-  const prev    = document.getElementById('thumb-preview');
-  const rawThumb = toRaw(p.thumb);
-  if (rawThumb) { prev.src = rawThumb; prev.style.display = 'block'; } else prev.style.display = 'none';
-  renderImgsList();
-  document.querySelectorAll('.proj-item').forEach(el => {
+  document.getElementById('ed-watch-on').checked = !!hasWatch;
+  document.getElementById('watch-lbl').textContent = hasWatch ? 'Visible' : 'Hidden';
+  document.getElementById('ed-watch-url').value = hasWatch ? p.watchUrl : '';
+  // Tag toggles
+  const isFilm = p.tags && p.tags.includes('Film/Animation');
+  const isIll  = p.showOnIll;
+  document.getElementById('tag-film').classList.toggle('on', isFilm);
+  document.getElementById('tag-ill').classList.toggle('on', !!isIll);
+  // Thumb preview
+  const prev = document.getElementById('thumb-prev');
+  const rawT = toRaw(p.thumb);
+  if (rawT) { prev.src = rawT; prev.style.display = 'block'; } else prev.style.display = 'none';
+  renderProjImgsList();
+  document.querySelectorAll('#proj-list .list-item').forEach(el => {
     el.classList.toggle('selected', el.dataset.slug === slug);
   });
 }
+
 function saveEditorState() {
   if (!editingSlug) return;
   const p = projects[editingSlug];
-  p.title = document.getElementById('ed-title').value.trim() || p.title;
-  p.quote = document.getElementById('ed-quote').value.trim();
+  p.title  = document.getElementById('ed-title').value.trim() || p.title;
+  p.quote  = document.getElementById('ed-quote').value.trim();
+  p.year   = document.getElementById('ed-year').value.trim();
+  p.client = document.getElementById('ed-client').value.trim();
   const thumbVal = document.getElementById('ed-thumb').value.trim();
   if (thumbVal) p.thumb = toRaw(thumbVal);
-  const watchOn  = document.getElementById('ed-watch-toggle').checked;
- 2const watchUrl = document.getElementById('ed-watch-url').value.trim();
+  const watchOn  = document.getElementById('ed-watch-on').checked;
+  const watchUrl = document.getElementById('ed-watch-url').value.trim();
   p.watchUrl = (watchOn && watchUrl) ? toRaw(watchUrl) : '#';
+  const isFilm = document.getElementById('tag-film').classList.contains('on');
+  const isIll  = document.getElementById('tag-ill').classList.contains('on');
+  p.tags = isFilm ? ['Film/Animation'] : [];
+  p.showOnIll = isIll;
   p.imgs = editImgs.map(u => toRaw(u)).filter(Boolean);
 }
-function syncWatchToggle() {
-  const on = document.getElementById('ed-watch-toggle').checked;
-  document.getElementById('watch-toggle-lbl').textContent = on ? 'Watch button visible' : 'Watch button hidden';
+
+function toggleTag(tag) {
+  const el = document.getElementById('tag-'+tag);
+  el.classList.toggle('on');
   markDirty();
 }
+
+function syncWatchToggle() {
+  const on = document.getElementById('ed-watch-on').checked;
+  document.getElementById('watch-lbl').textContent = on ? 'Visible' : 'Hidden';
+  markDirty();
+}
+
 function previewThumb() {
   const url  = toRaw(document.getElementById('ed-thumb').value.trim());
-  const prev = document.getElementById('thumb-preview');
+  const prev = document.getElementById('thumb-prev');
   if (url) { prev.src = url; prev.style.display = 'block'; }
 }
 
-/* ═══ PROJECT IMAGE LIST ═══ */
-function renderImgsList() {
-  const list = document.getElementById('imgs-list');
+function addNewProject() {
+  if (editingSlug) saveEditorState();
+  const slug = 'new-project-' + Date.now();
+  projects[slug] = {
+    title: 'New Project', tags: [], deliverables: [], quote: '', year: '', client: '',
+    watchUrl: '#', thumb: '', imgs: [], showOnIll: false, next: ''
+  };
+  projectOrder.unshift(slug);
+  markDirty(); renderProjList(); openEditor(slug);
+}
+
+function deleteProject() {
+  if (!editingSlug) return;
+  if (!confirm('Delete "' + projects[editingSlug].title + '"? This cannot be undone.')) return;
+  projectOrder = projectOrder.filter(s => s !== editingSlug);
+  delete projects[editingSlug];
+  editingSlug = null;
+  document.getElementById('proj-empty').style.display  = 'block';
+  document.getElementById('proj-editor').style.display = 'none';
+  markDirty(); renderProjList();
+}
+
+/* ══ PROJECT IMAGE LIST ══ */
+function renderProjImgsList() {
+  const list = document.getElementById('proj-imgs-list');
   list.innerHTML = '';
   editImgs.forEach((url, i) => {
-    const div  = document.createElement('div');
+    const div = document.createElement('div');
     div.className = 'img-item';
-   2div.draggable = true;
+    div.draggable = true;
     const raw  = toRaw(url);
     const name = url.split('/').pop().split('?')[0].replace(/%20/g,' ').slice(0,40);
     div.innerHTML = `
-      <span class="img-drag" title="Drag to reorder">⠿</span>
+      <span class="img-drag">⠿</span>
       <img class="img-thumb" src="${raw}" onerror="this.style.background='#2a2a2a'">
       <span class="img-name" title="${name}">${name}</span>
-      <button class="img-del" onclick="removeImage(${i})" title="Remove">✕</button>`;
+      <button class="img-del" onclick="removeProjImg(${i})">✕</button>`;
     div.addEventListener('dragstart', e => { imgDragFrom = i; e.dataTransfer.effectAllowed = 'move'; });
     div.addEventListener('dragover',  e => { e.preventDefault(); div.classList.add('drag-over'); });
     div.addEventListener('dragleave', () => div.classList.remove('drag-over'));
     div.addEventListener('drop', e => {
       e.preventDefault(); div.classList.remove('drag-over');
       if (imgDragFrom === null || imgDragFrom === i) return;
-      const [moved] = editImgs.splice(imgDragFrom, 1);
-      editImgs.splice(i, 0, moved);
-      imgDragFrom = null; markDirty(); renderImgsList();
+      const [mv] = editImgs.splice(imgDragFrom, 1);
+      editImgs.splice(i, 0, mv);
+      imgDragFrom = null; markDirty(); renderProjImgsList();
     });
     list.appendChild(div);
   });
 }
-function addImage() {
-  const inp = document.getElementById('new-img-url');
+function addProjImg() {
+  const inp = document.getElementById('proj-new-img');
   const url = inp.value.trim();
   if (!url) return;
-  editImgs.push(url); inp.value = ''; markDirty(); renderImgsList();
+  editImgs.push(url); inp.value = ''; markDirty(); renderProjImgsList();
 }
-function removeImage(i) { editImgs.splice(i,1); markDirty(); renderImgsList(); }
+function removeProjImg(i) { editImgs.splice(i,1); markDirty(); renderProjImgsList(); }
 
-/* ═══ FINE ART TAB — GALLERY LIST ═══ */
-function renderFaGrid() {
-  const grid = document.getElementById('fa-grid');
-  grid.innerHTML = '';
+/* ══ FINE ART LIST ══ */
+function renderFaList() {
+  const list = document.getElementById('fa-list');
+  list.innerHTML = '';
 
-  // Fine art galleries (figure, pleinair, studies)
-  const galKeys = Object.keys(faGalleries);
-  galKeys.forEach(id => {
+  // Category Photos section
+  const covHead = document.createElement('div');
+  covHead.className = 'list-section-head';
+  covHead.textContent = 'Category Photos';
+  list.appendChild(covHead);
+
+  const covItem = document.createElement('div');
+  covItem.className = 'list-item' + (faMode === 'covers' ? ' selected' : '');
+  covItem.innerHTML = `<div class="item-info"><div class="item-name">Edit FA Category Covers</div><div class="item-sub" style="font-size:.7rem;color:#555">Figure, Plein Air, Studies</div></div>`;
+  covItem.onclick = () => openFaMode('covers');
+  list.appendChild(covItem);
+
+  // Gallery section
+  const galHead = document.createElement('div');
+  galHead.className = 'list-section-head';
+  galHead.textContent = 'Galleries';
+  list.appendChild(galHead);
+
+  Object.keys(faGalleries).forEach(id => {
     const fg   = faGalleries[id];
-    const gMeta = galleries.find(x => x.id === id) || { heroUrl: '' };
-    const raw  = toRaw(gMeta.heroUrl);
- 2  const card = document.createElement('div');
-    card.className = 'fa-card' + (faEditId === id ? ' selected' : '');
-    card.innerHTML = `
-      <div class="fa-preview" style="${raw ? "background-image:url('"+raw+"')" : ''}">
-        <span class="fa-preview-lbl">Cover</span>
-      </div>
-      <div class="fa-body">
-        <div class="fa-title">${fg.title}</div>
-        <div class="fa-img-count">${fg.imgs.length} image${fg.imgs.length !== 1 ? 's' : ''}</div>
+    const item = document.createElement('div');
+    const modeKey = 'gallery:'+id;
+    item.className = 'list-item' + (faMode === modeKey ? ' selected' : '');
+    item.innerHTML = `
+      <div class="item-info">
+        <div class="item-name">${fg.title}</div>
+        <div class="item-sub" style="font-size:.7rem;color:#555">${fg.imgs.length} images${fg.bio ? ' · bio' : ''}</div>
       </div>`;
-    card.onclick = () => openFaEditor(id);
-    grid.appendChild(card);
+  2 item.onclick = () => openFaMode(modeKey);
+    list.appendChild(item);
   });
 
-  // Sketchbook card
-  const sbRaw  = toRaw(sketchCover);
-  const sbCard = document.createElement('div');
-  sbCard.className = 'fa-card' + (faEditId === 'sketchbook' ? ' selected' : '');
-  sbCard.innerHTML = `
-    <div class="fa-preview" style="${sbRaw ? "background-image:url('"+sbRaw+"')" : ''}">
-      <span class="fa-preview-lbl">Cover</span>
-    </div>
-    <div class="fa-body">
-      <div class="fa-title">Sketchbook</div>
-      <div class="fa-img-count">${sketchImgs.length} image${sketchImgs.length !== 1 ? 's' : ''}</div>
+  // Studio Work section
+  const swHead = document.createElement('div');
+  swHead.className = 'list-section-head';
+  swHead.innerHTML = 'Studio Work <button class="btn-add-sm" onclick="addStudioGallery(event)">+ Add</button>';
+  list.appendChild(swHead);
+
+  studioOrder.forEach(slug => {
+    const sw   = studioWorks[slug];
+    const item = document.createElement('div');
+    const modeKey = 'studio:'+slug;
+    item.className = 'list-item' + (faMode === modeKey ? ' selected' : '');
+    item.innerHTML = `
+      <div class="item-info">
+        <div class="item-name">${sw.title || 'Untitled'}</div>
+        <div class="item-sub" style="font-size:.7rem;color:#555">${sw.imgs.length} images</div>
+      </div>
+      <button class="studio-del-btn" onclick="deleteStudio(event,'${slug}')">✕</button>`;
+    item.onclick = e => { if (!e.target.classList.contains('studio-del-btn')) openFaMode(modeKey); };
+    list.appendChild(item);
+  });
+
+  // CV section
+  const cvHead = document.createElement('div');
+  cvHead.className = 'list-section-head';
+  cvHead.textContent = 'CV';
+  list.appendChild(cvHead);
+
+  const cvItem = document.createElement('div');
+  cvItem.className = 'list-item' + (faMode === 'cv' ? ' selected' : '');
+  cvItem.innerHTML = `<div class="item-info"><div class="item-name">CV / Exhibitions</div></div>`;
+  cvItem.onclick = () => openFaMode('cv');
+  list.appendChild(cvItem);
+
+  // Sketchbook section
+  const sbHead = document.createElement('div');
+  sbHead.className = 'list-section-head';
+  sbHead.textContent = 'Sketchbook';
+  list.appendChild(sbHead);
+
+  const sbItem = document.createElement('div');
+  sbItem.className = 'list-item' + (faMode === 'sketchbook' ? ' selected' : '');
+  sbItem.innerHTML = `
+    <div class="item-info">
+      <div class="item-name">Sketchbook</div>
+      <div class="item-sub" style="font-size:.7rem;color:#555">${sketchImgs.length} images</div>
     </div>`;
-  sbCard.onclick = () => openFaEditor('sketchbook');
-  grid.appendChild(sbCard);
+  sbItem.onclick = () => openFaMode('sketchbook');
+  list.appendChild(sbItem);
 }
 
-/* ═══ FINE ART EDITOR ═══ */
-function openFaEditor(id) {
-  if (faEditId && faEditId !== id) saveFaEditorState();
-  faEditId = id;
+/* ══ FINE ART EDITOR ══ */
+function openFaMode(mode) {
+  saveFaState(); // save current before switching
+  faMode = mode;
+  renderFaList();
 
-  document.getElementById('fa-editor-empty').style.display   = 'none';
-  document.getElementById('fa-editor-content').style.display = 'block';
+  const empty   = document.getElementById('fa-empty');
+  const editor  = document.getElementById('fa-editor');
+  empty.style.display  = 'none';
+  editor.style.display = 'block';
+  editor.innerHTML     = '';
 
-  if (id === 'sketchbook') {
-    document.getElementById('fa-editor-heading').textContent = 'Sketchbook';
-    document.getElementById('fa-cover-url').value = sketchCover;
-    faEditImgs = [...sketchImgs];
-  } else {
-    const gMeta = galleries.find(x => x.id === id) || { heroUrl: '' };
-    document.getElementById('fa-editor-heading').textContent = faGalleries[id].title;
-    document.getElementById('fa-cover-url').value = gMeta.heroUrl;
-    faEditImgs = [...(faGalleries[id].imgs || [])];
-  }
-
-  const coverRaw = toRaw(document.getElementById('fa-cover-url').value);
-  const prev     = document.getElementById('fa-cover-preview');
-  if (coverRaw) { prev.src = coverRaw; prev.style.display = 'block'; } else prev.style.display = 'none';
-
-  renderFaImgsList();
-  renderFaGrid();
-}
-
-function saveFaEditorState() {
-  if (!faEditId) return;
-  const coverUrl = document.getElementById('fa-cover-url').value.trim();
-  if (faEditId === 'sketchbook') {
-    sketchCover = coverUrl;
-    sketchImgs  = faEditImgs.map(u => toRaw(u)).filter(Boolean);
-  } else {
-    const gMeta = galleries.find(x => x.id === faEditId);
-    if (gMeta) gMeta.heroUrl = coverUrl;
-    if (faGalleries[faEditId]) faGalleries[faEditId].imgs = faEditImgs.map(u => toRaw(u)).filter(Boolean);
+  if (mode === 'covers') {
+    renderCoverEditor(editor);
+  } else if (mode.startsWith('gallery:')) {
+    renderGalleryEditor(editor, mode.slice(8));
+  } else if (mode.startsWith('studio:')) {
+    renderStudioEditor(editor, mode.slice(7));
+  } else if (mode === 'cv') {
+    renderCvEditor(editor);
+  } else if (mode === 'sketchbook') {
+    renderSketchbookEditor(editor);
   }
 }
 
-function previewFaCover() {
-  const url  = toRaw(document.getElementById('fa-cover-url').value.trim());
-  const prev = document.getElementById('fa-cover-preview');
+function saveFaState() {
+  if (!faMode) return;
+  if (faMode === 'covers') {
+    // covers saved inline via fpPreview/oninput
+  } else if (faMode.startsWith('gallery:')) {
+    const id = faMode.slice(8);
+    const bioEl  = document.getElementById('fa-bio');
+    const covEl  = document.getElementById('fa-cover-url');
+    if (faGalleries[id]) {
+      if (bioEl)  faGalleries[id].bio  = bioEl.value.trim();
+      if (covEl) {
+        // update galleries cover via hero
+        const gal = window._galCovers || {};
+        gal[id] = covEl.value.trim();
+        window._galCovers = gal;
+      }
+    }
+    faGalleries[id].imgs = faEditImgs.map(u => toRaw(u)).filter(Boolean);
+  } else if (faMode.startsWith('studio:')) {
+    const slug = faMode.slice(7);
+    const titleEl = document.getElementById('sw-title');
+    const bioEl   = document.getElementById('sw-bio');
+    if (studioWorks[slug]) {
+      if (titleEl) studioWorks[slug].title = titleEl.value.trim();
+      if (bioEl)   studioWorks[slug].bio   = bioEl.value.trim();
+      studioWorks[slug].imgs = faEditImgs.map(u => toRaw(u)).filter(Boolean);
+    }
+  } else if (faMode === 'cv') {
+    const cvEl = document.getElementById('cv-text');
+    if (cvEl) cvText = cvEl.value;
+  } else if (faMode === 'sketchbook') {
+    const covEl = document.getElementById('sb-cover-url');
+    if (covEl) sketchCover = covEl.value.trim();
+    sketchImgs = faEditImgs.map(u => toRaw(u)).filter(Boolean);
+  }
+}
+
+/* ── Cover Photos Editor ── */
+function renderCoverEditor(el) {
+  // Show 3 FA entry cover editors (figure, pleinair, studies)
+  el.innerHTML = '<div class="editor-heading">Category Cover Photos</div>';
+  // We read covers from the fa-entry background-images in the HTML
+  // Parse current covers from curHtml
+  const covers = {};
+  Object.keys(faGalleries).forEach(id => {
+    const rx = new RegExp(`class="fa-entry" href="#fineart/${id}">[\\s\\S]{0,300}?fa-entry-bg[^>]+background-image:url\\(['"]?([^'"\\)]+)['"]?\\)`);
+    const m = curHtml.match(rx);
+    covers[id] = m ? m[1] : '';
+  });
+  window._galCovers = covers;
+
+  Object.keys(faGalleries).forEach(id => {
+    const fg  = faGalleries[id];
+    const url = covers[id] || '';
+    const div = document.createElement('div');
+    div.style.cssText = 'margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid #222';
+    div.innerHTML = `
+      <div class="field-row" style="margin-bottom:8px">
+        <label style="font-size:.82rem;color:#e8d5a3;font-weight:600">${fg.title}</label>
+        <div class="thumb-row" style="margin-top:6px">
+          <input type="text" id="cover-url-${id}" value="${esc(url)}" placeholder="Paste image URL…" oninput="markDirty()">
+          <button class="btn-secondary" onclick="previewCover('${id}')">Preview</button>
+          <img id="cover-prev-${id}" class="thumb-preview" src="${toRaw(url)}" ${url?'style="display:block"':''}>
+        </div>
+      </div>`;
+    el.appendChild(div);
+  });
+}
+
+function previewCover(id) {
+  const url  = toRaw(document.getElementById('cover-url-'+id).value.trim());
+  const prev = document.getElementById('cover-prev-'+id);
   if (url) { prev.src = url; prev.style.display = 'block'; }
 }
 
-/* ═══ FINE ART IMAGE LIST ═══ */
+/* ── Gallery Editor (Figure, Plein Air, Studies) ── */
+function renderGalleryEditor(el, id) {
+  const fg = faGalleries[id];
+  faEditImgs = [...(fg.imgs || [])];
+  el.innerHTML = `
+    <div class="editor-heading">${fg.title}</div>
+    <div class="field-row">
+      <label>Bio / Artist Statement</label>
+      <textarea id="fa-bio" oninput="markDirty()" style="min-height:100px">${esc2(fg.bio || '')}</textarea>
+    </div>
+    <hr class="divider">
+    <div class="imgs-section-head"><span>Gallery Images (drag to reorder)</span></div>
+    <div class="add-img-row">
+      <input type="text" id="fa-new-img" placeholder="Paste image URL…">
+      <button class="btn-secondary" onclick="addFaImg()">+ Add</button>
+    </div>
+    <div class="img-list" id="fa-imgs-list"></div>`;
+  renderFaImgsList();
+}
+
+/* ── Studio Work Editor ── */
+function renderStudioEditor(el, slug) {
+  const sw = studioWorks[slug];
+  faEditImgs = [...(sw.imgs || [])];
+  el.innerHTML = `
+    <div class="editor-heading">Studio Work Gallery</div>
+    <div class="field-row">
+      <label>Gallery Title</label>
+      <input type="text" id="sw-title" value="${esc(sw.title||'')}" oninput="markDirty()">
+    </div>
+    <div class="field-row">
+      <label>Bio / Description</label>
+      <textarea id="sw-bio" oninput="markDirty()" style="min-height:100px">${esc2(sw.bio||'')}</textarea>
+    </div>
+    <hr class="divider">
+    <div class="imgs-section-head"><span>Gallery Images (drag to reorder)</span></div>
+    <div class="add-img-row">
+      <input type="text" id="fa-new-img" placeholder="Paste image URL…">
+      <button class="btn-secondary" onclick="addFaImg()">+ Add</button>
+    </div>
+    <div class="img-list" id="fa-imgs-list"></div>`;
+  renderFaImgsList();
+}
+
+/* ── CV Editor ── */
+function renderCvEditor(el) {
+  const placeholder = cvText || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Add your CV / exhibition list here.';
+  el.innerHTML = `
+    <div class="editor-heading">CV / Exhibitions</div>
+    <div class="field-row cv-editor">
+      <label>Exhibition &amp; Show History</label>
+      <textarea id="cv-text" oninput="markDirty()">${esc2(placeholder)}</textarea>
+    </div>`;
+}
+
+/* ── Sketchbook Editor ── */
+function renderSketchbookEditor(el) {
+  faEditImgs = [...sketchImgs];
+  el.innerHTML = `
+    <div class="editor-heading">Sketchbook</div>
+    <div class="field-row">
+  2   <label>Cover Photo</label>
+      <div class="thumb-row">
+        <input type="text" id="sb-cover-url" value="${esc(sketchCover)}" placeholder="Paste image URL…" oninput="markDirty()">
+        <button class="btn-secondary" onclick="previewSbCover()">Preview</button>
+        <img id="sb-cover-prev" class="thumb-preview" src="${toRaw(sketchCover)}" ${sketchCover?'style="display:block"':''}>
+      </div>
+    </div>
+    <hr class="divider">
+    <div class="imgs-section-head"><span>Gallery Images (drag to reorder)</span></div>
+    <div class="add-img-row">
+      <input type="text" id="fa-new-img" placeholder="Paste image URL…">
+      <button class="btn-secondary" onclick="addFaImg()">+ Add</button>
+    </div>
+    <div class="img-list" id="fa-imgs-list"></div>`;
+  renderFaImgsList();
+}
+
+function previewSbCover() {
+  const url  = toRaw(document.getElementById('sb-cover-url').value.trim());
+  const prev = document.getElementById('sb-cover-prev');
+  if (url) { prev.src = url; prev.style.display = 'block'; }
+}
+
+/* ── FA Image List ── */
 function renderFaImgsList() {
   const list = document.getElementById('fa-imgs-list');
+  if (!list) return;
   list.innerHTML = '';
   faEditImgs.forEach((url, i) => {
     const div  = document.createElement('div');
@@ -642,45 +990,61 @@ function renderFaImgsList() {
     const raw  = toRaw(url);
     const name = url.split('/').pop().split('?')[0].replace(/%20/g,' ').slice(0,40);
     div.innerHTML = `
-      <span class="img-drag" title="Drag to reorder">⠿</span>
+      <span class="img-drag">⠿</span>
       <img class="img-thumb" src="${raw}" onerror="this.style.background='#2a2a2a'">
-      <span class="img-name" title="${name}">${name}</span>
-      <button class="img-del" onclick="removeFaImage(${i})" title="Remove">✕</button>`;
+      <span class="img-name">${name}</span>
+      <button class="img-del" onclick="removeFaImg(${i})">✕</button>`;
     div.addEventListener('dragstart', e => { faImgDragFrom = i; e.dataTransfer.effectAllowed = 'move'; });
     div.addEventListener('dragover',  e => { e.preventDefault(); div.classList.add('drag-over'); });
     div.addEventListener('dragleave', () => div.classList.remove('drag-over'));
     div.addEventListener('drop', e => {
       e.preventDefault(); div.classList.remove('drag-over');
       if (faImgDragFrom === null || faImgDragFrom === i) return;
-      const [moved] = faEditImgs.splice(faImgDragFrom, 1);
-      faEditImgs.splice(i, 0, moved);
+      const [mv] = faEditImgs.splice(faImgDragFrom, 1);
+      faEditImgs.splice(i, 0, mv);
       faImgDragFrom = null; markDirty(); renderFaImgsList();
     });
     list.appendChild(div);
   });
 }
-function addFaImage() {
-  const inp = document.getElementById('fa-new-img-url');
+function addFaImg() {
+  const inp = document.getElementById('fa-new-img');
   const url = inp.value.trim();
   if (!url) return;
   faEditImgs.push(url); inp.value = ''; markDirty(); renderFaImgsList();
 }
-function removeFaImage(i) { faEditImgs.splice(i,1); markDirty(); renderFaImgsList(); }
+function removeFaImg(i) { faEditImgs.splice(i,1); markDirty(); renderFaImgsList(); }
 
-/* ═══ TAB SWITCHING ═══ */
-function switchMainTab(tab, btn) {
-  document.querySelectorAll('.main-tab').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('tab-projects').style.display = tab === 'projects' ? 'flex' : 'none';
-  document.getElementById('tab-fineart').style.display  = tab === 'fineart'  ? 'flex' : 'none';
+/* ── Studio Work management ── */
+function addStudioGallery(e) {
+  e.stopPropagation();
+  const slug = 'studio-' + Date.now();
+  studioWorks[slug] = { title: 'New Gallery', bio: '', imgs: [] };
+  studioOrder.push(slug);
+  markDirty(); renderFaList(); openFaMode('studio:'+slug);
+}
+function deleteStudio(e, slug) {
+  e.stopPropagation();
+  if (!confirm('Delete "' + (studioWorks[slug]?.title || 'this gallery') + '"?')) return;
+  studioOrder = studioOrder.filter(s => s !== slug);
+  delete studioWorks[slug];
+  if (faMode === 'studio:'+slug) {
+    faMode = null;
+    document.getElementById('fa-empty').style.display  = 'block';
+    document.getElementById('fa-editor').style.display = 'none';
+  }
+  markDirty(); renderFaList();
 }
 
-/* ═══ SAVE ═══ */
+/* ══ SAVE ══ */
 function markDirty() { dirty = true; }
 
 async function saveChanges() {
-  if (editingSlug) saveEditorState();
-  if (faEditId)    saveFaEditorState();
+  // Flush all editors
+  if (editingSlug)     saveEditorState();
+  saveFaState();
+  // Flush cover editors if on cover mode
+  if (faMode === 'covers') flushCoverEditors();
 
   const btn = document.getElementById('pub-btn');
   btn.disabled = true;
@@ -706,6 +1070,13 @@ async function saveChanges() {
   }
 }
 
+function flushCoverEditors() {
+  Object.keys(faGalleries).forEach(id => {
+    const el = document.getElementById('cover-url-'+id);
+    if (el && window._galCovers) window._galCovers[id] = el.value.trim();
+  });
+}
+
 function deployCountdown(btn) {
   let s = 65;
   const tick = () => {
@@ -716,7 +1087,7 @@ function deployCountdown(btn) {
   tick();
 }
 
-/* ═══ BUILD UPDATED HTML ═══ */
+/* ══ BUILD HTML ══ */
 function buildUpdatedHtml() {
   let html = curHtml;
 
@@ -725,7 +1096,7 @@ function buildUpdatedHtml() {
   const watchNew = " ${p.watchUrl && p.watchUrl !== '#' ? `<a class=\"cs-watch\" href=\"${p.watchUrl}\" target=\"_blank\" rel=\"noopener\">Watch Now</a>` : ''}";
   if (html.includes(watchOld)) html = html.replace(watchOld, watchNew);
 
-  // Update PROJECTS block
+  // PROJECTS block
   const ps = html.indexOf('const PROJECTS = {');
   const pe = html.indexOf('const SKETCH_IMGS', ps);
   if (ps !== -1 && pe !== -1) {
@@ -733,36 +1104,87 @@ function buildUpdatedHtml() {
     html = html.slice(0, ps) + serializeProjects() + ';\n\n' + html.slice(pe);
   }
 
-  // Update GALLERIES block
-  const galStart = html.indexOf('const GALLERIES = {');
-  const galEnd   = html.indexOf('const SKETCH_IMGS', galStart);
-  if (galStart !== -1 && galEnd !== -1) {
-    html = html.slice(0, galStart) + serializeGalleries() + ';\n\n' + html.slice(galEnd);
-  }
-
-  // Update SKETCH_IMGS block
+  // SKETCH_IMGS block
   const skStart = html.indexOf('const SKETCH_IMGS = [');
   const skEnd   = html.indexOf('];', skStart) + 2;
   if (skStart !== -1 && skEnd !== -1) {
-    html = html.slice(0, skStart) + serializeSketchImgs() + html.slice(skEnd);
+ 2  html = html.slice(0, skStart) + serializeSketchImgs() + html.slice(skEnd);
   }
 
-  // Update fa-entry cover photos
-  galleries.forEach(g => {
-    const rawUrl = toRaw(g.heroUrl);
+  // GALLERIES block (bio + imgs)
+  const galStart = html.indexOf('const GALLERIES = {');
+  if (galStart !== -1) {
+    const galEnd = html.indexOf('\n};', galStart) + 3;
+    const newGal = serializeGalleries();
+    const afterGal = html.slice(galEnd);
+    html = html.slice(0, galStart) + newGal + ';\n' + afterGal;
+  }
+
+  // STUDIO_WORKS block
+  const swStart = html.indexOf('const STUDIO_WORKS = {');
+  if (swStart !== -1) {
+    const swEnd = html.indexOf('\n};', swStart) + 3;
+    html = html.slice(0, swStart) + serializeStudioWorks() + ';\n' + html.slice(swEnd);
+  } else {
+    // Insert after GALLERIES
+    const insertAfter = html.indexOf('const GALLERIES = {');
+    if (insertAfter !== -1) {
+      const insertPos = html.indexOf('\n};', insertAfter) + 3;
+      html = html.slice(0, insertPos) + '\n\n' + serializeStudioWorks() + ';\n' + html.slice(insertPos);
+    }
+  }
+
+  // CV_TEXT block
+  const cvMatch = html.match(/const CV_TEXT = `[\s\S]*?`;/);
+  if (cvMatch) {
+    html = html.replace(cvMatch[0], serializeCvText());
+  } else {
+    // Insert near end of script
+    const scriptEnd = html.lastIndexOf('</script>');
+    if (scriptEnd !== -1) {
+      html = html.slice(0, scriptEnd) + serializeCvText() + ';\n' + html.slice(scriptEnd);
+    }
+  }
+
+  // Update fa-entry cover photos from _galCovers
+  const covers = window._galCovers || {};
+  Object.keys(faGalleries).forEach(id => {
+    const rawUrl = toRaw(covers[id] || '');
     if (!rawUrl) return;
-    const rx = new RegExp(`(<a class="fa-entry" href="#fineart/${escRx(g.id)}">[\\s\\S]{0,300}?fa-entry-bg[^>]+background-image:url\\(')([^'"]+)(')`, 'g');
+    const rx = new RegExp(`(<a class="fa-entry" href="#fineart/${escRx(id)}">[\\s\\S]{0,300}?fa-entry-bg[^>]+background-image:url\\(')([^'"]+)(')`, 'g');
     html = html.replace(rx, `$1${rawUrl}$3`);
   });
 
   // Update sketchbook band cover image
   const sbRaw = toRaw(sketchCover);
   if (sbRaw) {
-    html = html.replace(
-      /(class="sketchbook-band"[^>]*>\s*<img src=")[^"]+(")/,
-      `$1${sbRaw}$2`
-    );
+    html = html.replace(/(class="sketchbook-band"[^>]*>\s*<img src=")[^"]+(")/,`$1${sbRaw}$2`);
   }
+
+  // Update front page panel-bg background images
+  ['animation','illustration','fineart'].forEach(cat => {
+    const url = toRaw(heroImgs[cat] || '');
+   2if (!url) return;
+    const rx = new RegExp(`(class="home-panel" href="#${cat}">[\\s\\S]{0,200}?panel-bg[^>]*background-image:url\\(')([^'"]+)(')`);
+    html = html.replace(rx, `$1${url}$3`);
+  });
+
+  // Update category display names
+  ['animation','illustration','fineart'].forEach(cat => {
+    const newName = catNames[cat];
+    if (!newName) return;
+    // Sidebar nav + mobile nav
+    const anchorRx = new RegExp(`(<a[^>]+href="#${cat}"[^>]*>)[^<]+(</a>)`, 'g');
+    html = html.replace(anchorRx, `$1${newName}$2`);
+    // Home panel h2
+    if (cat !== 'fineart') {
+      const h2Rx = new RegExp(`(class="home-panel" href="#${cat}">[\\s\\S]{0,300}?<h2>)[^<]+(</h2>)`);
+      html = html.replace(h2Rx, `$1${newName}$2`);
+    }
+    // Section h1
+    const secRx = new RegExp(`(<section[^>]+id="page-${cat}"[^>]*>[\\s\\S]{0,400}?<h1>)[^<]+(</h1>)`);
+    html = html.replace(secRx, `$1${newName}$2`);
+  });
 
   return html;
 }
@@ -774,10 +1196,10 @@ function rebuildNext() {
 function serializeProjects() {
   const entries = projectOrder.map(slug => {
     const p = projects[slug];
-    const tagsCode  = p.tags.map(t => `'${esc(t)}'`).join(', ');
-    const delivCode = p.deliverables.map(d => `'${esc(d)}'`).join(', ');
+    const tagsCode  = (p.tags||[]).map(t => `'${esc(t)}'`).join(', ');
+    const delivCode = (p.deliverables||[]).map(d => `'${esc(d)}'`).join(', ');
     const thumbCode = urlToCode(p.thumb);
-    const imgsLines = p.imgs.length ? p.imgs.map(u => '    '+urlToCode(u)).join(',\n') : '';
+    const imgsLines = (p.imgs||[]).length ? (p.imgs||[]).map(u => '    '+urlToCode(u)).join(',\n') : '';
     return `  ${slug}: {
     title: ${JSON.stringify(p.title)},
     tags: [${tagsCode}],
@@ -788,7 +1210,7 @@ function serializeProjects() {
     watchUrl: ${JSON.stringify(p.watchUrl || '#')},
     thumb: ${thumbCode},
     imgs: [
-${imgsLines}${p.imgs.length ? ',' : ''}
+${imgsLines}${(p.imgs||[]).length ? ',' : ''}
     ],
     showOnIll: ${!!p.showOnIll},
     next: '${esc(p.next || '')}',
@@ -800,17 +1222,31 @@ ${imgsLines}${p.imgs.length ? ',' : ''}
 function serializeGalleries() {
   const entries = Object.keys(faGalleries).map(id => {
     const g = faGalleries[id];
-    const imgsLines = g.imgs.length
-      ? g.imgs.map(u => '    '+urlToCode(u)).join(',\n')
-      : '';
+    const imgsLines = (g.imgs||[]).length ? (g.imgs||[]).map(u => '    '+urlToCode(u)).join(',\n') : '';
     return `  ${id}: {
     title: '${esc(g.title)}',
+    bio: ${JSON.stringify(g.bio || '')},
     imgs: [
-${imgsLines}${g.imgs.length ? ',' : ''}
+${imgsLines}${(g.imgs||[]).length ? ',' : ''}
     ],
   }`;
   }).join(',\n');
   return `const GALLERIES = {\n${entries}\n}`;
+}
+
+function serializeStudioWorks() {
+  const entries = studioOrder.map(slug => {
+    const sw = studioWorks[slug];
+    const imgsLines = (sw.imgs||[]).length ? (sw.imgs||[]).map(u => '    '+urlToCode(u)).join(',\n') : '';
+    return `  '${esc(slug)}': {
+    title: ${JSON.stringify(sw.title || '')},
+    bio: ${JSON.stringify(sw.bio || '')},
+    imgs: [
+${imgsLines}${(sw.imgs||[]).length ? ',' : ''}
+    ],
+  }`;
+  }).join(',\n');
+  return `const STUDIO_WORKS = {\n${entries}\n}`;
 }
 
 function serializeSketchImgs() {
@@ -818,7 +1254,11 @@ function serializeSketchImgs() {
   return `const SKETCH_IMGS = [\n${items}\n];`;
 }
 
-/* ═══ URL HELPERS ═══ */
+function serializeCvText() {
+  return 'const CV_TEXT = `' + cvText.replace(/`/g,'\\`') + '`';
+}
+
+/* ══ URL HELPERS ══ */
 function toRaw(url) {
   if (!url) return '';
   url = url.replace(/[?&]dl=\d/g,'').replace(/[?&]st=[^&]*/g,'').replace(/[?&]+$/g,'');
@@ -841,6 +1281,7 @@ function urlToCode(url) {
   return `'${url.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}'`;
 }
 function esc(s)   { return (s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
+function esc2(s)  { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function escRx(s) { return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); }
 function setStatus(state, msg) {
   document.getElementById('s-dot').className = 's-dot '+state;
@@ -848,8 +1289,7 @@ function setStatus(state, msg) {
 }
 function badge(state, text) {
   const el = document.getElementById('conn-badge');
-  el.textContent = text;
-  el.className   = 'conn-badge '+state;
+  el.textContent = text; el.className = 'conn-badge '+state;
 }
 async function ghFetch(method, url, body) {
   const opts = { method, headers: { Authorization:`token ${ghToken}`, Accept:'application/vnd.github.v3+json', 'Content-Type':'application/json' } };
