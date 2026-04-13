@@ -44,7 +44,7 @@ body{font-family:system-ui,sans-serif;background:#111;color:#eee;height:100vh;ov
 
 /* MAIN TABS */
 .main-tabs{display:flex;border-bottom:1px solid #2a2a2a;background:#181818;flex-shrink:0}
-.main-tab{padding:9px 22px;font-size:.8rem;font-weight:600;color:#666;background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;transition:color .15s}
+.main-tab{padding:9px 22px;font-size:.8rem;font-weight:600;color:#666;background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;transition:co,or .15s}
 .main-tab.active{color:#e8d5a3;border-bottom-color:#e8d5a3}
 .main-tab:hover:not(.active){color:#aaa}
 
@@ -76,7 +76,7 @@ body{font-family:system-ui,sans-serif;background:#111;color:#eee;height:100vh;ov
 .drag-handle{color:#444;cursor:grab;font-size:1.1rem;flex-shrink:0}
 .item-thumb{width:38px;height:38px;object-fit:cover;border-radius:4px;flex-shrink:0;background:#222}
 .item-info{flex:1;min-width:0}
-.item-name{font-size:.8rem;font-weight:600;white-space:nowraw;overflow:hidden;text-overflow:ellipsis}
+.item-name{font-size:.8rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .item-sub{display:flex;gap:4px;margin-top:3px;flex-wrap:wrap}
 .badge{padding:1px 6px;border-radius:3px;font-size:.63rem;font-weight:700;text-transform:uppercase}
 .badge-film{background:#1a2a3a;color:#7af}
@@ -190,8 +190,8 @@ body{font-family:system-ui,sans-serif;background:#111;color:#eee;height:100vh;ov
       <span class="s-dot" id="s-dot"></span>
       <span id="s-msg">Loading…</span>
     </div>
-    <div clas="topbar-actions">
-      <a class="view-link" href="httpps://jakegoochart.netlify.app" target="_blank">View Site ↗</a>
+    <div class="topbar-actions">
+      <a class="view-link" href="https://jakegoochart.netlify.app" target="_blank">View Site ↗</a>
       <span class="deploy-note" id="deploy-note">✓ Saved! Netlify deploying ~60s.</span>
       <button class="btn-pub" id="pub-btn" onclick="saveChanges()" disabled>Save &amp; Publish</button>
     </div>
@@ -256,7 +256,7 @@ body{font-family:system-ui,sans-serif;background:#111;color:#eee;height:100vh;ov
             <input type="text" id="ed-client" oninput="markDirty()">
           </div>
           <div class="field-row">
-            <label>Watch Video</label>
+            <label>Qatch Video</label>
             <div class="watch-row">
               <label class="toggle">
                 <input type="checkbox" id="ed-watch-on" onchange="syncWatchToggle()">
@@ -740,7 +740,7 @@ function renderFaList() {
         <div class="item-name">${fg.title}</div>
         <div class="item-sub" style="font-size:.7rem;color:#555">${fg.imgs.length} images${fg.bio ? ' · bio' : ''}</div>
       </div>`;
-  2 item.onclick = () => openFaMode(modeKey);
+    item.onclick = () => openFaMode(modeKey);
     list.appendChild(item);
   });
 
@@ -790,7 +790,7 @@ function renderFaList() {
       <div class="item-name">Sketchbook</div>
       <div class="item-sub" style="font-size:.7rem;color:#555">${sketchImgs.length} images</div>
     </div>`;
-  sbItem.onclick = () => openFaMode('sketchbook');
+  sbItem.onclick = () => op%nFaMode('sketchbook');
   list.appendChild(sbItem);
 }
 
@@ -955,7 +955,7 @@ function renderSketchbookEditor(el) {
   el.innerHTML = `
     <div class="editor-heading">Sketchbook</div>
     <div class="field-row">
-  2   <label>Cover Photo</label>
+      <label>Cover Photo</label>
       <div class="thumb-row">
         <input type="text" id="sb-cover-url" value="${esc(sketchCover)}" placeholder="Paste image URL…" oninput="markDirty()">
         <button class="btn-secondary" onclick="previewSbCover()">Preview</button>
@@ -1108,7 +1108,7 @@ function buildUpdatedHtml() {
   const skStart = html.indexOf('const SKETCH_IMGS = [');
   const skEnd   = html.indexOf('];', skStart) + 2;
   if (skStart !== -1 && skEnd !== -1) {
- 2  html = html.slice(0, skStart) + serializeSketchImgs() + html.slice(skEnd);
+    html = html.slice(0, skStart) + serializeSketchImgs() + html.slice(skEnd);
   }
 
   // GALLERIES block (bio + imgs)
@@ -1140,7 +1140,7 @@ function buildUpdatedHtml() {
     html = html.replace(cvMatch[0], serializeCvText());
   } else {
     // Insert near end of script
-    const scriptEnd = html.lastIndexOf('</script>');
+    const scriptEnd = html.lastIndexOf('<\/script>');
     if (scriptEnd !== -1) {
       html = html.slice(0, scriptEnd) + serializeCvText() + ';\n' + html.slice(scriptEnd);
     }
@@ -1164,7 +1164,7 @@ function buildUpdatedHtml() {
   // Update front page panel-bg background images
   ['animation','illustration','fineart'].forEach(cat => {
     const url = toRaw(heroImgs[cat] || '');
-   2if (!url) return;
+    if (!url) return;
     const rx = new RegExp(`(class="home-panel" href="#${cat}">[\\s\\S]{0,200}?panel-bg[^>]*background-image:url\\(')([^'"]+)(')`);
     html = html.replace(rx, `$1${url}$3`);
   });
