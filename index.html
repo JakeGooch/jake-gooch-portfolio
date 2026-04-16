@@ -3,1176 +3,541 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jake Gooch â Animator, Director, Illustrator</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+<title>Jake Gooch — Animator, Director, Illustrator</title>
 <style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-:root {
-  --black: #000;
-  --white: #fff;
-  --gray: #777;
-  --mid: #aaa;
-  --border: rgba(255,255,255,0.08);
-  --sidebar-w: 230px;
-  --pad: 60px;
-  --font-display: 'Bebas Neue', sans-serif;
-  --font-body: 'DM Sans', sans-serif;
-}
-
-html { scroll-behavior: smooth; }
-
-body {
-  background: var(--black);
-  color: var(--white);
-  font-family: var(--font-body);
-  font-size: 14px;
-  line-height: 1.6;
-  overflow-x: hidden;
-}
-
-a { color: inherit; text-decoration: none; cursor: pointer; }
-button { cursor: pointer; }
-img { display: block; }
-
-/* ââ SIDEBAR âââââââââââââââââââââââââââ */
-#sidebar {
-  position: fixed;
-  top: 0; left: 0;
-  width: var(--sidebar-w);
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  padding: 44px 36px;
-  z-index: 100;
-  border-right: 1px solid var(--border);
-  background: var(--black);
-}
-
-.sidebar-name {
-  display: flex;
-  flex-direction: column;
-  font-family: var(--font-display);
-  font-size: 38px;
-  line-height: 0.92;
-  letter-spacing: 0.015em;
-  margin-bottom: 52px;
-  transition: opacity 0.2s;
-}
-.sidebar-name:hover { opacity: 0.65; }
-
-#sidebar nav {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  flex: 1;
-}
-
-#sidebar nav a {
-  font-size: 11.5px;
-  font-weight: 400;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-  color: var(--gray);
-  padding: 7px 0;
-  border-bottom: 1px solid transparent;
-  transition: color 0.2s;
-}
-#sidebar nav a:hover,
-#sidebar nav a.active { color: var(--white); }
-
-.sidebar-footer {
-  font-size: 11px;
-  color: var(--gray);
-  letter-spacing: 0.04em;
-}
-.sidebar-footer a { transition: color 0.2s; }
-.sidebar-footer a:hover { color: var(--white); }
-
-/* ââ MOBILE HEADER âââââââââââââââââââââ */
-#mobile-header {
-  display: none;
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  height: 58px;
-  padding: 0 22px;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--black);
-  z-index: 200;
-  border-bottom: 1px solid var(--border);
-}
-#mobile-header .m-logo {
-  font-family: var(--font-display);
-  font-size: 22px;
-  letter-spacing: 0.06em;
-}
-#menu-toggle {
-  background: none;
-  border: none;
-  color: var(--white);
-  font-size: 22px;
-  line-height: 1;
-  padding: 4px;
-}
-#mobile-menu {
-  display: none;
-  position: fixed;
-  inset: 58px 0 0 0;
-  background: var(--black);
-  z-index: 180;
-  flex-direction: column;
-  padding: 40px 30px;
-  gap: 6px;
-  border-top: 1px solid var(--border);
-}
-#mobile-menu.open { display: flex; }
-#mobile-menu a {
-  font-family: var(--font-display);
-  font-size: 32px;
-  letter-spacing: 0.04em;
-  color: var(--gray);
-  padding: 8px 0;
-  border-bottom: 1px solid var(--border);
-  transition: color 0.2s;
-}
-#mobile-menu a:hover { color: var(--white); }
-
-/* ââ MAIN ââââââââââââââââââââââââââââââ */
-#main {
-  margin-left: var(--sidebar-w);
-  min-height: 100vh;
-}
-
-/* ââ PAGES âââââââââââââââââââââââââââââ */
-.page { display: none; }
-.page.active { display: block; }
-#page-home.active,
-#page-contact.active { display: flex; }
-
-/* ââ HOME ââââââââââââââââââââââââââââââ */
-#page-home {
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.home-nameplate {
-  padding: 70px var(--pad) 0;
-}
-.home-nameplate h1 {
-  font-family: var(--font-display);
-  font-size: clamp(72px, 10vw, 148px);
-  line-height: 0.88;
-  letter-spacing: -0.01em;
-}
-.home-nameplate p {
-  margin-top: 18px;
-  font-size: 13px;
-  color: var(--gray);
-  font-weight: 300;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.home-panels {
-  display: flex;
-  flex: 1;
-  min-height: 65vh;
-  margin-top: 36px;
-}
-
-.home-panel {
-  flex: 1;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: flex-end;
-  padding: 28px 30px;
-  background-size: cover;
-  background-position: center;
-  background-color: #111;
-  border-right: 1px solid rgba(0,0,0,0.6);
-  transition: flex 0.5s cubic-bezier(0.4,0,0.2,1);
-  cursor: pointer;
-}
-.home-panel:last-child { border-right: none; }
-.home-panel:hover { flex: 1.35; }
-
-.panel-bg {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  transition: transform 0.5s ease;
-}
-.home-panel:hover .panel-bg { transform: scale(1.04); }
-
-.panel-shade {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.25) 55%, rgba(0,0,0,0.12) 100%);
-  transition: background 0.3s;
-}
-.home-panel:hover .panel-shade {
-  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.15) 55%, rgba(0,0,0,0.08) 100%);
-}
-
-.panel-content {
-  position: relative;
-  z-index: 1;
-}
-.panel-num {
-  display: block;
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  color: rgba(255,255,255,0.38);
-  margin-bottom: 10px;
-}
-.panel-content h2 {
-  font-family: var(--font-display);
-  font-size: clamp(26px, 2.8vw, 46px);
-  line-height: 1;
-  letter-spacing: 0.02em;
-}
-.panel-cta {
-  display: inline-block;
-  margin-top: 12px;
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
-  transition: color 0.25s, transform 0.25s;
-}
-.home-panel:hover .panel-cta {
-  color: var(--white);
-  transform: translateX(5px);
-}
-
-/* ââ SECTION HEADER ââââââââââââââââââââ */
-.sec-head {
-  padding: 58px var(--pad) 40px;
-  border-bottom: 1px solid var(--border);
-}
-.sec-head h1 {
-  font-family: var(--font-display);
-  font-size: clamp(52px, 7vw, 96px);
-  line-height: 0.9;
-  letter-spacing: 0.01em;
-}
-.sec-head p {
-  margin-top: 14px;
-  font-size: 13px;
-  color: var(--gray);
-  font-weight: 300;
-  max-width: 480px;
-}
-
-/* ââ REEL ââââââââââââââââââââââââââââââ */
-.reel-wrap {
-  padding: 44px var(--pad);
-}
-.reel-inner {
-  position: relative;
-  padding-bottom: 56.25%;
-  height: 0;
-  overflow: hidden;
-  background: #0a0a0a;
-}
-.reel-inner iframe {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  border: none;
-}
-
-/* ââ PROJECT GRID ââââââââââââââââââââââ */
-.proj-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3px;
-}
-
-.proj-card {
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  aspect-ratio: 16/10;
-  background: #111;
-}
-.proj-card img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: transform 0.45s ease;
-}
-.proj-card:hover img { transform: scale(1.04); }
-
-.proj-card-bar {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  padding: 60px 20px 18px;
-  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-.proj-card-title {
-  font-family: var(--font-display);
-  font-size: 22px;
-  letter-spacing: 0.03em;
-}
-.proj-tags {
-  display: flex;
-  gap: 4px;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-.tag {
-  font-size: 9px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 3px 7px;
-  border: 1px solid rgba(255,255,255,0.35);
-  color: rgba(255,255,255,0.65);
-}
-
-/* ââ CASE STUDY ââââââââââââââââââââââââ */
-.cs-hero {
-  position: relative;
-  height: 72vh;
-  overflow: hidden;
-  background: #111;
-}
-.cs-hero img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-}
-.cs-hero-veil {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.32);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-#cs-title {
-  font-family: var(--font-display);
-  font-size: clamp(48px, 8vw, 104px);
-  letter-spacing: 0.015em;
-  text-align: center;
-}
-
-.cs-body {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
-  border-bottom: 1px solid var(--border);
-}
-.cs-col {
-  padding: 52px var(--pad);
-}
-.cs-col:first-child {
-  border-right: 1px solid var(--border);
-}
-.cs-col-label {
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--gray);
-  margin-bottom: 22px;
-  display: block;
-}
-.cs-deliverables {
-  list-style: none;
-}
-.cs-deliverables li {
-  font-size: 15px;
-  font-weight: 300;
-  padding: 8px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-  color: rgba(255,255,255,0.85);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.cs-deliverables li::before {
-  content: '';
-  display: inline-block;
-  width: 4px; height: 4px;
-  border-radius: 50%;
-  background: var(--gray);
-  flex-shrink: 0;
-}
-.cs-quote {
-  font-family: var(--font-display);
-  font-size: clamp(22px, 2.8vw, 38px);
-  line-height: 1.1;
-  color: rgba(255,255,255,0.9);
-  margin-bottom: 28px;
-  font-style: normal;
-}
-.cs-meta {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  align-items: center;
-}
-.cs-pill {
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 6px 14px;
-  border: 1px solid rgba(255,255,255,0.25);
-  color: rgba(255,255,255,0.6);
-}
-.cs-watch {
-  background: var(--white);
-  color: var(--black);
-  font-weight: 500;
-  font-family: var(--font-body);
-  font-size: 10px;
-  border: none;
-  padding: 6px 16px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  transition: opacity 0.2s;
-}
-.cs-watch:hover { opacity: 0.75; }
-
-.cs-imgs {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3px;
-}
-.cs-imgs img {
-  width: 100%;
-  aspect-ratio: 16/10;
-  object-fit: cover;
-  cursor: zoom-in;
-  transition: opacity 0.2s;
-}
-.cs-imgs img:hover { opacity: 0.88; }
-.cs-imgs img:only-child,
-.cs-imgs img:first-child:nth-last-child(odd):nth-child(1) {
-  grid-column: span 2;
-  aspect-ratio: 21/9;
-}
-
-/* ââ CASE STUDY NEXT PROJECT ââââââââââââ */
-.cs-next-section {
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  height: 44vh;
-  min-height: 260px;
-  display: block;
-  background: #111;
-}
-.cs-next-bg {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  transition: transform 0.55s ease;
-}
-.cs-next-section:hover .cs-next-bg { transform: scale(1.04); }
-.cs-next-veil {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to right, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.28) 100%);
-  transition: background 0.3s;
-}
-.cs-next-section:hover .cs-next-veil {
-  background: linear-gradient(to right, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.15) 100%);
-}
-.cs-next-content {
-  position: absolute;
-  bottom: 34px;
-  left: var(--pad);
-  z-index: 1;
-}
-.cs-next-eyebrow {
-  display: block;
-  font-size: 10px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.42);
-  margin-bottom: 10px;
-}
-.cs-next-title {
-  display: block;
-  font-family: var(--font-display);
-  font-size: clamp(34px, 5vw, 64px);
-  letter-spacing: 0.02em;
-  line-height: 1;
-}
-.cs-next-cta {
-  display: block;
-  margin-top: 14px;
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.38);
-  transition: color 0.25s;
-}
-.cs-next-section:hover .cs-next-cta { color: var(--white); }
-
-.cs-footer {
-  padding: 28px var(--pad);
-  border-top: 1px solid var(--border);
-}
-.cs-back {
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--gray);
-  transition: color 0.2s;
-}
-.cs-back:hover { color: var(--white); }
-
-/* ââ ILLUSTRATION ââââââââââââââââââââââ */
-.ill-projects {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3px;
-  padding: 44px var(--pad) 0;
-}
-.ill-card {
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-}
-.ill-card-img {
-  overflow: hidden;
-  aspect-ratio: 4/3;
-  background: #111;
-}
-.ill-card-img img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: transform 0.45s ease;
-}
-.ill-card:hover .ill-card-img img { transform: scale(1.04); }
-.ill-card h3 {
-  font-family: var(--font-display);
-  font-size: 22px;
-  letter-spacing: 0.03em;
-  margin-top: 14px;
-}
-.ill-card p {
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--gray);
-  margin-top: 4px;
-}
-
-.sketchbook-band {
-  margin: 44px var(--pad) 0;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  height: 180px;
-  background: #111;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.sketchbook-band img {
-  position: absolute;
-  inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: transform 0.45s ease;
-}
-.sketchbook-band:hover img { transform: scale(1.04); }
-.sketchbook-band::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.55);
-  transition: background 0.3s;
-}
-.sketchbook-band:hover::after { background: rgba(0,0,0,0.38); }
-.sketchbook-label {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  pointer-events: none;
-}
-.sketchbook-label span {
-  display: block;
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.5);
-  margin-bottom: 6px;
-}
-.sketchbook-label h2 {
-  font-family: var(--font-display);
-  font-size: 46px;
-  letter-spacing: 0.04em;
-}
-
-/* ââ MASONRY GRID ââââââââââââââââââââââ */
-.masonry {
-  padding: 36px var(--pad) 60px;
-  columns: 3;
-  column-gap: 8px;
-}
-.masonry img {
-  width: 100%;
-  margin-bottom: 8px;
-  cursor: zoom-in;
-  transition: opacity 0.2s;
-  break-inside: avoid;
-}
-.masonry img:hover { opacity: 0.84; }
-
-/* ââ GALLERY (Fine Art sub-galleries) ââ */
-.gallery-head {
-  padding: 44px var(--pad) 0;
-  display: flex;
-  align-items: baseline;
-  gap: 28px;
-}
-.gallery-head h1 {
-  font-family: var(--font-display);
-  font-size: clamp(44px, 6vw, 76px);
-  letter-spacing: 0.015em;
-  line-height: 1;
-}
-.back-link {
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--gray);
-  transition: color 0.2s;
-  cursor: pointer;
-  white-space: nowrap;
-}
-.back-link:hover { color: var(--white); }
-
-/* ââ FINE ART ââââââââââââââââââââââââââ */
-.fa-entries {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  min-height: 78vh;
-  gap: 3px;
-  margin-top: 3px;
-}
-.fa-entry {
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  background: #111;
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  align-items: flex-end;
-  padding: 28px;
-  min-height: 460px;
-}
-.fa-entry-bg {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  transition: transform 0.5s ease;
-}
-.fa-entry:hover .fa-entry-bg { transform: scale(1.04); }
-
-.fa-entry-shade {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.86) 0%, rgba(0,0,0,0.15) 65%);
-  transition: background 0.3s;
-}
-.fa-entry:hover .fa-entry-shade {
-  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.08) 65%);
-}
-.fa-entry-inner {
-  position: relative;
-  z-index: 1;
-}
-.fa-entry-num {
-  display: block;
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  color: rgba(255,255,255,0.35);
-  margin-bottom: 10px;
-}
-.fa-entry h2 {
-  font-family: var(--font-display);
-  font-size: 34px;
-  letter-spacing: 0.02em;
-}
-.fa-entry-cta {
-  display: block;
-  margin-top: 10px;
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.35);
-  transition: color 0.25s;
-}
-.fa-entry:hover .fa-entry-cta { color: var(--white); }
-
-/* ââ BIO âââââââââââââââââââââââââââââââ */
-.bio-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
-}
-.bio-img-col {
-  padding: var(--pad);
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  border-right: 1px solid var(--border);
-}
-.bio-img-col img {
-  width: 100%;
-  max-height: 70vh;
-  object-fit: cover;
-}
-.bio-text-col {
-  padding: var(--pad);
-}
-.bio-text-col p {
-  font-size: 15px;
-  font-weight: 300;
-  line-height: 1.82;
-  color: rgba(255,255,255,0.82);
-  margin-bottom: 18px;
-}
-.bio-h2 {
-  font-family: var(--font-display);
-  font-size: 36px;
-  letter-spacing: 0.02em;
-  margin: 44px 0 16px;
-}
-.skills-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  list-style: none;
-}
-.skills-chips li {
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 6px 14px;
-  border: 1px solid rgba(255,255,255,0.18);
-  color: var(--mid);
-}
-.xp-list {
-  list-style: none;
-}
-.xp-list li {
-  padding: 14px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-}
-.xp-list li strong {
-  display: block;
-  font-size: 14px;
-  font-weight: 400;
-  margin-bottom: 2px;
-}
-.xp-list li span {
-  font-size: 12px;
-  color: var(--gray);
-  font-weight: 300;
-}
-
-/* ââ CONTACT âââââââââââââââââââââââââââ */
-#page-contact {
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  min-height: 100vh;
-  padding: var(--pad);
-}
-.contact-eyebrow {
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--gray);
-  margin-bottom: 20px;
-}
-.contact-email {
-  font-family: var(--font-display);
-  font-size: clamp(28px, 5vw, 62px);
-  letter-spacing: 0.015em;
-  border-bottom: 2px solid var(--white);
-  padding-bottom: 4px;
-  transition: color 0.2s, border-color 0.2s;
-  display: inline-block;
-}
-.contact-email:hover {
-  color: var(--gray);
-  border-color: var(--gray);
-}
-.contact-note {
-  margin-top: 36px;
-  font-size: 15px;
-  font-weight: 300;
-  font-style: italic;
-  color: var(--gray);
-  max-width: 440px;
-  line-height: 1.7;
-}
-
-/* ââ LIGHTBOX ââââââââââââââââââââââââââ */
-#lightbox {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.96);
-  z-index: 1000;
-  align-items: center;
-  justify-content: center;
-}
-#lightbox.open { display: flex; }
-#lb-img {
-  max-width: 90vw;
-  max-height: 90vh;
-  object-fit: contain;
-  user-select: none;
-}
-#lb-close {
-  position: fixed;
-  top: 22px; right: 26px;
-  background: none;
-  border: none;
-  color: var(--white);
-  font-size: 30px;
-  opacity: 0.5;
-  transition: opacity 0.2s;
-  line-height: 1;
-}
-#lb-close:hover { opacity: 1; }
-.lb-nav {
-  position: fixed;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  color: var(--white);
-  font-size: 52px;
-  line-height: 1;
-  opacity: 0.3;
-  transition: opacity 0.2s;
-  padding: 20px;
-}
-.lb-nav:hover { opacity: 1; }
-#lb-prev { left: 0; }
-#lb-next { right: 0; }
-
-/* ââ NOTE BANNER (Instagram) âââââââââââ */
-.note-banner {
-  margin: 24px var(--pad) 0;
-  padding: 12px 18px;
-  border: 1px solid rgba(255,255,255,0.12);
-  font-size: 11px;
-  color: var(--gray);
-  letter-spacing: 0.04em;
-  line-height: 1.6;
-}
-
-/* ââ RESPONSIVE ââââââââââââââââââââââââ */
-@media (max-width: 960px) {
-  #sidebar { display: none; }
-  #mobile-header { display: flex; }
-  #main { margin-left: 0; padding-top: 58px; }
-
-  :root { --pad: 22px; }
-
-  .home-panels { flex-direction: column; min-height: auto; }
-  .home-panel { min-height: 42vh; }
-  .home-panel:hover { flex: 1; }
-
-  .proj-grid,
-  .cs-body,
-  .cs-imgs,
-  .fa-entries,
-  .ill-projects,
-  .bio-grid { grid-template-columns: 1fr; }
-
-  .bio-img-col {
-    position: static;
-    height: auto;
-    border-right: none;
-    border-bottom: 1px solid var(--border);
+  :root {
+    --bg:    #111111;
+    --fg:    #e8e8e8;
+    --dim:   #555555;
+    --rule:  #222222;
+    --hover: #1a1a1a;
+    --mono:  ui-monospace, 'SF Mono', 'Cascadia Mono', 'Courier New', monospace;
   }
 
-  .masonry { columns: 2; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  .cs-col:first-child { border-right: none; border-bottom: 1px solid var(--border); }
-}
+  html, body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.5;
+    height: 100%;
+  }
 
-@media (max-width: 560px) {
-  .masonry { columns: 1; }
-  .home-nameplate h1 { font-size: clamp(58px, 18vw, 90px); }
-}
+  a { color: inherit; text-decoration: none; }
+
+  /* ── shell ── */
+  .shell {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    min-height: 100vh;
+  }
+
+  /* ── sidebar ── */
+  #sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    border-right: 1px solid var(--rule);
+    padding: 24px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    z-index: 50;
+  }
+
+  .site-name {
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--fg);
+  }
+
+  #sidebar-nav { display: flex; flex-direction: column; gap: 2px; }
+
+  #sidebar-nav a {
+    display: block;
+    padding: 5px 8px;
+    font-size: 12px;
+    color: var(--dim);
+    transition: color .1s, background .1s;
+    cursor: pointer;
+  }
+  #sidebar-nav a:hover { color: var(--fg); background: var(--hover); }
+
+  .sidebar-footer {
+    margin-top: auto;
+    font-size: 11px;
+    color: var(--dim);
+    line-height: 1.8;
+  }
+
+  /* ── main ── */
+  #main-scroll { overflow-y: auto; }
+
+  /* ── gif strip ── */
+  .gif-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .gif-sq {
+    aspect-ratio: 1 / 1;
+    background: var(--rule);
+    border-right: 1px solid var(--rule);
+    overflow: hidden;
+    position: relative;
+  }
+  .gif-sq:last-child { border-right: none; }
+
+  .gif-sq img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ── section headers ── */
+  .sec-head {
+    padding: 12px 28px;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--dim);
+  }
+
+  /* ── project grid ── */
+  #anim-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .proj-card {
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: background .1s;
+  }
+  .proj-card:hover { background: var(--hover); }
+
+  .proj-card > img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+  }
+
+  .proj-card-bar {
+    padding: 10px 12px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .proj-card-bar strong {
+    font-size: 12px;
+    font-weight: normal;
+    color: var(--fg);
+  }
+
+  .proj-card-bar span {
+    font-size: 10px;
+    color: var(--dim);
+  }
+
+  /* ── fine art categories ── */
+  #page-fineart {
+    border-bottom: 1px solid var(--rule);
+  }
+
+  #page-fineart .fineart-cats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--rule);
+  }
+
+  .fa-cat {
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: background .1s;
+  }
+  .fa-cat:hover { background: var(--hover); }
+
+  .fa-cat > img {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    display: block;
+  }
+
+  .fa-cat-placeholder {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    background: #1a1a1a;
+  }
+
+  .fa-cat-label {
+    padding: 8px 12px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--dim);
+  }
+
+  /* ── overlay pages (case study, gallery, bio, contact) ── */
+  .overlay-page {
+    display: none;
+    position: fixed;
+    inset: 0 0 0 180px;
+    background: var(--bg);
+    overflow-y: auto;
+    z-index: 100;
+  }
+  .overlay-page.active { display: block; }
+
+  /* back button */
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    font-size: 11px;
+    color: var(--dim);
+    border-bottom: 1px solid var(--rule);
+    cursor: pointer;
+    width: 100%;
+    transition: color .1s;
+  }
+  .back-btn:hover { color: var(--fg); }
+
+  /* ── case study ── */
+  .cs-hero {
+    position: relative;
+    height: 52vh;
+    min-height: 260px;
+    overflow: hidden;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .cs-hero img#cs-hero-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .cs-hero-veil {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    padding: 20px 28px;
+  }
+
+  .cs-hero-veil h1 {
+    font-size: 18px;
+    font-weight: normal;
+    letter-spacing: .04em;
+  }
+
+  .cs-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .cs-col {
+    padding: 28px;
+    border-right: 1px solid var(--rule);
+  }
+  .cs-col:last-child { border-right: none; }
+
+  .cs-col-label {
+    display: block;
+    font-size: 10px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 12px;
+  }
+
+  .cs-deliverables { list-style: none; }
+  .cs-deliverables li { font-size: 12px; padding: 3px 0; color: var(--dim); }
+
+  .cs-quote {
+    font-size: 12px;
+    color: var(--fg);
+    font-style: normal;
+    line-height: 1.7;
+  }
+
+  .cs-meta { font-size: 11px; color: var(--dim); display: flex; flex-direction: column; gap: 4px; }
+
+  .cs-imgs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--rule);
+  }
+
+  .cs-imgs img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+    cursor: pointer;
+  }
+
+  .cs-next {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid var(--rule);
+    cursor: pointer;
+    transition: background .1s;
+  }
+  .cs-next:hover { background: var(--hover); }
+
+  .cs-next-bg-wrap {
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    border-right: 1px solid var(--rule);
+  }
+
+  #cs-next-bg { width:100%; height:100%; object-fit: cover; display: block; }
+
+  .cs-next-info {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .cs-next-label { font-size: 10px; letter-spacing:.1em; text-transform: uppercase; color: var(--dim); }
+  #cs-next-title { font-size: 14px; margin-top: 8px; }
+
+  /* ── gallery overlay ── */
+  #gallery-title {
+    padding: 14px 24px;
+    font-size: 11px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--dim);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  #gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+  }
+
+  #gallery-grid img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    cursor: pointer;
+  }
+
+  /* ── lightbox ── */
+  #lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.92);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+  }
+  #lightbox.open { display: flex; }
+
+  #lb-img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+  }
+
+  #lb-close {
+    position: fixed;
+    top: 16px; right: 20px;
+    font-size: 22px;
+    color: var(--dim);
+    cursor: pointer;
+    background: none; border: none;
+  }
+  #lb-close:hover { color: var(--fg); }
+
+  #lb-prev, #lb-next {
+    position: fixed;
+    top: 50%; transform: translateY(-50%);
+    font-size: 22px;
+    color: var(--dim);
+    cursor: pointer;
+    background: none; border: none;
+    padding: 12px;
+  }
+  #lb-prev { left: 12px; }
+  #lb-next { right: 12px; }
+  #lb-prev:hover, #lb-next:hover { color: var(--fg); }
+
+  /* ── mobile (hidden on desktop) ── */
+  #mobile-header, #mobile-menu { display: none; }
+
+  @media (max-width: 700px) {
+    .shell { grid-template-columns: 1fr; }
+    #sidebar { display: none; }
+    #mobile-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      height: 44px;
+      border-bottom: 1px solid var(--rule);
+      position: sticky; top: 0; z-index: 50;
+      background: var(--bg);
+    }
+    .m-logo { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+    #menu-toggle { background: none; border: none; color: var(--fg); font-size: 18px; cursor: pointer; }
+    #mobile-menu {
+      display: none;
+      flex-direction: column;
+      border-bottom: 1px solid var(--rule);
+      background: var(--bg);
+    }
+    #mobile-menu.open { display: flex; }
+    #mobile-menu a { padding: 12px 16px; border-bottom: 1px solid var(--rule); font-size: 12px; color: var(--dim); }
+    #anim-grid { grid-template-columns: repeat(2, 1fr); }
+    #page-fineart .fineart-cats { grid-template-columns: repeat(2, 1fr); }
+    .overlay-page { inset: 0; }
+    .cs-body { grid-template-columns: 1fr; }
+    .cs-imgs { grid-template-columns: 1fr; }
+    .cs-next { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
 
-<!-- âââ SIDEBAR âââââââââââââââââââââââââââââââ -->
-<aside id="sidebar">
-  <a class="sidebar-name" href="#home">
-    <span>JAKE</span>
-    <span>GOOCH</span>
-  </a>
-  <nav id="sidebar-nav">
-    <a href="#animation">Animation</a>
-    <a href="#illustration">Illustration</a>
-    <a href="#fineart">Fine Art</a>
-    <a href="#bio">Bio</a>
-    <a href="#contact">Contact</a>
-  </nav>
-  <div class="sidebar-footer">
-    <a href="mailto:jgoochmedia@gmail.com">jgoochmedia@gmail.com</a>
-  </div>
-</aside>
-
-<!-- âââ MOBILE ââââââââââââââââââââââââââââââââ -->
+<!-- mobile header -->
 <header id="mobile-header">
-  <a class="m-logo" href="#home">JAKE GOOCH</a>
-  <button id="menu-toggle" onclick="toggleMenu()">â°</button>
+  <a class="m-logo" href="#" onclick="closeCasestudy()">JAKE GOOCH</a>
+  <button id="menu-toggle" onclick="toggleMenu()">☰</button>
 </header>
 <div id="mobile-menu">
-  <a href="#animation" onclick="toggleMenu()">Animation</a>
-  <a href="#illustration" onclick="toggleMenu()">Illustration</a>
-  <a href="#fineart" onclick="toggleMenu()">Fine Art</a>
-  <a href="#bio" onclick="toggleMenu()">Bio</a>
-  <a href="#contact" onclick="toggleMenu()">Contact</a>
+  <a href="#" onclick="closeCasestudy();toggleMenu()">Projects</a>
+  <a href="#" onclick="showFineArt();toggleMenu()">Fine Art</a>
 </div>
 
-<!-- âââ MAIN ââââââââââââââââââââââââââââââââââ -->
-<main id="main">
+<div class="shell">
 
-  <!-- HOME -->
-  <section id="page-home" class="page">
-    <div class="home-nameplate">
-      <h1>JAKE<br>GOOCH</h1>
-      <p>Animator Â· Director Â· Illustrator Â· Salt Lake City, UT</p>
-    </div>
-    <div class="home-panels">
-      <a class="home-panel" href="#animation">
-        <div class="panel-bg" style="background-image:url('https://www.dropbox.com/scl/fi/z327o4lyy7dev5dq07mbv/Screenshot-2026-04-08-at-4.43.21-PM.png?rlkey=7emvsdhrnefdzsc1ra8hub067&raw=1')"></div>
-        <div class="panel-shade"></div>
-        <div class="panel-content">
-          <span class="panel-num">01</span>
-          <h2>Animation</h2>
-          <span class="panel-cta">View work â</span>
-        </div>
-      </a>
-      <a class="home-panel" href="#illustration">
-        <div class="panel-bg" style="background-image:url('https://www.dropbox.com/scl/fi/pb693rwlommoecf3p6pd5/LEONS-HORIZONTAL.png?rlkey=kgltdlktsgvdr30zy9afjvx6o&raw=1')"></div>
-        <div class="panel-shade"></div>
-        <div class="panel-content">
-          <span class="panel-num">02</span>
-          <h2>Illustration<br>&amp; Concept</h2>
-          <span class="panel-cta">View work â</span>
-        </div>
-      </a>
-      <a class="home-panel" href="#fineart">
-        <div class="panel-bg" style="background-image:url('https://www.dropbox.com/scl/fi/kb3s4ue0xst8vlicm1icm/6.21.25_7x4.5_Midway-PA_Wasatch-State-Park.jpg?rlkey=y4waf20b8x0qm7uada1wiqzec&raw=1')"></div>
-        <div class="panel-shade"></div>
-        <div class="panel-content">
-          <span class="panel-num">03</span>
-          <h2>Fine Art</h2>
-          <span class="panel-cta">View work â</span>
-        </div>
-      </a>
-    </div>
-  </section>
+  <!-- sidebar -->
+  <aside id="sidebar">
+    <div class="site-name">Jake Gooch</div>
+    <nav id="sidebar-nav">
+      <a href="#" onclick="closeCasestudy()">Animation</a>
+      <a href="#" onclick="showFineArtOverlay()">Fine Art</a>
+      <a href="mailto:jgoochmedia@gmail.com">Contact</a>
+    </nav>
+    <div class="sidebar-footer">© 2024<br>Brooklyn, NY</div>
+  </aside>
 
-  <!-- ANIMATION -->
-  <section id="page-animation" class="page">
+  <!-- main scroll area -->
+  <div id="main-scroll">
+
+    <!-- gif strip: replace divs with <img> tags when you have GIFs -->
+    <div class="gif-strip">
+      <div class="gif-sq" id="gif-sq-1"></div>
+      <div class="gif-sq" id="gif-sq-2"></div>
+      <div class="gif-sq" id="gif-sq-3"></div>
+    </div>
+
+    <!-- projects -->
     <div class="sec-head">
-      <h1>Animation</h1>
-      <p>Commercial direction, 2D animation &amp; motion design.</p>
+      <span>Projects</span>
     </div>
-    <div class="reel-wrap">
-      <div class="reel-inner">
-        <iframe src="https://player.vimeo.com/video/1165808306?title=0&byline=0&portrait=0"
-                allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-      </div>
-    </div>
-    <div class="proj-grid" id="anim-grid"></div>
-  </section>
+    <div id="anim-grid"></div>
 
-  <!-- CASE STUDY -->
-  <section id="page-casestudy" class="page">
-    <div class="cs-hero">
-      <img id="cs-hero-img" src="" alt="">
-      <div class="cs-hero-veil">
-        <h1 id="cs-title"></h1>
-      </div>
+    <!-- fine art categories -->
+    <div class="sec-head" id="fineart-head">
+      <span>Fine Art</span>
     </div>
-    <div class="cs-body">
-      <div class="cs-col">
-        <span class="cs-col-label">Intro</span>
-      </div>
-      <div class="cs-col">
-        <span class="cs-col-label">Deliverables</span>
-        <ul class="cs-deliverables" id="cs-deliverables"></ul>
-        <blockquote class="cs-quote" id="cs-quote" style="margin-top:32px"></blockquote>
-        <div class="cs-meta" id="cs-meta"></div>
-      </div>
+    <div id="page-fineart">
+      <div class="fineart-cats" id="fineart-cats"></div>
     </div>
-    <div class="cs-imgs" id="cs-imgs"></div>
-    <a class="cs-next-section" id="cs-next-section" href="#">
-      <div class="cs-next-bg" id="cs-next-bg"></div>
-      <div class="cs-next-veil"></div>
-      <div class="cs-next-content">
-        <span class="cs-next-eyebrow">Next Work</span>
-        <span class="cs-next-title" id="cs-next-title"></span>
-        <span class="cs-next-cta">View project â</span>
-      </div>
-    </a>
-    <div class="cs-footer">
-      <a class="cs-back" href="#animation">Animation</a>
+
+  </div><!-- end main-scroll -->
+
+</div><!-- end shell -->
+
+<!-- CASE STUDY OVERLAY -->
+<div class="overlay-page" id="page-casestudy">
+  <div class="back-btn" onclick="closeCasestudy()">← Back</div>
+  <div class="cs-hero">
+    <img id="cs-hero-img" src="" alt="">
+    <div class="cs-hero-veil"><h1 id="cs-title"></h1></div>
+  </div>
+  <div class="cs-body">
+    <div class="cs-col">
+      <span class="cs-col-label">Intro</span>
+      <blockquote class="cs-quote" id="cs-quote"></blockquote>
     </div>
-  </section>
-
-  <!-- ILLUSTRATION & CONCEPT -->
-  <section id="page-illustration" class="page">
-    <div class="sec-head">
-      <h1>Illustration<br>&amp; Concept</h1>
-      <p>Character design, concept art, storyboards &amp; commercial illustration.</p>
+    <div class="cs-col">
+      <span class="cs-col-label">Deliverables</span>
+      <ul class="cs-deliverables" id="cs-deliverables"></ul>
+      <div class="cs-meta" id="cs-meta" style="margin-top:24px"></div>
     </div>
-    <div class="ill-projects" id="ill-projects"></div>
-    <a class="sketchbook-band" href="#sketchbook">
-      <img src="https://www.dropbox.com/scl/fi/ri9ce18fy91qyi0gsb3lc/9D3D85A8-0D73-42DC-A39B-C893249506BB.jpg?rlkey=iro0gg0p7l29ukqviu5jw6kr9&raw=1" alt="Sketchbook" loading="lazy">
-      <div class="sketchbook-label">
-        <span>Gallery</span>
-        <h2>Sketchbook</h2>
-      </div>
-    </a>
-    <div style="height:60px"></div>
-  </section>
-
-  <!-- SKETCHBOOK -->
-  <section id="page-sketchbook" class="page">
-    <div class="gallery-head">
-      <span class="back-link" onclick="goTo('illustration')">â Back</span>
-      <h1>Sketchbook</h1>
+  </div>
+  <div class="cs-imgs" id="cs-imgs"></div>
+  <div class="cs-next" id="cs-next-section" onclick="">
+    <div class="cs-next-bg-wrap"><img id="cs-next-bg" src="" alt=""></div>
+    <div class="cs-next-info">
+      <span class="cs-next-label">Next Project</span>
+      <div id="cs-next-title"></div>
     </div>
-    <div class="masonry" id="sketchbook-grid"></div>
-  </section>
+  </div>
+</div>
 
-  <!-- FINE ART -->
-  <section id="page-fineart" class="page">
-    <div class="sec-head">
-      <h1>Fine Art</h1>
-      <p>Figure drawing, plein air &amp; personal studies.</p>
-    </div>
-    <div class="fa-entries">
-      <a class="fa-entry" href="#fineart/figure">
-        <div class="fa-entry-bg" style="background-image:url('https://www.dropbox.com/scl/fi/mis7xihjm4b4uqvwqw504/Screenshot-2026-04-02-at-2.01.22-PM.png?rlkey=sbwmv6bk6qeoszgj7f6g2ik56&raw=1')"></div>
-        <div class="fa-entry-shade"></div>
-        <div class="fa-entry-inner">
-          <span class="fa-entry-num">01</span>
-          <h2>Figure Drawing</h2>
-          <span class="fa-entry-cta">View gallery â</span>
-        </div>
-      </a>
-      <a class="fa-entry" href="#fineart/pleinair">
-        <div class="fa-entry-bg" style="background-image:url('https://www.dropbox.com/scl/fi/kb3s4ue0xst8vlicm1icm/6.21.25_7x4.5_Midway-PA_Wasatch-State-Park.jpg?rlkey=y4waf20b8x0qm7uada1wiqzec&raw=1')"></div>
-        <div class="fa-entry-shade"></div>
-        <div class="fa-entry-inner">
-          <span class="fa-entry-num">02</span>
-          <h2>Plein Air</h2>
-          <span class="fa-entry-cta">View gallery â</span>
-        </div>
-      </a>
-      <a class="fa-entry" href="#fineart/studies">
-        <div class="fa-entry-bg" style="background-image:url('https://www.dropbox.com/scl/fi/se5ukx0q1ors2vgvufj2i/JakeGooch_TheFirm_BuccaneerBusinessCard1.jpg?rlkey=ljd6hkh7ab91jkyyfurmfheyi&raw=1')"></div>
-        <div class="fa-entry-shade"></div>
-        <div class="fa-entry-inner">
-          <span class="fa-entry-num">03</span>
-          <h2>Studies</h2>
-          <span class="fa-entry-cta">View gallery â</span>
-        </div>
-      </a>
-    </div>
-  </section>
+<!-- GALLERY OVERLAY -->
+<div class="overlay-page" id="page-gallery">
+  <div class="back-btn" onclick="closeGallery()">← Back</div>
+  <div id="gallery-title"></div>
+  <div id="gallery-grid"></div>
+</div>
 
-  <!-- FINE ART GALLERY -->
-  <section id="page-gallery" class="page">
-    <div class="gallery-head">
-      <span class="back-link" onclick="goTo('fineart')">â Back</span>
-      <h1 id="gallery-title">Figure Drawing</h1>
-    </div>
-    <div class="masonry" id="gallery-grid"></div>
-  </section>
-
-  <!-- BIO -->
-  <section id="page-bio" class="page">
-    <div class="sec-head">
-      <h1>Bio</h1>
-    </div>
-    <div class="bio-grid">
-      <div class="bio-img-col">
-        <img src="https://framerusercontent.com/images/19wwtYmZD2qu99D90hDhIKLIjPs.png" alt="Jake Gooch">
-      </div>
-      <div class="bio-text-col">
-        <p>I'm an animator and commercial director based in SLC, UT who paints a lot.</p>
-        <p>I love it when I have the opportunity to direct a project, especially when I am also involved in the art direction. I try to have an attitude going into projects of "what can I do visually to help this?" As a trained illustrator I've found it really challenging but also rewarding to show these strengths off when I can in a project.</p>
-        <p>In the end, my art most likely won't be featured in the finished product but it's great to know that it helped. Winning bids knowing that I had a hand in making our pitch more exciting is something I am very proud of, whether it be from storyboards, animatics, or splash illustrations. Sometimes, those projects I start I actually get to direct and see to the finish line!</p>
-        <p>Getting to do both is like holding two wires close to each other and watching the electric sparks fly between them. Let's make some sparks fly!</p>
-
-        <div class="bio-h2">What I Do</div>
-        <ul class="skills-chips">
-          <li>Directing</li>
-          <li>Editing</li>
-          <li>Animation</li>
-          <li>Illustration</li>
-          <li>Storyboarding</li>
-          <li>Visual Development</li>
-          <li>3D Generalist</li>
-        </ul>
-
-        <div class="bio-h2">Experience</div>
-        <ul class="xp-list">
-          <li><strong>Animator</strong><span>Max Connect Digital Â· 2024 â Present</span></li>
-          <li><strong>Graphic Designer / Photographer</strong><span>Vox Marketing Group Â· 2021 â 2023</span></li>
-          <li><strong>Associate Curator</strong><span>Writ and Vision Â· 2019 â 2020</span></li>
-          <li><strong>Video Producer</strong><span>Soapbox Agency Â· 2017 â 2019</span></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="page-contact" class="page">
-    <p class="contact-eyebrow">Let's make some magic happen.</p>
-    <a class="contact-email" href="mailto:jgoochmedia@gmail.com">jgoochmedia@gmail.com</a>
-    <p class="contact-note">Getting to do both is like holding two wires close to each other and watching the electric sparks fly between them.</p>
-  </section>
-
-</main>
-
-<!-- âââ LIGHTBOX ââââââââââââââââââââââââââââââ -->
+<!-- LIGHTBOX -->
 <div id="lightbox">
-  <button id="lb-close" onclick="lbClose()">â</button>
-  <button class="lb-nav" id="lb-prev" onclick="lbStep(-1)">â¹</button>
+  <button id="lb-close" onclick="lbClose()">✕</button>
+  <button id="lb-prev" onclick="lbStep(-1)">‹</button>
   <img id="lb-img" src="" alt="">
-  <button class="lb-nav" id="lb-next" onclick="lbStep(1)">âº</button>
+  <button id="lb-next" onclick="lbStep(1)">›</button>
 </div>
+
+<!-- hidden page stubs for JS compat -->
+<div id="page-home" style="display:none"></div>
+<div id="page-animation" style="display:none"></div>
+<div id="page-illustration" style="display:none"><div id="ill-projects"></div></div>
+<div id="page-sketchbook" style="display:none"><div id="sketchbook-grid"></div></div>
+<div id="page-bio" style="display:none"></div>
+<div id="page-contact" style="display:none"></div>
 
 <script>
-/* ââââââââââââââââââââââââââââââââââââââââââââââ
+/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
    DROPBOX URL CONSTANTS
-ââââââââââââââââââââââââââââââââââââââââââââââ */
-// Dropbox Studio Archive (2024â2025) â permanent raw URLs via shared folder rlkey
+Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+// Dropbox Studio Archive (2024Ã¢ÂÂ2025) Ã¢ÂÂ permanent raw URLs via shared folder rlkey
 const DB = 'https://www.dropbox.com/scl/fo/zth2k78cllyv41k87zhzw';
 const RLK = '?rlkey=w6seie2kfxcvo86scrgz8579k&raw=1';
 // Dropbox Digital folder
@@ -1182,9 +547,9 @@ const RLK2 = '?rlkey=g60p8d3up4n1aaj4gb5a0b13b&raw=1';
 const DB3 = 'https://www.dropbox.com/scl/fo/9w8jrqkxxq8k89jwwyxpq';
 const RLK3 = '?rlkey=wwnoad5w47xlcx3w0x8hvxu02&raw=1';
 
-/* ââââââââââââââââââââââââââââââââââââââââââââââ
+/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
    DATA
-ââââââââââââââââââââââââââââââââââââââââââââââ */
+Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 const PROJECTS = {
   saunaboss: {
     title: "Sauna Boss",
@@ -1315,7 +680,7 @@ const PROJECTS = {
     title: "Force USA",
     tags: ['Film/Animation'],
     deliverables: ['Directing', 'Motion Design'],
-    quote: "Directed for Force USA's 2026 kickoff sale â lived on their website.",
+    quote: "Directed for Force USA's 2026 kickoff sale Ã¢ÂÂ lived on their website.",
     year: "2025",
     client: "Force USA",
     watchUrl: "#",
@@ -1472,9 +837,9 @@ const STUDIO_WORKS = {
 
 
 
-/* ââââââââââââââââââââââââââââââââââââââââââââââ
+/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
    ROUTING
-ââââââââââââââââââââââââââââââââââââââââââââââ */
+Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 let activePage = '';
 let currentCS = null;
 let currentGallery = null;
@@ -1525,9 +890,9 @@ function handleHash() {
   }
 }
 
-/* ââââââââââââââââââââââââââââââââââââââââââââââ
+/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
    BUILD PAGES
-ââââââââââââââââââââââââââââââââââââââââââââââ */
+Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 function buildAnimGrid() {
   const order = Object.keys(PROJECTS).filter(s => PROJECTS[s].tags.includes('Film/Animation'));
   document.getElementById('anim-grid').innerHTML = order.map(slug => {
@@ -1548,11 +913,11 @@ function buildIllProjects() {
     const p = PROJECTS[slug];
     const illDeliverables = p.deliverables.filter(d =>
       ['Illustration','Concept Art','Art Direction','Storyboarding','Character Design'].includes(d)
-    ).join(' Â· ');
+    ).join(' ÃÂ· ');
     return `<div class="ill-card" onclick="location.hash='${slug}'">
       <div class="ill-card-img"><img src="${p.thumb}" alt="${p.title}" loading="lazy"></div>
       <h3>${p.title}</h3>
-      <p>${illDeliverables || p.tags.join(' Â· ')}</p>
+      <p>${illDeliverables || p.tags.join(' ÃÂ· ')}</p>
     </div>`;
   }).join('');
 }
@@ -1587,7 +952,7 @@ function loadCS(slug) {
       ? p.imgs.map(src =>
           `<img src="${src}" alt="${p.title}" loading="lazy" onclick="lbOpen('cs','${src}')">`
         ).join('')
-      : ''; // leave grid empty if no extra images â just hero + info is fine
+      : ''; // leave grid empty if no extra images Ã¢ÂÂ just hero + info is fine
 
   // Next Work band
   const nextBand = document.getElementById('cs-next-section');
@@ -1620,9 +985,9 @@ function loadGallery(type) {
   showPage('gallery');
 }
 
-/* ââââââââââââââââââââââââââââââââââââââââââââââ
+/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
    LIGHTBOX
-ââââââââââââââââââââââââââââââââââââââââââââââ */
+Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 let lbArr = [], lbIdx = 0;
 
 function lbOpen(context, src) {
@@ -1654,22 +1019,89 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight') lbStep(1);
 });
 
-/* ââââââââââââââââââââââââââââââââââââââââââââââ
+/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
    MOBILE MENU
-ââââââââââââââââââââââââââââââââââââââââââââââ */
+Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 function toggleMenu() {
   document.getElementById('mobile-menu').classList.toggle('open');
 }
 
-/* ââââââââââââââââââââââââââââââââââââââââââââââ
+/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
    INIT
-ââââââââââââââââââââââââââââââââââââââââââââââ */
+Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 buildAnimGrid();
 buildIllProjects();
 buildSketchbook();
 handleHash();
 window.addEventListener('hashchange', handleHash);
 const CV_TEXT = ``
+</script>
+<script>
+// ── P1 layout overrides ──
+
+// Build fine art category grid
+function buildFineArtCats() {
+  const cats = [
+    { key: 'figure',   label: 'Figure Drawing', count: 16 },
+    { key: 'pleinair', label: 'Plein Air',       count: 30 },
+    { key: 'studies',  label: 'Studies',          count: 4  },
+    { key: 'sketchbook', label: 'Sketchbook',    count: 9  }
+  ];
+  const grid = document.getElementById('fineart-cats');
+  if (!grid) return;
+  grid.innerHTML = cats.map(c => {
+    const d = window.DATA && window.DATA[c.key];
+    const thumb = d && d.thumb ? d.thumb : (d && d.imgs && d.imgs[0] ? d.imgs[0] : '');
+    const imgEl = thumb
+      ? '<img src="' + thumb + '" alt="' + c.label + '" loading="lazy">'
+      : '<div class="fa-cat-placeholder"></div>';
+    return '<div class="fa-cat" onclick="openGallery(\'' + c.key + '\')">' +
+      imgEl +
+      '<div class="fa-cat-label"><span>' + c.label + '<\/span><span>' + c.count + '<\/span><\/div>' +
+    '<\/div>';
+  }).join('');
+}
+
+function openGallery(key) {
+  loadGallery(key);
+  document.getElementById('page-gallery').classList.add('active');
+}
+
+function closeGallery() {
+  document.getElementById('page-gallery').classList.remove('active');
+}
+
+function closeCasestudy() {
+  document.getElementById('page-casestudy').classList.remove('active');
+}
+
+function showFineArtOverlay() {
+  // just scroll to fine art section
+  document.getElementById('fineart-head').scrollIntoView({ behavior: 'smooth' });
+}
+
+// Override showPage to open case study as overlay
+const _origShowPage = typeof showPage === 'function' ? showPage : null;
+function showPage(id) {
+  if (id === 'casestudy') {
+    document.getElementById('page-casestudy').classList.add('active');
+  } else if (id === 'gallery') {
+    document.getElementById('page-gallery').classList.add('active');
+  }
+  // ignore other page navigations (animation, home, etc.)
+}
+
+// Override goTo to open case study overlay
+const _origGoTo = typeof goTo === 'function' ? goTo : null;
+function goTo(key) {
+  if (_origGoTo) _origGoTo(key);
+}
+
+// Init on load
+window.addEventListener('DOMContentLoaded', function() {
+  if (typeof buildAnimGrid === 'function') buildAnimGrid();
+  buildFineArtCats();
+});
 </script>
 </body>
 </html>
