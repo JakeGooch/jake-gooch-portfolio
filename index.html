@@ -74,7 +74,10 @@
   }
 
   /* ── main ── */
-  #main-scroll { overflow-y: auto; }
+  #main-content { overflow: hidden; height: 100vh; }
+  .p-page { height: 100vh; overflow-y: auto; display: none; }
+  .p-page.active { display: block; }
+  #sidebar-nav a.nav-active { color: var(--fg); }
 
   /* ── gif strip ── */
   .gif-strip {
@@ -538,49 +541,47 @@
   <aside id="sidebar">
     <div class="site-name">Jake Gooch</div>
     <nav id="sidebar-nav">
-      <a href="#" onclick="closeCasestudy()">Animation</a>
-      <a href="#" onclick="showFineArtOverlay()">Fine Art</a>
-      <a href="#" onclick="document.getElementById('ill-head').scrollIntoView({behavior:'smooth'})">Illustration</a>
+      <a href="#" onclick="switchPage('animation')" id="nav-animation" class="nav-active">Animation</a>
+      <a href="#" onclick="switchPage('illustration')" id="nav-illustration">Illustration</a>
+      <a href="#" onclick="switchPage('fineart')" id="nav-fineart">Fine Art</a>
+      <a href="#" onclick="switchPage('bio')" id="nav-bio">About</a>
       <a href="mailto:jgoochmedia@gmail.com">Contact</a>
     </nav>
     <div class="sidebar-footer">© 2024<br>Brooklyn, NY</div>
   </aside>
 
-  <!-- main scroll area -->
-  <div id="main-scroll">
+  <!-- main content pages -->
+  <main id="main-content">
 
-    <!-- gif strip: replace divs with <img> tags when you have GIFs -->
-    <div class="gif-strip">
-      <div class="gif-sq" id="gif-sq-1"></div>
-      <div class="gif-sq" id="gif-sq-2"></div>
-      <div class="gif-sq" id="gif-sq-3"></div>
+    <!-- PAGE: Animation -->
+    <div class="p-page active" id="p-animation">
+      <div class="gif-strip">
+        <div class="gif-sq" id="gif-sq-1"></div>
+        <div class="gif-sq" id="gif-sq-2"></div>
+        <div class="gif-sq" id="gif-sq-3"></div>
+      </div>
+      <div class="sec-head"><span>Projects</span></div>
+      <div id="anim-grid"></div>
     </div>
 
-    <!-- projects -->
-    <div class="sec-head">
-      <span>Projects</span>
+    <!-- PAGE: Illustration -->
+    <div class="p-page" id="p-illustration">
+      <div class="sec-head" id="ill-head"><span>Illustration</span></div>
+      <div id="ill-projects"></div>
     </div>
-    <div id="anim-grid"></div>
 
-    <!-- illustration -->
-    <div class="sec-head" id="ill-head">
-      <span>Illustration</span>
+    <!-- PAGE: Fine Art -->
+    <div class="p-page" id="p-fineart-page">
+      <div class="sec-head" id="fineart-head"><span>Fine Art</span></div>
+      <div id="page-fineart">
+        <div class="fineart-cats" id="fineart-cats"></div>
+      </div>
     </div>
-    <div id="ill-projects"></div>
 
-
-    <!-- fine art categories -->
-    <div class="sec-head" id="fineart-head">
-      <span>Fine Art</span>
-    </div>
-    <div id="page-fineart">
-      <div class="fineart-cats" id="fineart-cats"></div>
-    </div>
-    <!-- bio -->
-    <div class="sec-head" id="bio-head">
-      <span>About</span>
-    </div>
-    <div id="bio-section">
+    <!-- PAGE: About -->
+    <div class="p-page" id="p-bio">
+      <div class="sec-head" id="bio-head"><span>About</span></div>
+      <div id="bio-section">
       <div class="bio-body">
         <p>I'm an animator and commercial director based in SLC, UT who paints a lot. I love it when I have the opportunity to direct a project, especially when I am also involved in the art direction. I try to have an attitude going into projects of "what can I do visually to help this?" As a trained illustrator I've found it really challenging but also rewarding to show these strengths off when I can in a project.</p>
         <br>
@@ -598,9 +599,9 @@
       </div>
     </div>
 
+    </div>
 
-
-  </div><!-- end main-scroll -->
+  </main><!-- end main-content -->
 
 </div><!-- end shell -->
 
@@ -1166,64 +1167,70 @@ function buildFineArtCats() {
   const cats = [
     { key: 'figure',   label: 'Figure Drawing', count: 16 },
     { key: 'pleinair', label: 'Plein Air',       count: 30 },
-    { key: 'studies',  label: 'Studies',          count: 4  },
-    { key: 'sketchbook', label: 'Sketchbook',    count: 9  }
+    { key: 'studies',  label: 'Studies',         count: 4  },
+    { key: 'sketch',   label: 'Sketchbook',      count: 9  }
   ];
-  const grid = document.getElementById('fineart-cats');
-  if (!grid) return;
-  grid.innerHTML = cats.map(c => {
-    const d = window.DATA && window.DATA[c.key];
-    const thumb = d && d.thumb ? d.thumb : (d && d.imgs && d.imgs[0] ? d.imgs[0] : '');
-    const imgEl = thumb
-      ? '<img src="' + thumb + '" alt="' + c.label + '" loading="lazy">'
-      : '<div class="fa-cat-placeholder"></div>';
-    return '<div class="fa-cat" onclick="openGallery(\'' + c.key + '\')">' +
-      imgEl +
-      '<div class="fa-cat-label"><span>' + c.label + '<\/span><span>' + c.count + '<\/span><\/div>' +
-    '<\/div>';
+  const wrap = document.getElementById('fineart-cats');
+  if (!wrap) return;
+  wrap.innerHTML = cats.map(c => {
+    const imgSrc = (typeof DB !== 'undefined' && typeof RLK !== 'undefined')
+      ? DB + 'fineart-' + c.key + RLK : '';
+    return `<div class="art-cell" onclick="showFineArtOverlay('${c.key}')">
+      <div class="art-img"${imgSrc ? ' style="background-image:url(' + imgSrc + ');background-size:cover;background-position:center;"' : ''}></div>
+      <div class="art-label"><span>${c.label}</span><span>${c.count}</span></div>
+    </div>`;
   }).join('');
 }
 
-function openGallery(key) {
-  loadGallery(key);
-  document.getElementById('page-gallery').classList.add('active');
-}
-
-function closeGallery() {
-  document.getElementById('page-gallery').classList.remove('active');
-}
-
+// Close case study overlay
 function closeCasestudy() {
-  document.getElementById('page-casestudy').classList.remove('active');
+  const cs = document.getElementById('page-casestudy');
+  if (cs) cs.classList.remove('active');
 }
 
-function showFineArtOverlay() {
-  // just scroll to fine art section
-  document.getElementById('fineart-head').scrollIntoView({ behavior: 'smooth' });
+// Show fine art gallery overlay
+function showFineArtOverlay(key) {
+  if (typeof loadGallery === 'function') loadGallery(key || 'figure');
+  const pg = document.getElementById('page-gallery');
+  if (pg) pg.classList.add('active');
 }
 
-// Override showPage to open case study as overlay
-const _origShowPage = typeof showPage === 'function' ? showPage : null;
+// ── Page switching ──
+function switchPage(id) {
+  document.querySelectorAll('.p-page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('p-' + id);
+  if (target) { target.classList.add('active'); target.scrollTop = 0; }
+  document.querySelectorAll('#sidebar-nav a').forEach(a => a.classList.remove('nav-active'));
+  const navLink = document.getElementById('nav-' + id);
+  if (navLink) navLink.classList.add('nav-active');
+  // Lazy-render illustration page
+  if (id === 'illustration') {
+    const ill = document.getElementById('ill-projects');
+    if (ill && ill.children.length === 0 && typeof buildIllProjects === 'function') {
+      buildIllProjects();
+      // Fix encoding bug
+      ill.innerHTML = ill.innerHTML.replace(/Ã[sÂ]*·/g, ' ·');
+    }
+  }
+}
+
+// Override showPage for overlay pages only
 function showPage(id) {
   if (id === 'casestudy') {
     document.getElementById('page-casestudy').classList.add('active');
-  } else if (id === 'gallery') {
-    document.getElementById('page-gallery').classList.add('active');
+    return;
   }
-  // ignore other page navigations (animation, home, etc.)
+  if (id === 'gallery') {
+    document.getElementById('page-gallery').classList.add('active');
+    return;
+  }
 }
 
-// Override goTo to open case study overlay
-const _origGoTo = typeof goTo === 'function' ? goTo : null;
-function goTo(key) {
-  if (_origGoTo) _origGoTo(key);
-}
-
-// Init on load
-window.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
   if (typeof buildAnimGrid === 'function') buildAnimGrid();
-  if (typeof buildIllProjects === 'function') buildIllProjects();
   buildFineArtCats();
+  // Ensure animation page is active on load
+  switchPage('animation');
 });
 </script>
 </body>
