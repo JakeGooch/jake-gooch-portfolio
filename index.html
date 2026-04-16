@@ -1209,7 +1209,7 @@ function switchPage(id) {
     if (ill && ill.children.length === 0 && typeof buildIllProjects === 'function') {
       buildIllProjects();
       // Fix encoding bug
-      ill.innerHTML = ill.innerHTML.replace(/Ã[sÂ]*·/g, ' ·');
+      ill.innerHTML = ill.innerHTML.replace(/ÃÂ·/g, ' ·');
     }
   }
 }
