@@ -1206,6 +1206,11 @@ function showFineArtOverlay(key) {
 
 // ── Page switching ──
 function switchPage(id) {
+  // Close any open overlays first
+  ['page-gallery','page-casestudy'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('active');
+  });
   document.querySelectorAll('.p-page').forEach(p => p.classList.remove('active'));
   const target = document.getElementById('p-' + id);
   if (target) { target.classList.add('active'); target.scrollTop = 0; }
