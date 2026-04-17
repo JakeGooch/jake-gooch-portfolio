@@ -1173,24 +1173,20 @@ const CV_TEXT = ``
 <script>
 // ── P1 layout overrides ──
 
-// Build fine art category grid (no broken Dropbox folder URLs — solid color tiles)
+// Build fine art category grid using real GALLERIES data
 function buildFineArtCats() {
-  const cats = [
-    { key: 'figure',   label: 'Figure Drawing', count: 16, color: '#1a1512' },
-    { key: 'pleinair', label: 'Plein Air',       count: 30, color: '#111a12' },
-    { key: 'studies',  label: 'Studies',         count: 4,  color: '#12151a' },
-    { key: 'sketch',   label: 'Sketchbook',      count: 9,  color: '#1a1218' }
-  ];
   const wrap = document.getElementById('fineart-cats');
-  if (!wrap) return;
-  wrap.innerHTML = cats.map(c =>
-    `<div class="fa-cat" onclick="showFineArtOverlay('${c.key}')">
-      <div style="background:${c.color};aspect-ratio:3/4;width:100%;"></div>
-      <div class="art-label"><span>${c.label}</span><span>${c.count}</span></div>
-    </div>`
-  ).join('');
+  if (!wrap || typeof GALLERIES === 'undefined') return;
+  const keys = Object.keys(GALLERIES);
+  wrap.innerHTML = keys.map(k => {
+    const g = GALLERIES[k];
+    const thumb = g.imgs[0] || '';
+    return `<div class="fa-cat" onclick="showFineArtOverlay('${k}')">
+      <img src="${thumb}" alt="${g.title}" loading="lazy">
+      <div class="art-label"><span>${g.title}</span></div>
+    </div>`;
+  }).join('');
 }
-
 // Close case study overlay
 function closeCasestudy() {
   document.getElementById('page-casestudy').classList.remove('active');
