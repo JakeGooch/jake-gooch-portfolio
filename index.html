@@ -128,9 +128,9 @@
     display: flex;
     flex-direction: column;
     cursor: pointer;
-    transition: background .1s;
+    position: relative;
+    overflow: hidden;
   }
-  .proj-card:hover { background: var(--hover); }
 
   .proj-card > img {
     width: 100%;
@@ -140,12 +140,17 @@
   }
 
   .proj-card-bar {
-    padding: 10px 12px;
-    border-top: 1px solid var(--rule);
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 20px 12px 10px;
     display: flex;
     flex-direction: column;
     gap: 2px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.82) 35%);
+    transform: translateY(100%);
+    transition: transform .18s ease;
   }
+  .proj-card:hover .proj-card-bar { transform: translateY(0); }
 
   .proj-card-bar strong {
     font-size: 12px;
@@ -445,12 +450,12 @@
     display: flex;
     flex-direction: column;
     cursor: pointer;
-    transition: background .1s;
+    position: relative;
+    overflow: hidden;
   }
-  .ill-card:hover { background: var(--hover); }
 
   .ill-card-img {
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 4 / 3;
     overflow: hidden;
     background: #1a1a1a;
   }
@@ -461,8 +466,14 @@
     display: block;
   }
 
-  .ill-card h3 {
-    padding: 10px 12px 2px;
+  .ill-card h3, .ill-card p {
+    position: absolute; left: 0; right: 0;
+    margin: 0; opacity: 0;
+    transition: opacity .18s ease;
+    background: rgba(17,17,17,0.88);
+  }
+  .ill-card:hover h3, .ill-card:hover p { opacity: 1; }
+  .ill-card h3 { bottom: 26px; padding: 10px 12px 2px;
     font-size: 12px;
     font-weight: normal;
     border-top: 1px solid var(--rule);
@@ -1162,37 +1173,39 @@ const CV_TEXT = ``
 <script>
 // ── P1 layout overrides ──
 
-// Build fine art category grid
+// Build fine art category grid (no broken Dropbox folder URLs — solid color tiles)
 function buildFineArtCats() {
   const cats = [
-    { key: 'figure',   label: 'Figure Drawing', count: 16 },
-    { key: 'pleinair', label: 'Plein Air',       count: 30 },
-    { key: 'studies',  label: 'Studies',         count: 4  },
-    { key: 'sketch',   label: 'Sketchbook',      count: 9  }
+    { key: 'figure',   label: 'Figure Drawing', count: 16, color: '#1a1512' },
+    { key: 'pleinair', label: 'Plein Air',       count: 30, color: '#111a12' },
+    { key: 'studies',  label: 'Studies',         count: 4,  color: '#12151a' },
+    { key: 'sketch',   label: 'Sketchbook',      count: 9,  color: '#1a1218' }
   ];
   const wrap = document.getElementById('fineart-cats');
   if (!wrap) return;
-  wrap.innerHTML = cats.map(c => {
-    const imgSrc = (typeof DB !== 'undefined' && typeof RLK !== 'undefined')
-      ? DB + 'fineart-' + c.key + RLK : '';
-    return `<div class="art-cell" onclick="showFineArtOverlay('${c.key}')">
-      <div class="art-img"${imgSrc ? ' style="background-image:url(' + imgSrc + ');background-size:cover;background-position:center;"' : ''}></div>
+  wrap.innerHTML = cats.map(c =>
+    `<div class="fa-cat" onclick="showFineArtOverlay('${c.key}')">
+      <div style="background:${c.color};aspect-ratio:3/4;width:100%;"></div>
       <div class="art-label"><span>${c.label}</span><span>${c.count}</span></div>
-    </div>`;
-  }).join('');
+    </div>`
+  ).join('');
 }
 
 // Close case study overlay
 function closeCasestudy() {
-  const cs = document.getElementById('page-casestudy');
-  if (cs) cs.classList.remove('active');
+  document.getElementById('page-casestudy').classList.remove('active');
+}
+
+// Close gallery overlay → return to Fine Art page
+function closeGallery() {
+  document.getElementById('page-gallery').classList.remove('active');
+  switchPage('fineart');
 }
 
 // Show fine art gallery overlay
 function showFineArtOverlay(key) {
   if (typeof loadGallery === 'function') loadGallery(key || 'figure');
-  const pg = document.getElementById('page-gallery');
-  if (pg) pg.classList.add('active');
+  document.getElementById('page-gallery').classList.add('active');
 }
 
 // ── Page switching ──
@@ -1203,12 +1216,10 @@ function switchPage(id) {
   document.querySelectorAll('#sidebar-nav a').forEach(a => a.classList.remove('nav-active'));
   const navLink = document.getElementById('nav-' + id);
   if (navLink) navLink.classList.add('nav-active');
-  // Lazy-render illustration page
   if (id === 'illustration') {
     const ill = document.getElementById('ill-projects');
     if (ill && ill.children.length === 0 && typeof buildIllProjects === 'function') {
       buildIllProjects();
-      // Fix encoding bug
       ill.innerHTML = ill.innerHTML.replace(/ÃÂ·/g, ' ·');
     }
   }
@@ -1216,20 +1227,13 @@ function switchPage(id) {
 
 // Override showPage for overlay pages only
 function showPage(id) {
-  if (id === 'casestudy') {
-    document.getElementById('page-casestudy').classList.add('active');
-    return;
-  }
-  if (id === 'gallery') {
-    document.getElementById('page-gallery').classList.add('active');
-    return;
-  }
+  if (id === 'casestudy') { document.getElementById('page-casestudy').classList.add('active'); return; }
+  if (id === 'gallery')   { document.getElementById('page-gallery').classList.add('active');   return; }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
   if (typeof buildAnimGrid === 'function') buildAnimGrid();
   buildFineArtCats();
-  // Ensure animation page is active on load
   switchPage('animation');
 });
 </script>
