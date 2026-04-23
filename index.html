@@ -74,8 +74,8 @@
   }
 
   /* ── main ── */
-  #main-content { overflow: hidden; height: 100vh; }
-  .p-page { height: 100vh; overflow-y: auto; display: none; }
+  #main-content { overflow: hidden; height: 100dvh; }
+  .p-page { height: 100dvh; overflow-y: auto; display: none; }
   .p-page.active { display: block; }
   #sidebar-nav a.nav-active { color: var(--fg); }
 
@@ -542,8 +542,11 @@
   <button id="menu-toggle" onclick="toggleMenu()">☰</button>
 </header>
 <div id="mobile-menu">
-  <a href="#" onclick="closeCasestudy();toggleMenu()">Projects</a>
-  <a href="#" onclick="showFineArt();toggleMenu()">Fine Art</a>
+  <a href="#" onclick="switchPage('animation');toggleMenu()">Animation</a>
+  <a href="#" onclick="switchPage('illustration');toggleMenu()">Illustration</a>
+  <a href="#" onclick="switchPage('fineart');toggleMenu()">Fine Art</a>
+  <a href="#" onclick="switchPage('bio');toggleMenu()">About</a>
+  <a href="mailto:jgoochmedia@gmail.com" onclick="toggleMenu()">Contact</a>
 </div>
 
 <div class="shell">
